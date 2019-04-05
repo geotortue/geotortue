@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GTMessageFactory lang="fr">
+	<GTMessage key="COLOR_RGB_ILLEGAL">
+		<content>
+			<h4>Fonction <span class="function">rgb</span> : arguments incorrects</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="COLOR_HSB_ILLEGAL">
+		<content>
+			<h4>Fonction <span class="function">tsv</span> : arguments incorrects</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTFILE_EXPORT">
+		<content>
+			<h4><span class="function">export</span> impossible</h4>
+			<p>Une erreur s'est produite durant l'enregistrement du fichier #1.</p>
+			<p><small>Détail : <i>#2</i></small></p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTFILE_IMPORT">
+		<content>
+			<h4><span class="function">import</span> impossible</h4>
+			<p>Une erreur s'est produite durant l'ouverture du fichier #1.</p>
+			<p><small>Détail : <i>#2</i></small></p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_ARITY">
+		<content>
+			<h4><span class="command">#1</span> : nombre d'arguments incorrect</h4>
+			<p>La commande <span class="command">#1</span> doit être suivie d'exactement <b>#2</b> paramètre(s).</p>
+		</content>
+	</GTMessage>
+	
+	<GTMessage key="GTJEP_ASK_FOR">
+		<content>
+			<h4><span class="keyword">demande_la_valeur_de</span> : usage incorrect</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_CONFLICT_FUNCTION">
+		<content>
+			<h4>Dénomination conflictuelle</h4>
+			<p><span class="function">#1</span> désigne déjà une fonction.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_CONFLICT_KEYWORD">
+		<content>
+			<h4>Dénomination conflictuelle</h4>
+			<p>« <span class="keyword">#1</span> » est un mot réservé qui ne peut être utilisé.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_CONFLICT_LIBRARY">
+		<content>
+			<h4>Dénomination conflictuelle</h4>
+			<p><span class="library">#1</span> désigne déjà une procédure archivée dans la bibliothèque.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_CONFLICT_PROCEDURE">
+		<content>
+			<h4>Dénomination conflictuelle</h4>
+			<p><span class="procedure">#1</span> désigne déjà une procédure existante.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_CONFLICT_TURTLE">
+		<content>
+			<h4>Dénomination conflictuelle</h4>
+			<p><span class="turtle">#1</span> désigne déjà une tortue.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_DISC_TELEPORTATION">
+		<content>
+			<h4>Téléportation impossible</h4>
+			<p>Le point de coordonnées #1 n'appartient au disque de Poincaré.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_DISC_TRANSPORT">
+		<content>
+			<h4>Déplacement impossible</h4>
+			<p>Les calculs pour déplacer la tortue ont échoué.</p>
+			<p>La position calculée est en effet trop proche du cercle limite.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_EXEC">
+		<content>
+			<h4><span class="keyword">exec</span> : erreur d'exécution</h4>
+			<p>Une erreur s'est produite durant l'exécution des commandes dans la chaîne <span class="string">"#1"</span>.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_FILLING">
+		<content>
+			<h4>Usage incorrect de la commande <span class="keyword">remplis</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_FILLING_REDONDANT">
+		<content>
+			<h4>Usage incohérent de la commande <span class="keyword">remplis</span></h4>
+			<p>Une commande <span class="keyword">remplis</span> est appelée à l'intérieur d'une autre commande <span class="keyword">remplis</span>.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_FOR_EACH">
+		<content>
+			<h4>Usage incorrect de la boucle <span class="keyword">pour_chaque</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_FUNCTION_DECLARATION">
+		<content>
+			<h4>Usage incorrect de la commande <span class="keyword">fonction</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_FUN_EVAL_ERROR">
+		<content>
+			<h4>Erreur d'évaluation dans la fonction <span class="keyword">#1</span>.</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_HP_TELEPORTATION">
+		<content>
+			<h4>Téléportation impossible</h4>
+			<p>Le point de coordonnées #1 n'appartient au demi-plan de Poincaré.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_HP_TRANSPORT">
+		<content>
+			<h4>Déplacement impossible</h4>
+			<p>Les calculs pour déplacer la tortue ont échoué.</p>
+			<p>La position calculée est en effet trop proche de la droite limite.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_IF_THEN_ELSE">
+		<content>
+			<h4>Usage incorrect du branchement conditionnel <span class="keyword">si</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_IS_RUNNING">
+		<content>
+			<h4>Transfert de procédure impossible</h4>
+			<p>Des commandes en cours d'éxécution doivent être préalablement interrompues.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_LAST_TURTLE">
+		<content>
+			<h4>Suppression impossible</h4>
+			<p><span class="turtle">#1</span> est la seule tortue définie.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_LIBRARY_EXCEPTION">
+		<content>
+			<p>Cette anomalie a été détectée dans la procédure <span class="library">#1</span> archivée dans la bibliothèque.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MANIPULATION">
+		<content>
+			<h4>Usage incorrect de la commande <span class="keyword">mg</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MANIPULATION_UNAVAILABLE">
+		<content>
+			<h4><span class="keyword">mg</span> : manipulation impossible</h4>
+			<p>La géométrie « #2 » n'autorise pas la manipulation « #1 ».</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MIDI_CONCERT">
+		<content>
+			<h4>Usage incorrect de la commande <span class="command">concert</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MIDI_INVALID_CHANNEL">
+		<content>
+			<h4>Il ne peut y avoir plus de 16 tortues dans l'orchestre.</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MIDI_INVALID_EVENT">
+		<content>
+			<h4>Usage incorrect de la commande <span class="command">chante</span></h4>
+			<p>« #1 » n'est pas un événement musical.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MIDI_TURTLE_WO_SCORE">
+		<content>
+			<h4>Pas de partition</h4>
+			<p>La tortue <span class="turtle">#1</span> n'a pas de partition à chanter.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MIDI_UNAVAILABLE">
+		<content>
+			<h4>Fonctionnalité absente</h4>
+			<p>Aucun synthétiseur Midi n'est installé .</p>
+			<p>Essayez de mettre à jour l'environnement Java.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MISMATCHING_BRACKETS">
+		<content>
+			<h4>Parenthésage incohérent</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MISMATCHING_PASSWORD">
+		<content>
+			<h4>Les mots de passe saisis sont différents</h4>
+			<p>Attention aux majuscules et minuscules lors de la saisie du mot de passe.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MISSING_CLOSING_BRACKET">
+		<content>
+			<h4>Une parenthèse n'est pas fermée.</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MISSING_QUOTATION_MARK">
+		<content>
+			<h4>Une guillemet n'est pas fermée.</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_MODEL_EXCEPTION">
+		<content>
+			<p><h4>Anomalie dans l'activité</h4></p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_NON_FLAT_FILLING">
+		<content>
+			<h4>Usage incorrect de la commande <span class="keyword">remplis</span></h4>
+			<p>Le polygone à colorier n'est pas une figure plane.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_NOT_3D">
+		<content>
+			<h4>Commande <span class="command">#1</span> non disponible</h4>
+			<p>Cette commande n'est disponible qu'en dimension 3 ou plus.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_NOT_4D">
+		<content>
+			<h4>Commande <span class="command">#1</span> non disponible</h4>
+			<p>Cette commande n'est disponible qu'en dimension 4.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_NO_SUCH_COMMAND">
+		<content>
+			<h4>Erreur de syntaxe</h4>
+			<p>L'instruction « #1 » n'est pas reconnue.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_NULL_RETURNED">
+		<content>
+			<h4>Erreur d'évaluation</h4>
+			<p>La commande « #1 » ne retourne aucune valeur.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_PAUSE_NEGATIVE_TIME">
+		<content>
+			<h4>Usage incorrect de la commande <span class="keyword">pause</span></h4>
+			<p>La durée de la pause ne peut être négative.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_PENCIL">
+		<content>
+			<h4>Usage incorrect de la commande <span class="command">crayon</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_PROCEDURE_ARITY">
+		<content>
+			<h4>Procédure <span class="procedure">#1</span> : nombre d'arguments incorrect</h4>
+			<p>La procédure <span class="procedure">#1</span> doit être suivie d'exactement #2 paramètre(s).</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_REPEAT">
+		<content>
+			<h4>Usage incorrect de la boucle <span class="keyword">rep</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_STACK_OVERFLOW">
+		<content>
+			<h4>Dépassement de pile</h4>
+			<p>Une procédure boucle sur elle-même et a provoqué un dépassement de pile.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_SYMBOL_CONTAINS_DELIMITERS">
+		<content>
+			<h4>Dénomination interdite</h4>
+			<p>Le nom « #1 » ne doit pas contenir de symbole délimiteur.</p>
+			<br/>
+			<p>Les symboles délimiteurs sont l'espace et les caractères ci-dessous.</p>
+			<p style="text-align:center;"><b>, ; : . { } ( ) [ ] + - / * ^ % &lt; = &gt; ! &amp; | ~ " ` ² ³ ≤ ≥ ≠</b></p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_SYMBOL_DIGITS">
+		<content>
+			<h4>Dénomination interdite</h4>
+			<p>Le nom « #1 » ne doit pas commencer par un chiffre.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_TELEPORTATION">
+		<content>
+			<h4>Usage incorrect de la commande <span class="command">tlp</span></h4>
+			<p>La géométrie « #1 » est à #2 dimensions.
+			<br/>
+			La commande <span class="command">tlp</span> doit donc être suivie de #2 nombres.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_TRANSPORT">
+		<content>
+			<h4>Erreurs de calcul</h4>
+			<p>Les calculs pour déplacer la tortue ont échoué.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_TURTLE_INDEX">
+		<content>
+			<h4>Tortue inconnue</h4>
+			<p>Aucune tortue ne porte le numéro #1.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_TURTLE_SELECTION">
+		<content>
+			<h4>Usage incorrect de la commande <span class="keyword">à</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_WHILE">
+		<content>
+			<h4>Usage incorrect de la boucle <span class="keyword">tant_que</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="GTJEP_WRONG_PASSWORD">
+		<content>
+			<h4>Mot de passe incorrect</h4>
+			<p>Attention aux majuscules et minuscules lors de la saisie du mot de passe.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_0_POW_0">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible d'élever zéro à la puissance zéro.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_ACOS">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible de calculer l'arc cosinus de #1.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_ACOSH">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible de calculer l'argument cosinus hyperbolique de #1.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_ASIN">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible de calculer l'arc sinus de #1.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_ATAN2">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible de calculer <span class="function">atan2</span>(0, 0).</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_ATANH">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible de calculer l'argument tangente hyperbolique de #1.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_BINOM">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible de calculer le coefficient binomial « #2 parmi #1 ».</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_CANNOT_CHANGE_A_CONSTANT">
+		<content>
+			<h4>Affectation impossible</h4>
+			<p>La valeur de <span class="varglob">#1</span> ne peut être changée.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_CAST_ERROR">
+		<content>
+			<h4>Fonction <span class="function">#1</span> : conversion impossible</h4>
+			<p>La fonction <span class="function">#1</span>  ne peut s'appliquer à #2.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_DIV_BY_0">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible de diviser par zéro.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_DICT_ERROR">
+		<content>
+			<h4>Fonction <span class="function">#1</span> : conversion impossible</h4>
+			<p>L'objet #2 aurait dû contenir deux éléments.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_ELEMENT_AT_EMPTY_LIST">
+		<content>
+			<h4>Erreur de syntaxe</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_ILLEGAL_PROD">
+		<content>
+			<h4>Produit impossible</h4>
+			<p>Impossible de multiplier #1 par #2.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_ILLEGAL_SUM">
+		<content>
+			<h4>Addition impossible</h4>
+			<p>Impossible d'additionner #1 et #2.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_INF">
+		<content>
+			<h4>Dépassement de capacité</h4>
+			<p>Le résultat de l'opération « #1 » dépasse les capacités de calcul.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_INVALID_KEY">
+		<content>
+			<h4>La clé #1 n'est pas valide.</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_LIST_INDEX_OUT">
+		<content>
+			<h4>Indice hors des bornes</h4>
+			<p>Impossible de déterminer l'élément à l'indice #1.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_LIST_OVERFLOW">
+		<content>
+			<h4>Dépassement de capacité</h4>
+			<p>Une liste ou une chaîne de caractères ne peut dépasser 100 000 éléments.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_LOG">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible de calculer le logarithme de #1.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_NO_METHOD">
+		<content>
+			<h4>L'objet #1 n'admet pas de méthode <span class="function">#2</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_NOT_AN_INT">
+		<content>
+			<h4>#1 n'est pas un nombre entier</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_NOT_A_BOOLEAN">
+		<content>
+			<h4>#1 n'est pas un booléen</h4>
+			<p>.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_NOT_A_LIST">
+		<content>
+			<h4>#1 n'est pas une liste</h4>
+			<p></p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_NOT_A_METHOD">
+		<content>
+			<h4>#1 n'est pas une méthode connue</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_NOT_A_NUMBER">
+		<content>
+			<h4>#1 n'est pas un nombre</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_NOT_A_STRING">
+		<content>
+			<h4>#1 n'est pas une chaîne de caractère</h4>
+			<p>.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_NOT_ITERABLE">
+		<content>
+			<h4> #1 n'est pas itérable</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_NOT_HASHABLE">
+		<content>
+			<h4> #1 n'est pas une clef valide pour un dictionnaire.</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_RANGE">
+		<content>
+			<h4>Usage incorrect de la fonction <span class="function">#1</span></h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_SQRT">
+		<content>
+			<h4>Calcul impossible</h4>
+			<p>Impossible d'extraire la racine carrée de #1.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_STRING_ASSIGNMENT">
+		<content>
+			<h4>Affectation impossible</h4>
+			<p>Impossible de changer un élément dans une chaîne.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_UNEXPECTED_ERROR">
+		<content>
+			<h4>Erreur inattendue</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP2_ZERO_STEP">
+		<content>
+			<h4>Le pas de découpe ne peut être nul</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP_ILLEGAL_NUMBER_OF_ARGUMENTS">
+		<content>
+			<h4><span class="function">#1</span> : nombre d'arguments incorrect</h4>
+			<p>La fonction <span class="function">#1</span> requiert #2 argument(s) (et non #3).</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP_TOKEN_ERROR">
+		<content>
+			<h4>Erreur de syntaxe</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP_UNRECOGNIZED_FUNCTION">
+		<content>
+			<h4>Fonction #1 inconnue</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="JEP_UNRECOGNIZED_VARIABLE">
+		<content>
+			<p>Valeur de #1 inconnue</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="MUSIC_CHORD_ERROR">
+		<content>
+			<h4>Usage incorrect de la fonction <span class="function">accord</span>.</h4>
+			<p>#1 n'est pas une note de musique.</p>
+		</content>
+	</GTMessage>
+	<GTMessage key="MUSIC_INVALID_DURATION">
+		<content>
+			<h4>La durée d'une note doit être positive.</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="MUSIC_INVALID_INSTRUMENT">
+		<content>
+			<h4>Le numéro d'un instrument doit être un entier compris entre 0 et 127 (et non #1).</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="MUSIC_INVALID_NOTE">
+		<content>
+			<h4>Note inconnue : #1.</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="MUSIC_INVALID_TEMPO">
+		<content>
+			<h4>Le tempo doit être positif.</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="MUSIC_INVALID_VELOCITY">
+		<content>
+			<h4>Le volume d'une note doit être un entier compris entre 0 et 127 (et non #1).</h4>
+		</content>
+	</GTMessage>
+	<GTMessage key="MUSIC_NOTE_ERROR">
+		<content>
+			<h4>Usage incorrect de la fonction <span class="function">note</span></h4>
+		</content>
+	</GTMessage>
+</GTMessageFactory>

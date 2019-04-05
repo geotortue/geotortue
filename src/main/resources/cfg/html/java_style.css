@@ -1,0 +1,143 @@
+﻿/*  -------------------------------- */
+/*  Feuille de style pour GéoTortue  */
+/*  -------------------------------- */
+
+html {
+}
+
+body {
+	margin-left : 4px;
+	margin-top : 4px;
+	font : 15pt 'DejaVu Sans';
+}
+
+ul {
+	margin-left: 24px;
+}
+
+.footer {
+	font : 10pt/18pt;
+	border-top: 1px solid #305030 ;
+	text-align :center;
+	padding-top: 20px;
+	margin-top : 10px;
+	margin-bottom : 20px;
+}
+
+/* Styles */
+
+h1 {
+	text-align :center;
+	font-size : 18px;
+	color: #306030;
+}
+
+h4 {
+	color: #C03030;
+	font-weight: bold;
+	font-size : 16pt;
+	font-weight: bold;
+	margin-top:6px;
+	margin-bottom:6px;
+}
+
+h5 {
+	font-size : 20pt;
+}
+
+h3 {
+	font-weight: bold;
+	font-size : 14pt;
+	font-weight: bold;
+	margin-top:6px;
+	margin-bottom:6px;
+}
+
+a {
+	color: #306030;
+	text-decoration:underline;
+}
+
+.center {
+	text-align:center;
+}
+
+p {
+	margin-left:10px;
+	margin-bottom : 4pt;
+	text-align: justify;
+	padding-top : 3pt;
+	padding-bottom : 3pt;
+}
+
+table {
+}
+
+/* */
+
+.cmdEntry {
+	margin-left:12px;
+	font-size : 14pt;
+	padding-top : 4px;
+	padding-bottom : 4px;
+}
+
+.cmdDesc {
+	padding-left:20px;
+	border-bottom : 1px solid #353 ;
+	padding-bottom : 4px;
+	margin-bottom : 4px;
+}
+
+
+/* KeyWords */
+
+.highlight {
+	margin-left:20px;
+	background-color: rgb(240, 246, 255);
+	padding-top : 3pt;
+	padding-bottom : 3pt;
+}
+
+.keyword {
+	color: #990033 ;
+	font-weight: bold;
+}
+
+.command {
+	color: #000099 ;
+	font-weight: bold;
+}
+
+.procedure {
+	color: #990099 ;
+	font-weight: bold;
+}
+
+.loopvar {
+	color: #666600 ;
+	font-weight: bold;
+}
+
+.varloc {
+	color: #009900 ;
+	font-weight: bold;
+}
+
+.function {
+	font-style : italic;
+}
+
+.turtle {
+	color: #506e50 ;
+	font-weight: bold;
+}
+
+.library {
+	color: #993300 ;
+	font-weight: bold;
+}
+
+.string{
+	color : #FF00C0;
+}

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GTMenuHeader>
+	<FWMenuBar>
+		<FWMenu title="files">
+			<FWMenuItem key="new"/>
+			<FWMenuItem key="load"/>
+			<FWMenuItem key="save"/>
+			<FWMenuItem key="saveAs"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="*load.1"/>
+			<FWMenuItem key="*load.2"/>
+			<FWMenuItem key="*load.3"/>
+			<FWMenuItem key="*load.4"/>
+			<FWMenuItem key="*load.5"/>
+			<FWMenuItem key="*load.6"/>
+			<FWMenuItem key="*load.7"/>
+			<FWMenuItem key="*load.8"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="merge"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="quit"/>
+		</FWMenu>
+		<FWMenu title="edition">
+			<FWMenuItem key="refresh"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="find"/>
+			<FWMenuItem key="replace"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="makeProcedure"/>
+		</FWMenu>
+		<FWMenu title="window">
+			<FWMenuItem key="sandboxLayout"/>
+			<FWMenuItem key="editorLayout"/>
+			<FWMenuItem key="painterLayout"/>
+			<FWMenuItem key="modelLayout"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="toggleOriginVisibility"/>
+			<FWMenuItem key="toggleAxis"/>
+			<FWMenuItem key="toggleGrid"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="toggleTurtleAxis"/>
+			<FWMenuItem key="centerTurtle"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="initGraphics"/>
+			<FWMenuSeparator/>			
+			<FWMenuItem key="increaseFontSize"/>
+			<FWMenuItem key="decreaseFontSize"/>
+		</FWMenu>
+		<FWMenu title="paint">
+			<FWMenuItem key="crop"/>
+			<FWMenuItem key="flood"/>
+			<FWMenuItem key="pick"/>
+			<FWMenuItem key="magicWand"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="undoFlood"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="printPix"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="importPix"/>
+			<FWMenuItem key="exportPix"/>
+		</FWMenu>
+		<FWMenu title="gallery">
+			<FWMenuItem key="addToGallery"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="manageGallery"/>
+			<FWMenuItem key="browseGallery"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="archiveGallery"/>
+			<FWMenuItem key="importGallery"/>
+		</FWMenu>
+		<FWMenu title="library">
+			<FWMenuItem key="manageLibrary"/>
+			<FWMenuItem key="lockLibrary"/>
+			<FWMenuItem key="unlockLibrary"/>
+		</FWMenu>
+		<FWMenu title="model">
+			<FWMenuItem key="onlineCatalog"/>
+			<FWMenuItem key="localCatalog"/>
+			<FWMenuItem key="openModel"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="editModel"/>
+		</FWMenu>
+		<FWMenu title="tools">
+			<FWMenuItem key="interrupt"/>
+			<FWMenuItem key="suspend"/>
+			<FWMenuItem key="step"/>
+			<FWMenuItem key="resume"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="showHtml"/>
+			<FWMenuItem key="showPst"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="exportHD"/>
+			<FWMenuItem key="exportSvg"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="editSandBox"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="settings"/>
+			<FWMenuItem key="preferences"/>
+		</FWMenu>
+		<FWMenu title="help">
+			<FWMenuItem key="help"/>
+			<FWMenuItem key="palette"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="locale"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="checkUpdate"/>
+			<FWMenuItem key="browseIrem"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="reportBug"/>
+			<FWMenuItem key="showConsole"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="about"/>
+		</FWMenu>
+	</FWMenuBar>		
+	<FWToolBar>
+		<FWToolBarButton key="new"/>
+		<FWToolBarButton key="load"/>
+		<FWToolBarButton key="save"/>
+		<FWToolBarButton key="saveAs"/>
+		<FWToolBarSeparator size="20"/>
+		<FWToolBarButton key="crop"/>
+		<FWToolBarButton key="flood"/>
+		<FWToolBarButton key="pick"/>
+		<FWToolBarButton key="magicWand"/>
+		<FWToolBarButton key="undoFlood"/>
+		<FWToolBarSeparator size="10"/>
+		<FWToolBarButton key="addToGallery"/>
+		<FWToolBarSeparator size="20"/>
+		<FWToolBarButton key="settings"/>
+		<FWToolBarButton key="preferences"/>
+		<FWToolBarButton key="help"/>
+		<FWToolBarSeparator size="20"/>
+		<FWToolBarButton key="interrupt"/>
+		<FWToolBarButton key="suspend"/>
+		<FWToolBarButton key="step"/>
+		<FWToolBarButton key="resume"/>
+	</FWToolBar>
+	<FWToolBar>
+		<FWToolBarToggleButton key="sandboxLayout" title="true" group="layout"/>
+		<FWToolBarToggleButton key="editorLayout" title="true" group="layout"/>
+		<FWToolBarToggleButton key="painterLayout" title="true" group="layout"/>
+		<FWToolBarToggleButton key="modelLayout" title="true" group="layout"/>
+	</FWToolBar>
+</GTMenuHeader>
+<GTEuclidean4DGeometry>
+	<FWToolBar>
+			<FWToolBarToggleButton key="xzRotation" group="layout" selectedIcon="xz-rotation-selected.png"/>
+			<FWToolBarToggleButton key="yzRotation" group="layout" selectedIcon="yz-rotation-selected.png"/>
+			<FWToolBarToggleButton key="xyRotation" group="layout" selectedIcon="xy-rotation-selected.png"/>
+			<FWToolBarSeparator size="10"/>
+			<FWToolBarButton key="xyzView"/>
+			<FWToolBarButton key="yztView"/>
+			<FWToolBarButton key="ztxView"/>
+			<FWToolBarButton key="txyView"/>
+			
+	</FWToolBar>
+</GTEuclidean4DGeometry>
+<GTModelEditor>
+	<FWMenuHeader>
+		<FWMenuBar>
+			<FWMenu title="files">
+			<FWMenuItem key="load"/>
+			<FWMenuItem key="save"/>
+			<FWMenuItem key="saveAs"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="*load.1"/>
+			<FWMenuItem key="*load.2"/>
+			<FWMenuItem key="*load.3"/>
+			<FWMenuItem key="*load.4"/>
+			<FWMenuItem key="*load.5"/>
+			<FWMenuItem key="*load.6"/>
+			<FWMenuItem key="*load.7"/>
+			<FWMenuItem key="*load.8"/>
+			<FWMenuSeparator/>
+			<FWMenuItem key="quit"/>
+		</FWMenu>	
+			<FWMenu title="edition">
+				<FWMenuItem key="refreshTab"/>
+				<FWMenuItem key="modelPreferences"/>
+				<FWMenuSeparator/>
+				<FWMenuItem key="shareProcs"/>
+				<FWMenuItem key="editProcs"/>
+			</FWMenu>
+		</FWMenuBar>	
+		<FWToolBar>
+			<FWToolBarButton key="load"/>
+			<FWToolBarButton key="save"/>
+			<FWToolBarSeparator size="10"/>
+			<FWToolBarButton key="refreshTab"/>
+			<FWToolBarSeparator size="10"/>
+			<FWToolBarButton key="modelPreferences"/>
+			<FWToolBarSeparator size="10"/>
+			<FWToolBarButton  key="shareProcs"/>
+			<FWToolBarButton  key="editProcs"/>
+		</FWToolBar>
+	</FWMenuHeader>
+</GTModelEditor>

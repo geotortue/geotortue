@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-pack</actionName>
+            <displayName>pack</displayName>
+            <goals>
+                <goal>package</goal>
+                <goal>-e</goal>
+                <goal>-X</goal>
+            </goals>
+        </action>
+    </actions>

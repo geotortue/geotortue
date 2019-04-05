@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GTCommandDescTable lang="fr" version="17-11-09">
+	<GTCommandDescription key="AV" name="av" desc="avancer" class="command" >
+		<content>
+			<p>Ordonne à la tortue d'avancer du nombre de pas indiqué.</p>
+			<p>Exemple :</p>
+			<p class="highlight"><span class="command">av</span> 50</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="RE" name="re" desc="reculer" class="command" >
+		<content>
+			<p>Ordonne à la tortue de reculer du nombre de pas indiqué.</p>
+			<p><span class="emph">Exemple :</span></p>
+			<p class="highlight"><span class="command">re</span> 50</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="TD" name="td" desc="tourner à droite" class="command" >
+		<content>
+			<p>Ordonne à la tortue de tourner à droite de l'angle indiqué (dont la mesure peut être exprimée en degrés ou en radians - <i>cf.</i> les <a href="index.php?page=aide_prefs_maths">préférences</a>).</p>
+			<p><span class="emph">Exemple :</span></p>
+			<p class="highlight"><span class="command">td</span> 90</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="TG" name="tg" desc="tourner à gauche" class="command" >
+		<content>
+			<p>Ordonne à la tortue de tourner à gauche de l'angle indiqué (dont la mesure peut être exprimée en degrés ou en radians - <i>cf.</i> les <a href="index.php?page=aide_prefs_maths">préférences</a>).</p>
+			<p><span class="emph">Exemple :</span></p>
+			<p class="highlight"><span class="command">tg</span> 90</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="VG" name="vg" desc="vide graphique" class="command" >
+		<content>
+			<p>Efface le parcours de toutes les tortues et les repositionne à l'origine.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="RZ" name="rz" desc="remise à zéro" class="command" >
+		<content>
+			<p>Efface le parcours de toutes les tortues et les repositionne à l'origine.</p>
+			<p>La commande <span class="command">rz</span> (remise à zéro) est un clone de la commande <span class="command">vg</span>.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="UNDO" name="gomme" desc="annule le dernier tracé" class="command" >
+		<content>
+			<p>Gomme le dernier tracé effectué par la tortue.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="CT" name="ct" desc="cacher la tortue" class="command" >
+		<content>
+			<p>Cache la tortue.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="MT" name="mt" desc="montrer la tortue" class="command" >
+		<content>
+			<p>Montre la tortue.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="LC" name="lc" desc="lever le crayon" class="command" >
+		<content>
+			<p>Ordonne à la tortue de ne pas dessiner sur son parcours lors de ses prochains déplacements.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="BC" name="bc" desc="baisser le crayon" class="command" >
+		<content>
+			<p>Ordonne à la tortue de dessiner sur son parcours lors de ses prochains déplacements.</p>
+		</content>
+	</GTCommandDescription>
+	
+	<GTCommandDescription key="CRAYON" name="crayon" desc="choisir la couleur du crayon" class="command">
+		<content>
+			<p>Définit de manière simple la couleur du crayon utilisé par la tortue pour dessiner ses déplacements futurs.</p>
+			<ul class="puces">
+				<li>
+					<p>La couleur du crayon peut être choisie parmi les suivantes.</p>
+				  	<table style="width:100%"> 
+					    <tr><td>blanc</td><td>argent</td><td>gris</td><td>noir</td></tr>
+				    	<tr><td>rouge</td><td>vert</td><td>bleu</td><td>jaune</td></tr>
+			    		<tr><td>violet</td><td>rose</td><td>orange</td><td>cyan</td></tr>
+			    		<tr><td>sarcelle</td><td>bleu_marine</td><td>magenta</td><td>vert_citron</td></tr>
+			    		<tr><td>bordeaux</td><td>olive</td></tr>
+					</table>
+					<p><span class="emph">Exemple :</span> dessiner en rouge</p>
+					<p class="highlight"><span class="command">crayon</span> rouge</p>
+				</li><br />
+				<li>
+					<p>La couleur du crayon peut également être celle de l'une des tortues.</p>
+					<p><span class="emph">Exemples : </span> sélectionner un crayon de la couleur d'Achille / de la couleur de la tortue n°2.</p>
+					<p class="highlight"><span class="command">crayon</span> <span class="turtle">Achille</span></p>
+					<p class="highlight"><span class="command">crayon</span> 2</p>
+				</li>
+				<br />
+				<li>
+					<p>
+						La commande <span class="command">crayon</span> reconnaît le codage hexadécimal RVB 24 bits, qui est un standard très répandu en informatique (<a href="http://fr.wikipedia.org/wiki/Couleurs_du_Web#Triplet_hexad.C3.A9cimal" target="_blank">en savoir plus</a>). 
+						La couleur est codée selon le <a href="http://fr.wikipedia.org/wiki/Rouge_vert_bleu" target="_blank">système RVB (Rouge Vert Bleu)</a> : six chiffres hexadécimaux déterminent les composantes RVB.
+						<br />
+						Ces chiffres doivent être précédés soit du symbole '#' soit du préfixe '0x"+ HTML. 
+					</p>
+					<p><span class="emph">Exemple :</span> choisir la couleur « <a href="http://fr.wikipedia.org/wiki/Bleu_Persan" target="blank">bleu persan</a> ».</p>
+					<p class="highlight"><span class="command">crayon</span> #6600FF</p>
+					<p class="highlight"><span class="command">crayon</span> 0x6600FF</p>
+				</li>
+			</ul>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="THICKNESS" name="mine" desc="choisir l'épaisseur du crayon" class="command" >
+		<content>
+			<p>Définit l'épaisseur du crayon utilisé par la tortue pour dessiner ses déplacements futurs.</p>
+		</content>
+	</GTCommandDescription>
+	
+
+	<GTCommandDescription key="POINT" name="point" desc="marquer un point" class="command">
+		<content>
+			<p>Marque un point.</p>
+		</content>
+	</GTCommandDescription>
+	<GTCommandDescription key="MIROIR" name="miroir" desc="inverser la gauche et la droite" class="command">
+		<content>
+			<p>Échange la gauche et la droite de la tortue sélectionnée.</p>
+			<p>Dans l'espace euclidien, les commandes <span class="command">pvg</span>, <span class="command">pvd</span>, <span class="command">pvh</span> et <span class="command">pvb</span> ne sont pas affectées par cette commande.</p> 
+			<p><b>Important :</b> cette nouvelle commande est susceptible d'être modifiée en fonction des résultats des expérimentations en classe.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="TLP" name="tlp" desc="téléporter" class="command">
+		<content>
+			<p>Téléporte la tortue au point indiqué par ses coordonnées. Attention, ces dernières (et en particulier leur nombre) dépendent de la <a href="index.php?page=aide_geo">géométrie considérée</a>.</p>
+			<p><span class="emph">Exemple :</span> téléporter la tortue à l'origine dans le plan euclidien</p>
+			<p class="highlight"><span class="command">tlp</span> 0 0 </p>
+			<p><span class="emph">Exemple :</span> téléporter la tortue au point de coordonnées (-40; 100; 50) dans l'espace euclidien à trois dimensions</p>
+			<p class="highlight"><span class="command">tlp</span> -40 100 50</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="BOUSSOLE" name="boussole" desc="utiliser la boussole" class="command">
+		<content>
+			<p>Oriente la tortue sélectionnée vers la direction privilégiée (le « nord »).</p>
+			<p>Le nord diffère bien entendu selon les <a href="index.php?page=aide_geo">géométries</a>, mais lorsque c'est est possible, le nord correspond à une orientation parallèle à l'axe des ordonnées.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="VISE" name="vise" desc="viser une tortue" class="command">
+		<content>
+			<p>Oriente la tortue sélectionnée en direction de la tortue indiquée par son nom ou son numéro (voir les <a href="index.php?page=aide_prefs_tortues">préférences</a> pour la gestion de plusieurs tortues).</p>
+			<p>Si les positions des deux tortues coïncident, l'orientation n'est pas modifiée.</p>
+			<p><span class="emph">Exemple :</span> orienter la tortue sélectionnée en direction de la tortue nommée Achille</p>
+			<p class="highlight"><span class="command">vise</span> <span class="turtle">Achille</span></p>
+			<p><span class="emph">Exemple :</span> orienter la tortue sélectionnée en direction de la tortue qui porte le numéro 9</p>
+			<p class="highlight"><span class="command">vise</span> 9</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="IMITE" name="imite" desc="imiter une tortue" class="command">
+		<content>
+			<p>Oriente la tortue sélectionnée vers la même direction que la tortue désignée par son nom ou son numéro (voir les <a href="index.php?page=aide_prefs_tortues">préférences</a> pour la gestion de plusieurs tortues).</p>
+			<p>L'orientation obtenue est relative au « nord », qui dépend de la <a href="index.php?page=aide_geo">géométrie</a>.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="PVD" name="pvd" desc="pivoter sur la droite" class="command">
+		<content>
+			<p>Pivote la tortue sur la droite (mouvement de roulis vers la droite) selon l'angle indiqué.</p>
+			<p>Cette commande ne concerne que la <a href="index.php?page=aide_geo_espace">géométrie dans l'espace</a>.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="PVG" name="pvg" desc="pivoter sur la gauche" class="command">
+		<content>
+			<p>Pivote la tortue sur la gauche (mouvement de roulis vers la gauche) selon l'angle indiqué.</p>
+			<p>Cette commande ne concerne que la <a href="index.php?page=aide_geo_espace">géométrie dans l'espace</a>.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="PVH" name="pvh" desc="pivoter vers le haut" class="command">
+		<content>
+			<p>Pivote la tortue vers le haut (mouvement de tangage vers le haut) selon l'angle indiqué.</p>
+			<p>Cette commande ne concerne que la <a href="index.php?page=aide_geo_espace">géométrie dans l'espace</a>.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="PVB" name="pvb" desc="pivoter vers le bas" class="command">
+		<content>
+			<p>Pivote la tortue vers le bas (mouvement de tangage vers le bas) selon l'angle indiqué.</p>
+			<p>Cette commande ne concerne que la <a href="index.php?page=aide_geo_espace">géométrie dans l'espace</a>.</p>
+		</content>
+	</GTCommandDescription>
+
+	
+
+	
+
+	
+
+	
+
+	
+	<GTCommandDescription key="PVXY" name="pvxy" desc="pivoter " class="command" >
+		<content>
+			<p>Pivote la tortue sur elle-même dans l'espace 4D : en considérant le repère qui lui est attaché (touche F3), la rotation laisse invariant les axes X et Y (en rouge et bleu) et n'agit que sur les axes Z et T (en vert et violet).</p>
+			<p>Consulter l'aide sur la <a href="index.php?page=aide_geo_4d">géométrie à 4 dimensions</a> pour plus de détails.</p>
+		</content>
+	</GTCommandDescription>
+	<GTCommandDescription key="PVXZ" name="pvxz" desc="pivoter " class="command" >
+		<content>
+			<p>Pivote la tortue sur elle-même dans l'espace 4D : en considérant le repère qui lui est attaché (touche F3), la rotation laisse invariant les axes X et Z (en rouge et vert) et n'agit que sur les axes Y et T (en bleu et violet).</p>
+			<p>Consulter l'aide sur la <a href="index.php?page=aide_geo_4d">géométrie à 4 dimensions</a> pour plus de détails.</p>
+		</content>
+	</GTCommandDescription>
+	<GTCommandDescription key="PVYZ" name="pvyz" desc="pivoter " class="command" >
+		<content>
+			<p>Pivote la tortue sur elle-même dans l'espace 4D : en considérant le repère qui lui est attaché (touche F3), la rotation laisse invariant les axes Y et Z (en bleu et vert) et n'agit que sur les axes X et T (en rouge et violet).</p>
+			<p>Consulter l'aide sur la <a href="index.php?page=aide_geo_4d">géométrie à 4 dimensions</a> pour plus de détails.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="CERCLE" name="cercle" desc="dessiner un cercle" class="command">
+		<content>
+			<p>Dessine un cercle (expérimental).</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="ARC" name="arc" desc="dessiner un arc" class="command">
+		<content>
+			<p>Dessine un arc (expérimental).</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="PLAY" name="chante" desc="joue un morceau" class="command">
+		<content>
+			<p>TODO : Joue les notes.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="SCORE" name="partition" desc="assigne une partition" class="command">
+		<content>
+			<p>TODO : Joue les notes.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="CONCERT" name="concert" desc="joue un concert" class="command">
+		<content>
+			<p>TODO : Joue les notes.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="REP" name="rep" desc="répéter" class="keyword" >
+		<content>
+			<p>Répète plusieurs fois le même <a href="index.php?page=aide_blocs">bloc de commande</a>.</p>
+			<p>La syntaxe s'appuie sur le modèle « <span class="keyword">rep</span> <i>n</i> <i>[bloc]</i> » où <i>n</i> donne le nombre de fois que le bloc doit être exécuté.</p>
+			<p><span class="emph">Exemple :</span> répéter 8 fois la procédure <span class="procedure">proc</span></p>
+			<p class="highlight"><span class="keyword">rep</span> 8 <span class="procedure">proc</span></p>
+			<p><span class="emph">Exemple :</span>  dessiner un carré de côté 50 (en géométrie euclidienne)</p>
+			<p class="highlight"><span class="keyword">rep</span> 4 [<span class="command">av</span> 50; <span class="command">td</span> 90]</p>
+			<p>Voir aussi la <a href="index.php?page=aide_tuto_rep">page d'explication</a> au sujet de la commande <span class="keyword">rep</span>.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="TANT_QUE" name="tant_que" desc="boucle conditionnelle" class="keyword">
+		<content>
+			<p>Répète indéfiniment un <a href="index.php?page=aide_blocs">bloc de commande</a> tant qu'une condition n'est pas satisfaite.</p>
+			<p>Syntaxe : <span class="keyword">tant_que</span> <i>condition</i> <i>[bloc]</i></p>
+			<p>Exécute le <i>bloc</i> tant que le test conditionnel <i>condition</i> est vrai.</p>
+			<p><span class="emph">Exemple :</span>  dessiner un « escargot »</p>
+			<p class="highlight"><span class="varglob">x</span>:=20<br /><span class="keyword">tant_que</span> (<span class="varglob">x</span>&lt;= 240)  [ <span class="command">av</span> <span class="varglob">x</span>; <span class="command">td</span> 90; <span class="keyword">écris</span> <span class="varglob">x</span> ; <span class="varglob">x</span>:=<span class="varglob">x</span>+20 ]</p>
+			<p>Voir la page sur les <a href="index.php?page=aide_maths">fonctions mathématiques</a> pour plus de détails sur les test conditionnels.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="FOR_EACH" name="pour_chaque" desc="parcourir les éléments d'une liste" class="keyword">
+		<content>
+			<p><span class="emph">Syntaxe :</span> </p>
+			<p class="center"><span class="keyword">pour_chaque</span> élément <span class="keyword">de</span> <span class="varglob">$L</span> <i>bloc</i></p>
+			<p>Parcourt tous les éléments d'une liste et exécute le bloc de commande</p>
+			<p><span class="emph">Syntaxe :</span> </p>
+			<p class="highlight"><span class="keyword">pour_chaque</span> élément <span class="keyword">de</span> <span class="varglob">$L</span> [<span class="keyword">aff</span> élément]</p>
+			<p>Autre usage possible : pour_chaque i de 1 à 5 </p>
+		</content>
+	</GTCommandDescription>
+
+	
+
+	
+
+	<GTCommandDescription key="SI" name="si" desc="branchement conditionnel" class="keyword">
+		<content>
+			<p>Effectue un test et en fonction du résultat exécute un des <a href="index.php?page=aide_blocs">blocs de commande</a> donnés.</p>
+			<p>Syntaxe : <span class="keyword">si</span> <i>(condition)</i> <span class="keyword">alors</span> <i>[bloc1]</i> <span class="keyword">sinon</span> <i>[bloc2]</i></p>
+			<p>Exécute le <i>bloc1</i> si le test conditionnel <i>condition</i> est vrai, exécute le <i>bloc2</i> sinon. La spécification du bloc2 est facultative.</p>
+
+			<p><span class="emph">Exemple :</span>  avancer de 50 si la variable <span class="varglob">x</span> est positive, ne rien faire sinon</p>
+			<p class="highlight"><span class="keyword">si</span> (<span class="varglob">x</span>>0) <span class="keyword">alors</span> [<span class="command">av</span> 50]</p>
+			<p><span class="emph">Exemple :</span>  avancer de 50 si la variable <span class="varglob">x</span> est positive, reculer de 50 sinon</p>
+			<p class="highlight"><span class="keyword">si</span> (<span class="varglob">x</span>>0) <span class="keyword">alors</span> [<span class="command">av</span> 50] <span class="keyword">sinon</span> [<span class="command">re</span> 50]</p>
+			<p>Voir la page sur les <a href="index.php?page=aide_maths">fonctions mathématiques</a> pour plus de détails sur les test conditionnels.</p>
+			<p>Voir aussi le tutoriel « <a href="index.php?page=aide_tuto_conditions">premiers pas</a> » au sujet des instructions condionnelles.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="REMPLIS" name="remplis" desc="remplir un polygone" class="keyword">
+		<content>
+			<p>Remplis l'intérieur du polygone que la tortue sélectionnée dessine dans le <a href="index.php?page=aide_blocs">bloc de commande</a>.</p>
+			<p>Syntaxe : <span class="keyword">remplis</span> <i>[bloc]</i></p>
+	<!--<p>Le polygone est construit relativement au point de départ : si <i>P</i><sub>0</sub>, ..., <i>P</i><sub>n</sub> désignent les sommets du chemin décrit par la tortue, le polygone est formé des triangles <i>P</i><sub>0</sub><i>P</i><sub>1</sub><i>P</i><sub>2</sub>, <i>P</i><sub>0</sub><i>P</i><sub>2</sub><i>P</i><sub>3</sub>, ..., <i>P</i><sub>0</sub><i>P</i><sub>n-1</sub><i>P</i><sub>n</sub>.</p>-->
+			<p>Si le polygone est ouvert, il est automatiquement refermé. Le cas des polygones croisés n'a pas été examiné en détail si bien que le comportement du logiciel peut varier selon les géométries. Pour les géométries non-euclidiennes, la triangulation peut être ajustée dans les <a href="index.php?page=aide_prefs_rendu">préférences.</a></p>
+			<p><span class="emph">Exemple :</span> remplir un carré (en géométrie euclidienne)</p>
+			<p class="highlight"><span class="keyword">remplis</span> [<span class="procedure">rep</span> 4 [ <span class="command">av</span> 50 ; <span class="command">td</span> 90] ]</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="ECRIS" name="écris" desc="écrire" class="keyword">
+		<content>
+			<p>
+				Affiche le texte indiqué à l'endroit où se trouve la tortue.
+				<br/>
+				Il est possible de choisir la police et la couleur du texte dans les <a href="index.php?page=aide_prefs_police">préférences</a>.
+			</p>
+			<p><span class="emph">Exemple :</span> afficher la phrase 'Eureka !'</p>
+			<p class="highlight"><span class="keyword">écris</span>  Eureka !</p>
+			<p>Si le texte contient des formules mathématiques, la tortue écrit le résultat du calcul.</p>
+			<p><span class="emph">Exemple :</span> afficher le carré de la valeur de la variable  <span class="varglob">x</span>, initialisé à 5.</p>
+			<p class="highlight"><span class="varglob">x</span>:=-5; <span class="keyword">écris</span> Le carré de <span class="varglob">x</span> vaut <span class="varglob">x</span>²; <span class="command">ct</span></p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="DIS" name="dis" desc="écrire" class="keyword">
+		<content>
+			<p>Affiche le texte indiqué dans une fenêtre.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="ASK_FOR" name="demande_la_valeur_de" desc="demander la valeur d'une variable" class="keyword">
+		<content>
+			<p>Demande à l'utilisateur de saisir une valeur pour une variable, et affecte à cette variable la valeur saisie.</p>
+			<p><span class="emph">Syntaxe :</span> </p>
+			<p class="highlight"><span class="keyword">demande_la_valeur_de</span> <span class="varglob">x</span></p>
+			<p><span class="emph">Il est possible de préciser le texte affiché dans la fenêtre de dialogue.</span> </p>
+			<p class="highlight"><span class="keyword">demande_la_valeur_de</span> <span class="varglob">x</span> <span class="string">"texte à afficher"</span></p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="SELECT" name="à" desc="sélectionner une tortue" class="keyword" >
+		<content>
+			<p>Sélectionne la tortue qui répond au nom ou au numéro indiqué : c'est désormais elle qui reçoit les ordres (voir les <a href="index.php?page=aide_prefs_tortues">préférences</a> pour la gestion de plusieurs tortues).
+	La tortue présente au démarrage du logiciel se nomme <span class="turtle">Achille</span> et porte le numéro 0.</p>
+			<p><span class="emph">Exemple :</span> s'adresser à la tortue nommée Bénédicte</p>
+			<p class="highlight"><span class="keyword">à</span> <span class="turtle">Bénédicte</span></p>
+			<p>Il est possible de piloter simultanément plusieurs tortues : les commandes seront exécutées simultanément par chacune d'entre elles.</p>
+			<p><span class="emph">Exemple :</span> s'adresser à la fois à la tortue nommée Achille et à celle qui qui porte le numéro 9.</p>
+			<p class="highlight"><span class="keyword">à</span> <span class="turtle">Achille</span> 9</p>
+			<p>Le mot-clef <span class="keyword">toutes</span> permet de s'adresser à toutes les tortues en même temps.</p>
+			<p class="highlight"><span class="keyword">à toutes</span></p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="AFF" name="aff" desc="afficher une valeur" class="keyword">
+		<content>
+			<p>Affiche le résultat d'un ou de plusieurs calculs.</p>
+			<p><span class="emph">Exemple :</span> afficher le calcul √(2)/2, ainsi que le cosinus de 45</p>
+			<p class="highlight"><span class="keyword">aff</span>   <span class="function">√</span>(2)/2 <span class="function">cos</span>(45)</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="FUN" name="fonction" desc="définir une fonction" class="keyword" >
+		<content>
+			<p>Définit la fonction mathématique passée en argument.</p>
+			<p>Voir la page sur les <a href="index.php?page=aide_maths">fonctions mathématiques</a> pour plus de détails.</p>
+			<p><span class="emph">Exemple :</span>  définir la fonction « carré »</p>
+			<p class="highlight"><span class="keyword">fonction</span> <span class="function">f</span>(x):=x^2</p>
+		</content>
+	</GTCommandDescription>
+
+	
+
+	<GTCommandDescription key="INIT" name="init" desc="initialiser" class="keyword" >
+		<content>
+			<p>Efface toutes les variables et fonctions définies par l'utilisateur. Rétablit les fonctions et constantes usuelles.</p>
+			<p>Voir la page sur les <a href="index.php?page=aide_maths">fonctions mathématiques</a> pour plus de détails.</p>
+		</content>
+	</GTCommandDescription>
+	<GTCommandDescription key="WAIT" name="attends" desc="attendre " class="keyword">
+		<content>
+			<p>Interrompt la tortue. Appuyer sur le bouton reprendre pour reprendre.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="PAUSE" name="pause" desc="attendre" class="keyword" >
+		<content>
+			<p>Interrompt tous les processus en cours pour la durée indiquée en secondes.</p>
+			<p>Pour des raisons de stabilité, une pause ne peut excéder 2 secondes.</p>
+			<p><span class="emph">Exemple :</span> faire une pause d'une demi-seconde</p>
+			<p class="highlight"><span class="keyword">pause</span>  0.5</p>
+		</content>
+	</GTCommandDescription>
+	<GTCommandDescription key="STOP" name="stop" desc="" class="keyword">
+		<content>
+			<p>Sort de la procédure en cours.</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="RETOURNE" name="retourne" desc="" class="keyword" >
+		<content>
+			<p>Renvoie le nombre dépcifié et sort de la procédure en cours.</p>
+		</content>
+	</GTCommandDescription>
+	
+	
+	<GTCommandDescription key="MG" name="mg" desc="manipuler graphique" class="keyword">
+		<content>
+			<p>Manipule l'espace graphique (déplacement, rotation, <i>etc.</i>) sans utiliser la souris.</p>
+			<p>La syntaxe de la commande <span class="keyword">mg</span> dépend de l'action souhaitée : le tableau ci-dessous résume les manipulations possibles.</p>
+			<table>
+				<th>Mot-clef</th><th>Paramètres</th><th>Description</th>
+				<tr><td><span class="function">translation</span></td> <td>x y z</td> <td>Déplacement de l'espace graphique</td> </tr>
+				<tr><td><span class="function">zoom</span></td> <td>f</td> <td>Zoom du facteur indiqué</td> </tr>
+				<tr><td><span class="function">rotation</span> x</td> <td>angle</td> <td>Rotation autour de l'axe des 'x'</td> </tr>
+				<tr><td><span class="function">rotation</span> y</td> <td>angle</td> <td>Rotation autour de l'axe des 'y'</td> </tr>
+				<tr><td><span class="function">rotation</span> z</td> <td>angle</td> <td>Rotation autour de l'axe des 'z'</td> </tr>
+				<tr><td><span class="function">rotation</span> xy</td> <td>angle</td> <td>Rotation autour du plan 'xy'</td> </tr>
+				<tr><td><span class="function">rotation</span> xz</td> <td>angle</td> <td>Rotation autour du plan 'xz'</td> </tr>
+				<tr><td><span class="function">rotation</span> yz</td> <td>angle</td> <td>Rotation autour du plan 'yz'</td> </tr>
+				<tr><td><span class="function">hrotation</span></td> <td>angle</td> <td>Rotation hyperbolique</td></tr>
+				<tr><td><span class="function">htranslation</span></td> <td>x y</td> <td>Translation hyperbolique</td></tr>
+				<tr><td><span class="function">qtranslation</span></td> <td>x y</td> <td>Translation quotient</td></tr>
+			</table>
+			<p><span class="emph">Exemple :</span> déplacer l'espace graphique</p>
+			<p class="highlight"><span class="keyword">mg</span> <span class="function">translation</span> 0 100 0</p>
+			<p>ou</p>
+			<p class="highlight"><span class="keyword">mg</span> <span class="function">translation</span> 0 100</p>
+			<p><span class="emph">Exemple :</span> tourner l'espace graphique autour de l'axe des 'x'</p>
+			<p class="highlight"><span class="keyword">mg</span> <span class="function">rotation</span> x 45</p>
+			<p><span class="emph">Exemple :</span> effectuer un zoom avant</p>
+			<p class="highlight"><span class="keyword">mg</span> <span class="function">zoom</span> 2</p>
+			<p><span class="emph">Exemple :</span> effectuer un zoom arrière</p>
+			<p class="highlight"><span class="keyword">mg</span> <span class="function">zoom</span> 0.5</p>
+			<p>Les axes de rotation se lisent selon le repère ci-dessous, l'axe des 'z' pointant vers l'utilisateur perpendiculairement à l'écran.</p>
+			<div class="image"><img src="img/axes.png" /></div>
+			<p>Les mots-clef <span class="function">hrotation</span> et <span class="function">htranslation</span> sont spécifiques aux modèles du <a href="index.php?page=geo_disqueP">disque</a> et du <a href="index.php?page=geo_demiplan">demi-plan</a> de Poincaré, tandis que <span class="function">qtranslation</span> concerne les <a href="index.php?page=geo_quotient">quotients du plan</a>.</p>
+			<p>Les angles doivent être exprimés en degrés ou en radians selon le mode sélectionnée dans les <a href="index.php?page=aide_prefs_maths">préférences</a>.</p>
+			<p>La commande <span class="keyword">mg</span> utilisée seule rétablit la configuration initiale de l'espace graphique : elle a donc le même effet que la fonction 'Initialiser' <img src="img/icon/view-init.png" /> du menu <a href="index.php?page=aide_menus#affichage">Affichage</a>.</p>
+		</content>
+	</GTCommandDescription>
+
+	<GTCommandDescription key="PHOTO" name="photo" desc="prendre une photo" class="keyword">
+		<content>
+			<p>Enregistre une image de l'espace graphique au format PNG.</p>
+			<p>En désignant par '<i>nom</i>' le mot passé en argument, le fichier est nommé '<i>nom</i>-xxxxx.png' où xxxxx est un nombre entier automatiquement incrémenté et comptant cinq chiffres (dont éventuellement des zéros inutiles). Le fichier est enregistré dans le répertoire 'pics' de la <a href="index.php?page=aide_pinacotheque">pinacothèque</a>.</p>
+
+			<p>La raison d'être de cette commande est de pouvoir enregistrer des images à la volée afin de construire des vidéos (à l'aide par exemple du logiciel ffmpeg).</p>
+			<p><b>Important</b> : cette commande est appelée à être modifiée lorsque le langage Java incluera la gestion et l'export  de vidéo.</p>
+			<p><span class="emph">Exemple :</span> enregistrer l'espace graphique dans le fichier 'test-xxxxx.png'</p>
+			<p class="highlight"><span class="keyword">photo</span>  test</p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="EXECUTE" name="exec" desc="exécute des commandes" class="keyword">
+		<content>
+			<p>Exécute les commandes décrites dans une chaîne de caractères.</p>
+		</content>
+	</GTCommandDescription>
+
+	
+
+
+	
+
+	
+	<GTCommandDescription key="EFF" name="eff" desc="supprimer des variables ou fonctions" class="keyword">
+		<content>
+			<p>Désaffecte le ou les mots indiqués de leur valeur en tant qu'objet mathématique.</p>
+			<p><span class="emph">Exemple :</span>  supprimer la variable <span class="varglob">a</span> et la fonction <span class="function">cos</span></p>
+			<p class="highlight"><span class="keyword">eff</span> <span class="varglob">a</span> <span class="function">cos</span></p>
+		</content>
+	</GTCommandDescription><GTCommandDescription key="GLOBAL" name="global" desc="déclare une variable globale" class="keyword" >
+		<content>
+			<p>Déclare une variable globale.</p>
+		</content>
+	</GTCommandDescription>
+
+	
+
+	
+
+
+	
+
+	
+
+</GTCommandDescTable>

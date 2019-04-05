@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GeoTortue version="ref" layout="sandbox">
+	<CommandManager realTimePainting="true" waitingTime="100">
+		<GTJEP mode="Degree" scopeMode="Global" precision="2" showMonitor="true" />
+	</CommandManager>
+	<GTGraphicSpace height="480" width="640"/>
+	<GTGeometryManager selected="GTEuclidean2DGeometry">
+		<GTEuclidean2DGeometry axisColor="-8355712" grid="false" background="-1" gridColor="-4144960" axis="false"/>
+		<GTEuclidean3DGeometry/>
+		<GTSphericalGeometry radius="100" tessellation="16" isSphereVisible="true" shader="GouraudShader" sphereColor="-13159"/>
+		<GTPoincareHPGeometry radius="100" hRotationEnabled="true"/>
+		<GTPoincareDiscGeometry radius="100" hShiftEnabled="true" hRotationEnabled="true"/>
+		<GTFlatQuotientGeometry shiftEnabled="true" height="400" yGluingMode="1" width="600" xGluingMode="1"/>
+		<GTEuclidean4DGeometry fieldOfView="0.8203047484373349"/>
+		<MouseManager dragEnabled="true" rotationZEnabled="true" rotationYEnabled="true" rotationXEnabled="true" zoomEnabled="false"/>
+	</GTGeometryManager>
+	<GTPerspectiveManager selected="GTOrthogonalPerspective">
+		<GTOrthogonalPerspective/>
+		<GTCavalierPerspective ratio="0.5" alpha="-2.356194490192345"/>
+		<GTIsometricPerspective/>
+		<GTDimetricPerspective alpha="0.5235987755982988"/>
+		<GTAxonometricPerspective alpha="0.7853981633974483" omega="0.7853981633974483"/>
+		<GTConicPerspective fieldOfView="0.8203047484373349"/>
+	</GTPerspectiveManager>
+	<GTDisplayManager offsetX="0" imageTitle="" offsetY="0">
+		<TextStyle size="14" family="DejaVu Sans" font.color="-16777216"/>
+	</GTDisplayManager>
+	<GTRendererManager anaglyphEnabled="false">
+		<GTRendererSettings maxDist="24" maxNumPoints="30000" antiAliasing="true" blur="20"/>
+		<GTLightingContext ambientLight="0.4">
+			<GTLight theta="-29" fixed="true" phi="34"/>
+		</GTLightingContext>
+	</GTRendererManager>
+	<TurtleManager>
+		<Turtle color="-6234976" name="Achille" avatar="TURTLE"/>
+	</TurtleManager>
+	<GTSandBox>
+		<GTSandBoxButtonPane>
+			<GTSandBoxButton tooltip="Gomme le dernier tracé" command="gomme"/>
+			<GTSandBoxButton tooltip="Vide le graphique" command="vg"/>
+			<GTSandBoxButton tooltip="Choisis le crayon noir" command="crayon noir"/>
+			<GTSandBoxButton tooltip="Choisis le crayon rouge" command="crayon rouge"/>
+			<GTSandBoxButton tooltip="Choisis le crayon bleu" command="crayon bleu"/>
+			<GTSandBoxButton tooltip="Choisis le crayon vert" command="crayon vert"/>
+		</GTSandBoxButtonPane>
+		<GTSandBoxButtonPane>
+			<GTSandBoxButton tooltip="Avance de 10 pas" command="av 10"/>
+			<GTSandBoxButton tooltip="Recule de 10 pas" command="re 10"/>
+			<GTSandBoxButton tooltip="Avance de 25 pas" command="av 25"/>
+			<GTSandBoxButton tooltip="Recule de 25 pas" command="re 25"/>
+			<GTSandBoxButton tooltip="Avance de 100 pas" command="av 100"/>
+			<GTSandBoxButton tooltip="Recule de 100 pas" command="re 100"/>
+			<GTSandBoxButton tooltip="Tourne à gauche de 90 degrés" command="tg 90"/>
+			<GTSandBoxButton tooltip="Tourne à droite de 90 degrés" command="td 90"/>
+			<GTSandBoxButton tooltip="Tourne à gauche de 45 degrés" command="tg 45"/>
+			<GTSandBoxButton tooltip="Tourne à droite de 45 degrés" command="td 45"/>
+			<GTSandBoxButton tooltip="Tourne à gauche de 30 degrés" command="tg 30"/>
+			<GTSandBoxButton tooltip="Tourne à droite de 30 degrés" command="td 30"/>
+			<GTSandBoxButton tooltip="Lève le crayon" command="lc"/>
+			<GTSandBoxButton tooltip="Baisse le crayon" command="bc"/>
+			<GTSandBoxButton tooltip="Cache la tortue" command="ct"/>
+			<GTSandBoxButton tooltip="Montre la tortue" command="mt"/>
+		</GTSandBoxButtonPane>
+	</GTSandBox>
+</GeoTortue>

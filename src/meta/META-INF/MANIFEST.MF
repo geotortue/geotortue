@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Version: ${project.version}
+Main-Class: geotortue.GTLauncher
+Sealed: true
+Class-Path: ../

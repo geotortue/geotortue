@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GTSandBox>
+	<GTSandBoxButtonPane>
+		<GTSandBoxButton tooltip="Gomme le dernier tracé" command="gomme" show="true"/>
+		<GTSandBoxButton tooltip="Vide le graphique" command="vg" show="true"/>
+		<GTSandBoxButton tooltip="Choisis le crayon noir" command="crayon noir" show="true"/>
+		<GTSandBoxButton tooltip="Choisis le crayon rouge" command="crayon rouge" show="true"/>
+		<GTSandBoxButton tooltip="Choisis le crayon bleu" command="crayon bleu" show="true"/>
+		<GTSandBoxButton tooltip="Choisis le crayon vert" command="crayon vert" show="true"/>
+	</GTSandBoxButtonPane>
+	<GTSandBoxButtonPane>
+		<GTSandBoxButton tooltip="Avance de 10 pas" command="av 10" show="true"/>
+		<GTSandBoxButton tooltip="Recule de 10 pas" command="re 10" show="true"/>
+		<GTSandBoxButton tooltip="Avance de 25 pas" command="av 25" show="true"/>
+		<GTSandBoxButton tooltip="Recule de 25 pas" command="re 25" show="true"/>
+		<GTSandBoxButton tooltip="Avance de 100 pas" command="av 100" show="true"/>
+		<GTSandBoxButton tooltip="Recule de 100 pas" command="re 100" show="true"/>
+		<GTSandBoxButton tooltip="Tourne à gauche de 90 degrés" command="tg 90" show="true"/>
+		<GTSandBoxButton tooltip="Tourne à droite de 90 degrés" command="td 90" show="true"/>
+		<GTSandBoxButton tooltip="Tourne à gauche de 45 degrés" command="tg 45" show="true"/>
+		<GTSandBoxButton tooltip="Tourne à droite de 45 degrés" command="td 45" show="true"/>
+		<GTSandBoxButton tooltip="Tourne à gauche de 30 degrés" command="tg 30" show="true"/>
+		<GTSandBoxButton tooltip="Tourne à droite de 30 degrés" command="td 30" show="true"/>
+		<GTSandBoxButton tooltip="Lève le crayon" command="lc" show="true"/>
+		<GTSandBoxButton tooltip="Baisse le crayon" command="bc" show="true"/>
+		<GTSandBoxButton tooltip="Cache la tortue" command="ct" show="true"/>
+		<GTSandBoxButton tooltip="Montre la tortue" command="mt" show="true"/>
+	</GTSandBoxButtonPane>
+</GTSandBox>

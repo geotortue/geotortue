@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GTTipsFactory lang="fr">
+	<GTTip>
+		<content>
+			<p>GéoTortue fonctionne sur tous les ordinateurs, qu'ils soient équipés d'un environnement Linux, Mac ou Windows.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La commande <span class="command">lc</span> permet de « lever le crayon » : la tortue ne dessinera plus sur son chemin.</p>
+			<br>
+			<p>Pour « baisser le crayon », utilisez la commande <span class="command">bc</span>.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La commande <span class="command">ct</span> permet de cacher la tortue.</p>
+			<br>
+			<p>Pour afficher à nouveau la tortue, utilisez la commande <span class="command">mt</span>.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La commande <span class="keyword">rep</span> permet de répéter plusieurs fois des procédures (ou un bloc de commandes).</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La commande <span class="keyword">tant_que</span> permet de répéter une procédure (ou un bloc de commandes) tant qu'une condition est remplie.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>Une boucle <i>for</i> s'écrit à l'aide de la commande <span class="keyword">boucle</span>.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>Pour commander plusieurs tortues, il suffit d'ajouter au préalable une ou plusieurs tortues dans les préférences.</p>
+			<br>
+			<p>On s'adresse ensuite à chacune ou à plusieurs d'entre elles à l'aide de la commande <span class="keyword">à</span>.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La commande <span class="command">crayon</span> permet de sélectionner très simplement la couleur du crayon.</p>
+			<br>
+			<p>La tortue reconnaît aussi le codage HTML des couleurs</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La commande <span class="command">palette</span> est une version avancée de la commande <span class="command">crayon</span>, 
+				permettant de choisir une couleur précise dans un nuancier au format RVB ou au format TSV.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>Le nuancier (dans le menu « aide ») permet de retrouver facilement les composantes RVB ou TSV de n'importe quelle couleur.</p>
+		</content>
+	</GTTip>	
+	<GTTip>
+		<content>
+			<p>GéoTortue permet de faire de la géométrie dans un espace à quatre dimensions !</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La combinaison shift + clic droit permet de faire « tourner » le demi-plan de Poincaré autour de l'origine.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>En 3D, il est possible de sélectionner le type de perspective souhaitée (cavalière, isométrique, conique, <i>etc.</i>).</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>Vous pouvez définir de nouvelles fonctions à l'aide de la commande <span class="keyword">def</span>.</p>
+			<p>Exemple :</p>
+			<div class="highlight"><span class="keyword">def</span> <span class="function">f</span>:x->x^2+1</div>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>Si des calculs contiennent des espaces, ils doivent être entourés de parenthèses .</p>
+			<br>
+			<p>Exemple :</p>
+			<div class="highlight"><span class="command">td</span> (360 / 7)</div>
+		</content>
+	</GTTip>
+		<GTTip>
+		<content>
+			<p>Il est possible d'écrire plusieurs commandes sur une même ligne : il suffit pour cela de les séparer par un point-virgule.</p>
+			<br>
+			<p>Exemple :</p>
+			<div class="highlight"><span class="command">av</span> 50; <span class="command">td</span> 90</div>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La combinaison shift+Entrée permet d'insérer une nouvelle ligne dans la fenêtre de commande.</p>
+			<p>(Dans l'éditeur de procédures, la touche Entrée seule suffit.)</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>Dans l'éditeur de procédures, il est possible d'ouvrir un crochet et de le fermer que plusieurs lignes après : les sauts de ligne servent alors de séparateurs.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>Le bouton « Coloriage » en haut à droite ne sert qu'à naviguer du pupitre vers l'interface de coloriage.</p>
+			<br>
+			<p>Pour colorier un nouveau dessin, il faut cliquer sur le pinceau dans la barre d'outil, ou bien sur l'item « Mettre en couleur » du menu coloriage.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La roulette de la souris permet de zoomer sur l'espace graphique.</p>
+			<br>
+			<p>Vérifiez que le zoom est bien activé dans l'onglet « Espace graphique » des préférences.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>Pour activer la 3D avec GéoTortue, il suffit de sélectionner la géométrie « Espace euclidien 3D » dans l'onglet « Mathématiques » des préférences.</p>
+			<p>Les commandes à connaître sont <span class="command">pvd</span> (pivoter sur la droite), <span class="command">pvg</span> (pivoter sur la gauche), <span class="command">pvh</span> (pivoter vers le haut),  et <span class="command">pvb</span> (pivoter vers le bas).</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>Pour faire tourner l'espace graphique en 3D, il faut commencer par maintenir la touche Ctrl du clavier enfoncé, appuyer (sans lâcher) sur le bouton droit de la souris et enfin déplacer la souris.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>La touche F4 permet d'afficher le repère lié à la tortue, très utile en 3D ou en 4D.</p>
+		</content>
+	</GTTip>
+	<GTTip>
+		<content>
+			<p>En cliquant sur l'item « Vérifier les mises à jour » du menu « Aide », vous pouvez vérifier que vous disposez de la version la plus récente de GéoTortue.</p>
+		</content>
+	</GTTip>
+</GTTipsFactory>
