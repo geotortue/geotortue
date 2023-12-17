@@ -1,13 +1,49 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>stummarello</groupId>
   <artifactId>geotortue</artifactId>
-  <version>4.19.4.5</version>
+  <version>4.23.12.15</version>
+
+  <name>GéoTortue</name>
+  <description>${project.name} est un logiciel inspiré du langage LOGO pour découvrir les mathématiques et l’algorithmique.</description>
+  <inceptionYear>2008</inceptionYear>
+
+  <organization>
+    <name>${project.name}</name>
+    <url>http://geotortue.free.fr/</url>
+  </organization>
 
   <properties>
+    <main.class>geotortue.GTLauncher</main.class>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>9</maven.compiler.target>
+    <maven.clean.version>3.3.2</maven.clean.version>
+    <maven.resources.version>3.3.1</maven.resources.version>
+    <maven.compiler.version>3.11.0</maven.compiler.version>
+    <maven.jar.version>3.3.0</maven.jar.version>
+    <exec.maven.version>3.1.1</exec.maven.version>
+    <launch4j.maven.version>2.4.1</launch4j.maven.version>
   </properties>
+
+  <licenses>
+    <license>
+      <name>GPL-3.0</name>
+      <url>https://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <repositories>
+    <repository>
+      <id>mvnrepository</id>
+      <name>mvnrepository</name>
+      <url>http://www.mvnrepository.com</url>
+    </repository>
+  </repositories>
 
   <build>
     <resources>
@@ -15,40 +51,64 @@
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
       </resource>
-      <resource>
-        <directory>src/meta</directory>
-        <filtering>true</filtering>
-      </resource>
     </resources>   
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${maven.clean.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven.resources.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>${maven.compiler.version}</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
           <verbose>false</verbose>
           <showDeprecation>true</showDeprecation>
           <showWarnings>true</showWarnings>
           <debug>true</debug>
+          <compilerArgs>
+            <arg>--add-exports=java.desktop/sun.swing=ALL-UNNAMED</arg>
+          </compilerArgs>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>${maven.jar.version}</version>
         <configuration>
           <archive>
-            <manifestFile>target/classes/META-INF/MANIFEST.MF</manifestFile>
             <addMavenDescriptor>false</addMavenDescriptor>
+            <manifest>
+              <addDefaultEntries>false</addDefaultEntries>
+              <mainClass>${main.class}</mainClass>
+            </manifest>
+            <manifestEntries>
+              <Implementation-Version>${project.version}</Implementation-Version>
+              <Sealed>true</Sealed>
+              <Class-Path>../</Class-Path>
+              <Add-Exports>java.desktop/sun.swing=ALL-UNNAMED</Add-Exports>
+            </manifestEntries>
           </archive>
         </configuration>
       </plugin>
       <plugin>
+		    <groupId>org.codehaus.mojo</groupId>
+		    <artifactId>exec-maven-plugin</artifactId>
+		    <version>${exec.maven.version}</version>
+		    <configuration>
+			    <mainClass>${main.class}</mainClass>
+ 		    </configuration>
+      </plugin>
+      <plugin>
           <groupId>com.akathist.maven.plugins.launch4j</groupId>
           <artifactId>launch4j-maven-plugin</artifactId>
-          <version>1.7.25</version>
+          <version>${launch4j.maven.version}</version>
           <executions>
               <execution>
                   <id>launch4j</id>
@@ -58,28 +118,29 @@
                   </goals>
                   <configuration>
                       <headerType>gui</headerType>
-                      <outfile>target/geotortue.exe</outfile>
-                      <jar>target/geotortue-${project.version}.jar</jar>
-                      <errTitle>Geotortue</errTitle>
+                      <outfile>target/${project.artifactId}.exe</outfile>
+                      <jar>target/${project.artifactId}-${project.version}.jar</jar>
+                      <errTitle>${project.name}</errTitle>
                       <icon>launch4j/icon.ico</icon>
                       <classPath>
-                          <mainClass>geotortue.GTLauncher</mainClass>
+                          <mainClass>${main.class}</mainClass>
                           <addDependencies>true</addDependencies>
                           <preCp>anything</preCp>
                       </classPath>
                       <jre>
+                          <path>$JAVA_HOME:$PATH</path>
                           <minVersion>1.7.0</minVersion>
                       </jre>
                       <versionInfo>
                           <fileVersion>1.2.3.4</fileVersion>
                           <txtFileVersion>${project.version}</txtFileVersion>
-                          <fileDescription>Application Geotortue</fileDescription>
-                          <copyright>GPL</copyright>
+                          <fileDescription>Application ${project.name}</fileDescription>
+                          <copyright>${project.licenses.license.name}</copyright>
                           <productVersion>${project.version}</productVersion>
                           <txtProductVersion>${project.version}</txtProductVersion>
-                          <productName>Geotortue</productName>
-                          <internalName>geotortue</internalName>
-                          <originalFilename>geotortue.exe</originalFilename>
+                          <productName>${project.name}</productName>
+                          <internalName>${project.artifactId}</internalName>
+                          <originalFilename>${project.artifactId}.exe</originalFilename>
                       </versionInfo>
                   </configuration>
               </execution>
@@ -87,5 +148,4 @@
       </plugin>      
     </plugins>
   </build>
-
 </project>
