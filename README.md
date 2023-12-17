@@ -40,8 +40,6 @@ MAVEN_OPTS="--add-exports java.desktop/sun.swing=ALL-UNNAMED" mvn exec:java
 > [...]
 ```
 
-> Ignorer le message au sujet du langage "en_US" non supporté.
-
 L'application s'ouvre, la tortue est prête à répondre à tous vos souhaits.
 
 ## 🛠️ Développement
