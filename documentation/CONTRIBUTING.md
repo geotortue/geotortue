@@ -9,20 +9,27 @@ Puis construire l'archive exécutable jar et la lancer :
 java --version
 
 mvn -U clean package
+> Scanning for projects...
+> [...]
 
 ls -Al target
-> total 8188
-> drwxrwsr-x 13 pierre developers    4096 Dec 16 15:50 classes
-> drwxrwsr-x  3 pierre developers    4096 Dec 16 15:50 generated-sources
-> -rw-rw-r--  1 pierre developers 4139520 Dec 16 15:51 geotortue-4.23.12.15.jar
-> -rwxrwxr-x  1 pierre developers 4227072 Dec 16 15:51 geotortue.exe
-> drwxrwsr-x  3 pierre developers    4096 Dec 16 15:50 maven-status
+> total 11860
+> drwxrwsr-x  2 pierre developers    4096 Dec 20 14:45 antrun
+> drwxrwsr-x 13 pierre developers    4096 Dec 20 14:45 classes
+> drwxrwsr-x  3 pierre developers    4096 Dec 20 14:45 generated-sources
+> -rw-rw-r--  1 pierre developers 4012525 Dec 20 14:45 geotortue-4.23.12.20.jar
+> -rwxrwxr-x  1 pierre developers 4100077 Dec 20 14:45 geotortue.exe
+> -rw-rw-r--  1 pierre developers 4012525 Dec 20 14:45 geotortue.jar
+> drwxrwsr-x  3 pierre developers    4096 Dec 20 14:45 maven-status
 
-java --add-exports java.desktop/sun.swing=ALL-UNNAMED -jar target/geotortue-4.23.12.15.jar
+java --add-exports java.desktop/sun.swing=ALL-UNNAMED -jar target/geotortue.jar
+> [...]
 
 ```
 
-> L'exécutable Windows n'a pas été testé.
+L'application s'ouvre, la tortue est prête à répondre à tous vos souhaits.
 
-Pour d'autres distributions voir [GéoTortue - Téléchargment](http://geotortue.free.fr/index.php?page=telechargement).
+> L'exécutable Windows n'a pas été testé. Tout retour sera le bienvenu.
+
+Pour d'autres distributions voir [GéoTortue - Téléchargement](http://geotortue.free.fr/index.php?page=telechargement).
 

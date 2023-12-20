@@ -1,0 +1,7 @@
+Comment: A manifest to be used with maven exec:java
+Comment-Suite: The GéoTortue application reads here its version.
+Manifest-Version: 1.0
+Main-Class: geotortue.GTLauncher
+Class-Path: ../
+Implementation-Version: ${project.version}
+Sealed: true

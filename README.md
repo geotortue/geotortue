@@ -36,7 +36,8 @@ git clone clone https://github.com/turiot/geotortue
 
 cd geotortue
 
-MAVEN_OPTS="--add-exports java.desktop/sun.swing=ALL-UNNAMED" mvn exec:java
+MAVEN_OPTS="--add-exports java.desktop/sun.swing=ALL-UNNAMED" mvn compile exec:java
+> Scanning for projects...
 > [...]
 ```
 
