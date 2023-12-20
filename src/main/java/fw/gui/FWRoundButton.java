@@ -17,7 +17,7 @@ import javax.swing.UIManager;
 
 import fw.app.FWAction;
 import fw.text.TextStyle;
-import sun.swing.SwingUtilities2;
+import fw.util.swing.SwingUtilities2;
 
 public class FWRoundButton extends JButton implements FWAccessible {
 	private static final long serialVersionUID = -6542410223761791737L;

@@ -19,11 +19,11 @@ public class GTUpdateChecker {
 	private static final OPTKey CHECKING_FAILED = new OPTKey(GTUpdateChecker.class, "checkingFailed");
 	private static final OPTKey NO_UPDATE = new OPTKey(GTUpdateChecker.class, "noUpdate");
 
-	public enum STATE {UPDATE_AVAILABLE, NO_UPDATE, CHECKING_FAILED} ; 
+	public enum STATE { UPDATE_AVAILABLE, NO_UPDATE, CHECKING_FAILED }
 	
 	public static void checkUpdateAtStartUp(Window owner) {
 		STATE state = checkUpdate();
-		switch (state) {
+		switch (state) { // NOSONAR
 		case UPDATE_AVAILABLE :
 			showDialog(state, owner);
 			break;
@@ -74,7 +74,10 @@ public class GTUpdateChecker {
 	
 
 	public static class GTVersion {
-		final int v, y, m, d;
+		final int v;
+		final int y;
+		final int m;
+		final int d;
 
 		public GTVersion(String str) {
 			String[] strs = FWParsingTools.split(str, "\\.");
@@ -112,9 +115,7 @@ public class GTUpdateChecker {
 			if (m > candidate.m)
 				return false;
 			
-			if (d < candidate.d)
-				return true;
-			return false;
+			return (d < candidate.d);
 		}
 	}
 }

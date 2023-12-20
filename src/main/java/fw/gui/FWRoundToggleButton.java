@@ -16,7 +16,7 @@ import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 
 import fw.text.TextStyle;
-import sun.swing.SwingUtilities2;
+import fw.util.swing.SwingUtilities2;
 
 /**
  *

@@ -30,7 +30,7 @@ import fw.geometry.util.Pixel;
 import fw.gui.FWMouseListener;
 import geotortue.core.TurtleAvatar2D;
 import geotortue.core.TurtleAvatar2D.AVATAR_TYPE;
-import sun.swing.SwingUtilities2;
+import fw.util.swing.SwingUtilities2;
 
 
 public class GTSandBoxCompass extends JPanel {

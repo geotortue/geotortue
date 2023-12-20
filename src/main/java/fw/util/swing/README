@@ -1,0 +1,2 @@
+Code dupliqué depuis sun.swing (Java 17) pour éviter les soucis avec les modules, cf. Java 9 Platform Module System (JPMS).
+Et modifié pour ne pas requérir le mot clé 'var' arrivé avec Java 10.

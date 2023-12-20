@@ -19,7 +19,7 @@ Le logiciel GéoTortue se distingue sur deux points&nbsp;:
 
 Vérifier que Maven est disponible en version 3.6 ou plus.
 
-S'assurer que Java est disponible avec une version 9 & s.
+S'assurer que Java est disponible avec une version 8 & s.
 
 Cloner l'application puis la lancer avec Maven :
 
@@ -36,7 +36,7 @@ git clone clone https://github.com/turiot/geotortue
 
 cd geotortue
 
-MAVEN_OPTS="--add-exports java.desktop/sun.swing=ALL-UNNAMED" mvn compile exec:java
+mvn compile exec:java
 > Scanning for projects...
 > [...]
 ```

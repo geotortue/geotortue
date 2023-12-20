@@ -2,7 +2,7 @@
 
 Pour le moment, seuls un exécutable java (archive jar) et un exécutable pour Windows sont mis à disposition ici :
 
-S'assurer que la jdk installée est de version 9 ou supérieure.
+S'assurer que la jdk installée est de version 8 ou supérieure.
 Puis construire l'archive exécutable jar et la lancer :
 
 ``` bash
@@ -22,7 +22,7 @@ ls -Al target
 > -rw-rw-r--  1 pierre developers 4012525 Dec 20 14:45 geotortue.jar
 > drwxrwsr-x  3 pierre developers    4096 Dec 20 14:45 maven-status
 
-java --add-exports java.desktop/sun.swing=ALL-UNNAMED -jar target/geotortue.jar
+java -jar target/geotortue.jar
 > [...]
 
 ```

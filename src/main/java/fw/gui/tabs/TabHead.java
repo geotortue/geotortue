@@ -35,7 +35,7 @@ import fw.app.FWToolKit;
 import fw.gui.FWButton;
 import fw.gui.FWMouseListener;
 import fw.gui.layout.BasicLayoutAdapter;
-import sun.swing.SwingUtilities2;
+import fw.util.swing.SwingUtilities2;
 
 /**
  */
@@ -56,16 +56,16 @@ class TabHead<T extends Object> extends JLayeredPane  {
 	private int tabHeight = 40; 
 	private int selectedIdx = 0;
 	
-	private final FWAction action_removeTab = new FWAction(REMOVE_TAB, "close.png", new ActionListener() {
+	private final FWAction actionRemoveTab = new FWAction(REMOVE_TAB, "close.png", new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			TabHead.this.removeSelectedTab();
 			TabHead.this.doLayout();
 		}
 	});
-	private final JButton removeButton = action_removeTab.getButton();
+	private final JButton removeButton = actionRemoveTab.getButton();
 	
-	private final FWAction action_addTab = new FWAction(ADD_TAB, "list-add.png", new ActionListener() {
+	private final FWAction actionAddTab = new FWAction(ADD_TAB, "list-add.png", new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Tab tab = new Tab(itemManager.addNewItem());
@@ -124,7 +124,7 @@ class TabHead<T extends Object> extends JLayeredPane  {
 		removeButton.setFocusable(false);
 		
 		buttons.add(new CustomButton(action_copyTab));
-		buttons.add(new CustomButton(action_addTab));
+		buttons.add(new CustomButton(actionAddTab));
 		buttons.add(new CustomButton(action_nextTab));
 		buttons.add(new CustomButton(action_previousTab));
 		
