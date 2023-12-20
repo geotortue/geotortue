@@ -95,62 +95,14 @@ public class GeoTortue extends FWAbstractApplication implements FWSettings {
 	private static final OPTKey OBSOLETE_FILE = new OPTKey(GeoTortue.class, "ObsoleteFileFormat");
 	private static final OPTKey OVERWRITE_PROC = new OPTKey(GeoTortue.class, "overwriteProc");
 	private static final OPTKey LOAD_MODEL_IN_NEW = new OPTKey(GeoTortue.class, "loadModelInNewWindow");
-	private static final FKey TRT_XRT_EXT = new FKey(GeoTortue.class, new String[]{"trt", "xrt"});
-	private static final FKey TRT_EXT = new FKey(GeoTortue.class, new String[]{"trt"});
-	private static final FKey XRT_EXT = new FKey(GeoTortue.class, new String[]{"xrt"});
+	private static final FKey TRT_XRT_EXT = new FKey(GeoTortue.class, "trt", "xrt");
+	private static final FKey TRT_EXT = new FKey(GeoTortue.class, "trt");
+	private static final FKey XRT_EXT = new FKey(GeoTortue.class, "xrt");
 	
 	@Override
 	public TKey getTitle() {
 		return ADVANCED;
 	}
-	// TODO : z bigdecimal ?
-	// TODO : z zoom avec une image en fond 
-	// TODO : z virer X3D // voir le logiciel utilisé par sage plot3d 
-	// TODO : z anneaux borroméens
-	// TODO : tours de Hanoi
-	// TODO : web :  ajouter incosolata-g + deja vu sans dans les emprunts sur le site
-	// TODO : z article sur les polyèdres (apmep ?)
-	// TODO : web
-	// www.maths-et-tiques.fr/telech/TortueLycee.pdf Yvan Monka – Académie de Strasbourg
-	// https://www.pedagogie.ac-aix-marseille.fr/jcms/c_305927/fr/geotortue
-	// https://www.pedagogie.ac-aix-marseille.fr/jcms/c_305927/fr/geotortue
-	// http://www.icem-pedagogie-freinet.org/geotortue
-	// https://www.ac-paris.fr/portail/jcms/p1_1009199/geometrie-et-programmation-au-college-avec-geotortue
-	// http://www.cafepedagogique.net/lexpresso/Pages/2015/06/09062015Article635694304860718008.aspx
-	// http://www.acamus.net/index.php?option=com_content&view=article&id=516:fractales-avec-geotortue&catid=41&Itemid=219
-	// http://revue.sesamath.net/spip.php?article791
-	// https://www.youtube.com/watch?v=CYz29Mwn8lw
-	// http://www.irem.univ-paris-diderot.fr/articles/stage_algo/
-	// http://www.sudouest.fr/2015/04/21/pau-un-coding-gouter-pour-que-les-enfants-apprennent-a-coder-1899180-4725.php
-	// http://www.letelegramme.fr/finistere/plonevez-porzay/ecole-le-recteur-prend-une-lecon-d-informatique-04-09-2015-10761465.php
-	// http://scenari.irem.univ-mrs.fr/batchGen/Colloques%20IREM/tice2014/Fr%C3%A9d%C3%A9ric%20Clerc/htmlPopNG/co/sequence.html
-	// https://www.youtube.com/watch?v=vICng0RYN4E
-	// https://www.youtube.com/watch?v=wQugqdgJXsE
-	// https://www.youtube.com/watch?v=yYyBs1U85iA
-	// https://www.youtube.com/watch?v=CYz29Mwn8lw
-	// https://www.youtube.com/watch?v=vICng0RYN4E
-	// http://maths4ever.blog4ever.com/pyramide-de-sierpinski-programmation-avec-geotortue
-	// www.apmep.fr/IMG/pdf/13-KentzelV_C.pdf
-	// TODO : Accents dans les commandes : il y a une incohérence à ce niveau puisque on a une commande nommée "écris" et une autre "rep" 
-	// TODO : (done) concaténation des chaînes avec +
-	// TODO : av fw vw AV (LOGO sans accent) 
-	// TODO : web expliquer comment fabriquer la fonciton cap
-	// TODO : inconsolata-g moche -> meilleure version ?
-	// TODO : (done) taille de la police des boutons / menus / etc.
-	// TODO : sandbox2.xml icônes
-	// TODO : (done) bac à sable intégré dans les fichiers trt
-	// TODO : (done) séparer prefs.xml (entries -> Préférences) et properties.xml (params -> Réglages)
-	// TODO : (done) # comments
-	// TODO : (done) compatibilité avec Java 7
-	// TODO : (done) lire / écrire / importer fichiers en ligne de commande
-	// TODO : j'ai modifié l'appel par défaut (sous linux) avec --directory ~/.local/share pour le stocker au même endroit que tous les logiciels récents... 
-	// Et par conséquent cela donner .local/share/.geotortue, soit un dossier caché dans un autre dossier caché alors que l'intérêt de cette normalisation avec .local/share est justement d'avoir l'ensemble des dossiers de données des logiciels (dossiers non cachés donc) sous les yeux etc.
-	//	Bref serait-il possible, par exemple, que dans la prochaine version
-	// l'argument --directory permette de décider *complétement* de l'emplacement où stocker les données ? 
-	// Cela donnerait en ce qui me concerne --directory ".local/share/geotortue" par exemple. 
-	// Le nom .geotortue pourrait rester la valeur par défaut.
-	
-	// TODO : activités demi-cercle : activer cercle et arc
 
 	private final KeywordManager keywordManager;
 	private final TurtleManager turtleManager;
@@ -177,7 +129,7 @@ public class GeoTortue extends FWAbstractApplication implements FWSettings {
 	private final GTPreferences preferences;
 
 	private final OldFileRefactor oldFileRefactor = new OldFileRefactor();
-		
+
 	public GeoTortue() {
 		super(TRT_XRT_EXT);
 		keywordManager = new KeywordManager();

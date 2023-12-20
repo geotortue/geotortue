@@ -40,57 +40,19 @@ import geotortue.gui.GTSplash;
  */
 public class GTLauncher extends FWLauncher {
 	
-	private static final TKey LOADING = new TKey(GTLauncher.class, "loading");
-	private static final TKey READY = new TKey(GTLauncher.class, "ready");
-	
-	
-	// TODO : z nouveautés sur le site
-	// TODO : z lien vers interviews
-	// TODO : z lang -> english
-	// TODO : (done) cercle _arc + point
-	// TODO : (done) ne pas demander de validation à la sortie du coloriage si rien n'a été fait.
-	// TODO : (done) définir une image de fond en ligne de commande avec l'option --background chemin_vers_l_imag
-	// TODO : (done) épaisseur du crayon + point
-	// TODO : (done) proxy
-	// TODO : export html : "boucle i de 1 à 10 [...]", le i n'est pas colorié, idem pour la boucle pour_chaque
-	// TODO : export pstricks : j'imagine que la gestion des commandes "point" et "mine" est dans ta liste de "todo"...
-	
-	// TODO : (done) g.fill(Shape) +g.draw(Shape) En ce qui concerne les artefacts entre les triangles, j'ai remarqué que ceux-ci disparaissent si on ôte l'anticrénelage, mais dans ce cas les bords de la figure deviennent crénelés. Je ne sais pas si ça peut vous aider.
-
-	// TODO : (done) J'ai aussi remarqué que les liens hypertextes de l'aide ne semblent pas fonctionner : ci-dessous un exemple avec bloc de commande dans l'aide de la commande "rep".
-	// TODO : (done) commande  "stop" -> sort des boucles
-	// TODO : test_remplis_poly_non_convexe.trt
-	// TODO : (done) connecteurls logiques et / ou / non
-	// TODO : (done) placer les nombres à gauche de l'axe des ordonnées plutôt qu'à droite, ce qui serait plus conforme à ce qu'on rencontre habituellement ?
-	// TODO : (done) j'ai remarqué que les signes - des ordonnées se confondent avec les pointillés de la grille. Peut-être faut-il foncer les nombres ?
-	// TODO : (done) accès plus rapide à la grille et aux axes (préalablement réglés dans les préférences), 
-	// TODO : (done) invisible : il est possible qu'un fichier xrt contienne une procédure utilisable par les élèves mais impossible à lire?
-	// TODO : (done) select turtles to be imported in models 
-	// TODO : (done) boucle = pour_chaque
-	// TODO : (done) L.remove(value)  L.insert(index, object) L.append(object) L.count(value) remove
-	// TODO : (done) bac à sable ! taille des caractères + icône dans bouton
-	// TODO : (done) bac à sable texte sous les icônes
-	
-	// TODO : (done) que l’ouverture d’une session n’entraine pas automatiquement celle d’un dossier GeoTortue, est-ce possible ?
-	// TODO : (done) définir où geotortue enregistre ses fichiers de configuration
-	// TODO : (?) définir le dossier ouvert par défaut par geotortue pour l'ouverture et la sauvegarde de fichiers
-	// TODO : (done) Bref, vivement une commande "chante" qui jouerait en direct (mais c'est pas terrible, j'avais déjà essayé avec Java, il y a des problèmes de régularité du tempo) ou mieux : qui produirait un fichier Midi.
-	// TODO : global -> vérifier comportement
-	// TODO : optionnally include sandbox in trt file (cf. hanoi)
-	
-	// TODO : quadrillage trop grand (100 par 100) il faudrait pouvoir choisir la taille des carreaux
-	// TODO : patte avant droite de la tortue en rouge 
-
-	
-	private final static Color LIGHT_GREEN = new Color(0, 128, 32);
-	public static GTSplash SPLASH;
-	
-	private static GeoTortue geoTortue;
+	public static final GTSplash SPLASH = new GTSplash();
 	
 	public static GTVersion VERSION;
 	
-	private static final boolean DEBUG_ON = !false;
-	public static final boolean IS_BETA = !false;
+	public static final boolean IS_BETA = true;
+
+	private static final TKey LOADING = new TKey(GTLauncher.class, "loading");
+	private static final TKey READY = new TKey(GTLauncher.class, "ready");
+	
+	private static final Color LIGHT_GREEN = new Color(0, 128, 32);
+	private static final boolean DEBUG_ON = true;
+
+	private static GeoTortue geoTortue;
 	
 	static {
 		UIManager.put("ProgressBar.background", Color.WHITE);
@@ -100,20 +62,24 @@ public class GTLauncher extends FWLauncher {
 		UIManager.put("ProgressBar.border", BorderFactory.createEmptyBorder());
 		UIManager.put("Slider.foreground", LIGHT_GREEN);
                 
-                try { // TUR
-                  Enumeration<URL> resources = GTLauncher.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
-                  if (!resources.hasMoreElements())
-                      throw new Exception("Manifest not found");
-                  while (resources.hasMoreElements()) {
+        try { // TUR
+            Enumeration<URL> resources = GTLauncher.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
+            if (!resources.hasMoreElements()) {
+                throw new Exception("Manifest not found");  // NOSONAR
+			}
+            while (resources.hasMoreElements()) {
                     Manifest manifest = new Manifest(resources.nextElement().openStream());
                     String configurationVersion = manifest.getMainAttributes().getValue(Attributes.Name.IMPLEMENTATION_VERSION);
-                    if (configurationVersion == null)
-                      throw new Exception("Version not found");
+                    if (configurationVersion == null) {
+						// throw new Exception("Version not found");  // NOSONAR
+						VERSION = new GTVersion("0.0.0.0");
+						System.out.println("Version not found: 0.0.0.0 will be used.");
+					}
                     VERSION = new GTVersion(configurationVersion);
-                  }
-                } catch (Exception e) {
-                  e.printStackTrace();
-                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 	
 	
@@ -192,9 +158,9 @@ public class GTLauncher extends FWLauncher {
 	}
 	
 	public static void launch(Locale lang) throws LanguageNotSupportedException {
-		Language[] AVAILABLE_LANGUAGES = Language.getAvailableLanguages(); 
-		for (int idx = 0; idx < AVAILABLE_LANGUAGES.length; idx++)
-			if (lang.getLanguage().equals(AVAILABLE_LANGUAGES[idx].getLocale().getLanguage())) {
+		final Language[] availableLanguages = Language.getAvailableLanguages(); 
+		for (int idx = 0; idx < availableLanguages.length; idx++)
+			if (lang.getLanguage().equals(availableLanguages[idx].getLocale().getLanguage())) {
 				new GTLauncher(lang);
 				return ;
 			}
@@ -202,7 +168,6 @@ public class GTLauncher extends FWLauncher {
 	}
 	
 	public static void main(final String[] args) {
-		//System.exit(0);
 		
 		ArrayList<String> argsList = new ArrayList<>();
 		for (int idx = 0; idx < args.length; idx++)
@@ -213,16 +178,19 @@ public class GTLauncher extends FWLauncher {
 		Locale lang = getLang(argsList);
 		
 		try {
-			SPLASH = new GTSplash();
+			// SPLASH = new GTSplash();
 			launch(lang);
 		} catch (LanguageNotSupportedException ex) {
-			String msg = "Sorry, but the language \""+lang+"\" is not yet supported.";
-			msg += "\nLaunching it in french...";
+			String msg = String.join("/n",
+				"Your system is running with language \"" + lang + "\"",
+			    "Sorry, but this one is not supported yet.",
+				"Launching GéoTortue in french..."
+			);
 			JOptionPane.showMessageDialog(null, msg, "Language Not Supported", JOptionPane.INFORMATION_MESSAGE);
 			new GTLauncher(Locale.FRANCE);
 		}
 		
-		if (argsList.size()>0) {
+		if (!argsList.isEmpty()) {
 			String filename = argsList.get(0);
 			geoTortue.loadInBackground(new File(filename));
 		}
