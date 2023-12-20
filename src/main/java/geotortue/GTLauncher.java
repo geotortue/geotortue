@@ -181,7 +181,7 @@ public class GTLauncher extends FWLauncher {
 			// SPLASH = new GTSplash();
 			launch(lang);
 		} catch (LanguageNotSupportedException ex) {
-			String msg = String.join("/n",
+			String msg = String.join("\n",
 				"Your system is running with language \"" + lang + "\"",
 			    "Sorry, but this one is not supported yet.",
 				"Launching GéoTortue in french..."
