@@ -16,6 +16,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -901,7 +903,10 @@ public class GTActions {
 
 	private FWAction action_about = new FWAction(ABOUT, "weather-clear.png", new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			String licence = "<html>Copyright (C) 2008-2017 S. Tummarello<br/>" +
+			final Calendar copyrightFin = Calendar.getInstance();
+			copyrightFin.setTime(new Date());
+			final String year = String.valueOf(copyrightFin.get(Calendar.YEAR));
+			String licence = "<html>Copyright (C) 2008-" + year + " S. Tummarello<br/>" +
 					"This program is free software: you can redistribute it and/or modify it under the terms of the<br/>" +
 					"GNU General Public License as published by the Free Software Foundation.</html>";
 			new GTSplash(owner, ABOUT, licence, "http://geotortue.free.fr");
