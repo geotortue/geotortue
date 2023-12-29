@@ -34,7 +34,7 @@ public class Modulus extends PostfixMathCommand
 		
 			double result = dividend % divisor;
 	
-			inStack.push(new Double(result));
+			inStack.push(Double.valueOf(result));
 		}
 		else
 		{

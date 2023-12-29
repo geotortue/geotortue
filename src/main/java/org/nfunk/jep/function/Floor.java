@@ -43,7 +43,7 @@ public class Floor extends PostfixMathCommand
 	{
 		if (param instanceof Number)
 		{
-			return new Double(Math.floor(((Number)param).doubleValue()));
+			return Double.valueOf(Math.floor(((Number)param).doubleValue()));
 		}
 
 		throw new ParseException("Invalid parameter type");

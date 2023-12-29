@@ -4,6 +4,7 @@
 package jep2;
 
 import java.util.Vector;
+import java.util.stream.Stream;
 
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
@@ -33,6 +34,8 @@ import type.JObjectI;
 import type.JObjectI.JEP2Type;
 import type.JObjectsVector;
 import type.JString;
+
+import static java.util.stream.Collectors.joining;
 
 /**
  * @author Salvatore Tummarello
@@ -77,13 +80,15 @@ public class JEP2 extends JEP {
 	}
 	
 	private static JFunctionFactory jFunctionFactory =  new JFunctionFactory();
-	public enum AngleMode {Degree, Radian};
+
+	public enum AngleMode { Degree, Radian }
+
 	private AngleMode mode = AngleMode.Degree;
 	
-	private final static Vector<JFunction> STANDARD_FUNCTIONS = new Vector<>(); 
+	private static final Vector<JFunction> STANDARD_FUNCTIONS = new Vector<>(); 
 	
-	private final static OperatorSet2 OP_SET = new OperatorSet2();
-	private final static JNumberFactory NUMBER_FACTORY = new JNumberFactory();
+	private static final OperatorSet2 OP_SET = new OperatorSet2();
+	private static final JNumberFactory NUMBER_FACTORY = new JNumberFactory();
 	
 	public JEP2() {
 		opSet = OP_SET;
@@ -228,21 +233,22 @@ public class JEP2 extends JEP {
 		return super.parseExpression(str); 
 	}
 	
-	private String replaceSpecialSymbolsOutOfQuotes(String expressionIn) {
+	private String replaceSpecialSymbolsOutOfQuotes(final String expressionIn) {
 		int quoteStart = expressionIn.indexOf("\"");
-		if (quoteStart<0)
+		if (quoteStart < 0) {
 			return replaceSpecialSymbols(expressionIn);
+		}
 
 		String str = "";
-		int len = expressionIn.length();
+		final int len = expressionIn.length();
 		int quoteEnd = 0;
 		
-		while (quoteStart>=0) {
+		while (quoteStart >= 0) {
 			if (quoteStart>quoteEnd)
 				str += replaceSpecialSymbols(expressionIn.substring(quoteEnd, quoteStart));
 			
 			quoteEnd = getQuoteIndex(expressionIn, quoteStart+1);
-			if (quoteEnd<0) 
+			if (quoteEnd < 0) 
 				quoteEnd = len;
 			else
 				quoteEnd++;
@@ -252,7 +258,7 @@ public class JEP2 extends JEP {
 			
 		}
 		
-		if (quoteEnd<len)
+		if (quoteEnd < len)
 			str += expressionIn.substring(quoteEnd, len);
 		
 		return str;
@@ -260,11 +266,11 @@ public class JEP2 extends JEP {
 	
 	private int getQuoteIndex(String str, int offset) {
 		int idx = str.indexOf('"', offset);
-		if (idx<=0)
+		if (idx <= 0)
 			return idx;
-		if (str.charAt(idx-1)!='\\')
+		if (str.charAt(idx-1) != '\\')
 				return idx;
-		return getQuoteIndex(str, idx+1);
+		return getQuoteIndex(str, idx + 1);
 	}
 	
 	protected String replaceSpecialSymbols(String expressionIn) {
@@ -276,17 +282,20 @@ public class JEP2 extends JEP {
 		return str;
 	}
 	
-	public static JNumber<?> createNumber(JObjectI<?> o) throws JEPException {
-		if (o.isANumber()) 
+	public static JNumber<?> createNumber(final JObjectI<?> o) throws JEPException {
+		if (o.isANumber()) {
 			return (JNumber<?>) o;
+		}
+
 		if (o.getType() == JEP2Type.STRING) {
 			JString s = (JString) o;
 			return NUMBER_FACTORY.createNumber(s.getValue());
 		}
+
 		throw new JEPException(JEP2Trouble.JEP2_NOT_A_NUMBER, o.toString());
 	}
 
-	public static JNumber<?> createNumber(double value) {
+	public static JNumber<?> createNumber(final double value) {
 		return NUMBER_FACTORY.createNumber(value);
 	}
 
@@ -294,103 +303,124 @@ public class JEP2 extends JEP {
 //		return NUMBER_FACTORY.createNumber(value);
 //	}
 
-	public static JNumber<?> createNumber(boolean value) {
+	public static JNumber<?> createNumber(final boolean value) {
 		return NUMBER_FACTORY.createNumber(value);
 	}
 
-	public static JNumber<?> createNumber(float value) {
+	public static JNumber<?> createNumber(final float value) {
 		return NUMBER_FACTORY.createNumber(value);
 	}
 
-	public static JNumber<?> createNumber(long value) {
+	public static JNumber<?> createNumber(final long value) {
 		return NUMBER_FACTORY.createNumber(value);
 	}
 	
-	public static JNumber<?> createNumber(short value) {
+	public static JNumber<?> createNumber(final short value) {
 		return NUMBER_FACTORY.createNumber(value);
 	}
 
-	public static JObjectI<?> createList(JObjectsVector v) {
+	public static JObjectI<?> createList(final JObjectsVector v) {
 		return NUMBER_FACTORY.createList(v);
 	}
 
-	public static JObjectI<?> createString(String s) {
+	public static JObjectI<?> createString(final String s) {
 		return NUMBER_FACTORY.createString(s);
 	}
 
-	public static JObjectI<?> createBoolean(boolean b) {
+	public static JObjectI<?> createBoolean(final boolean b) {
 		return NUMBER_FACTORY.createBoolean(b);
 	}
 	
-	public static JObjectI<?> createDict(JHashTable t) {
+	public static JObjectI<?> createDict(final JHashTable t) {
 		return NUMBER_FACTORY.createDict(t);
 	}
 
 	@Override
 	public String toString() {
-		String s = "";
-		s += "\n"+this.allowUndeclared;
-		s += "\n"+this.allowAssignment;
-		s += "\n"+this.implicitMul;
-		s += "\n"+this.ev;
-		s += "\n"+this.funTab;
-		s += "\n"+this.opSet ;
-		s += "\n"+this.numberFactory ;
-		s += "\n"+this.parser ;
-		s += "\n"+this.symTab ;
-		s += "\n"+this.errorList ;
-		return super.toString()+" "+s;
+		final Object[] parts = {
+			super.toString(),
+			this.allowUndeclared,
+			this.allowAssignment,
+			this.implicitMul,
+			this.ev,
+			this.funTab,
+			this.opSet,
+			this.numberFactory,
+			this.parser,
+			this.symTab,
+			this.errorList
+		};
+		final String result = Stream.of(parts).map(Object::toString).collect(joining("\n"));
+		return result;
 	}
 
-	public static long getLong(JObjectI<?> o) throws JEPException {
-		if (o.getType() != JEP2Type.LONG)
+	public static long getLong(final JObjectI<?> o) throws JEPException {
+		if (o.getType() != JEP2Type.LONG) {
 			throw new JEPException(JEP2Trouble.JEP2_NOT_AN_INT, o.toString());
+		}
+		
 		return ((JInteger) o).getValue();
 	}
 
-	public static int getInteger(JObjectI<?> o) throws JEPException, MathException {
-		long l = getLong(o);
-		int i = (int) l;
-		if (i!=l)
+	public static int getInteger(final JObjectI<?> o) throws JEPException, MathException {
+		final long l = getLong(o);
+		final int i = (int) l;
+		if (i != l) {
 			throw new MathException("long to int conversion error");
+		}
+
 		return i;
 	}
 	
-	public static double getDouble(JObjectI<?> o) throws JEPException {
-		if (!o.isANumber())
+	public static double getDouble(final JObjectI<?> o) throws JEPException {
+		if (!o.isANumber()) {
 			throw new JEPException(JEP2Trouble.JEP2_NOT_A_NUMBER, o.toString());
+		}
+
 		return ((JNumber<?>) o).doubleValue();
 	}
 
-	public static JNumber<?> getNumber(JObjectI<?> o) throws JEPException {
-		if (!o.isANumber())
+	public static JNumber<?> getNumber(final JObjectI<?> o) throws JEPException {
+		if (!o.isANumber()) {
 			throw new JEPException(JEP2Trouble.JEP2_NOT_A_NUMBER, o.toString());
+		}
+
 		return (JNumber<?>) o;
 	}
 	
-	public static boolean getBoolean(JObjectI<?> o) throws JEPException {
-		if (o.getType() == JEP2Type.BOOLEAN)
+	public static boolean getBoolean(final JObjectI<?> o) throws JEPException {
+		if (o.getType() == JEP2Type.BOOLEAN) {
 			return ((JBoolean) o).getValue();
-		if (!o.isANumber())
+		}
+
+		if (!o.isANumber()) {
 			throw new JEPException(JEP2Trouble.JEP2_NOT_A_BOOLEAN, o.toString());
+		}
+
 		return ( (JNumber<?>) o).doubleValue() != 0;
 	}
 
-	public static JList getList(JObjectI<?> o) throws JEPException {
-		if (o.getType() != JEP2Type.LIST)
+	public static JList getList(final JObjectI<?> o) throws JEPException {
+		if (o.getType() != JEP2Type.LIST) {
 			throw new JEPException(JEP2Trouble.JEP2_NOT_A_LIST, o.toString());
+		}
+
 		return (JList) o;
 	}
 	
-	public static JString getString(JObjectI<?> o) throws JEPException {
-		if (o.getType() != JEP2Type.STRING)
+	public static JString getString(final JObjectI<?> o) throws JEPException {
+		if (o.getType() != JEP2Type.STRING) {
 			throw new JEPException(JEP2Trouble.JEP2_NOT_A_STRING, o.toString());
+		}
+		
 		return (JString) o;
 	}
 	
-	public static JIterable getIterable(JObjectI<?> o) throws JEPException {
-		if (!o.isIterable())
+	public static JIterable getIterable(final JObjectI<?> o) throws JEPException {
+		if (!o.isIterable()) {
 			throw new JEPException(JEP2Trouble.JEP2_NOT_ITERABLE, o.toString());
+		}
+
 		return (JIterable) o;
 	}
 }

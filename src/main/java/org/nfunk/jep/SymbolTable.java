@@ -72,33 +72,40 @@ import java.util.Vector;
 public class SymbolTable extends Hashtable<Object, Object>
 {
 	private static final long serialVersionUID = 1127787896437151144L;
-	private VariableFactory vf;
+
+	private transient VariableFactory vf;
+
 	/** SymbolTable should always be constructed an associated variable factory. */
 	public SymbolTable(VariableFactory varFac)
 	{
 		vf = varFac;
 	}
+
 	/** Private default constructors, SymbolTable should always be constructed with an explicit variable factory. */
 	//private SymbolTable() {}
 	
 	/**
-	 * @deprecated The getValue or getVar methods should be used instead. 
+	 * @deprecated The {@link #getValue} or {@link #getVar} methods should be used instead. 
 	 */
-	public Object get(Object key) { return getValue(key); }
+	@Deprecated @Override
+	public synchronized Object get(final Object key) { return getValue(key); }
 	
 
 	/** Finds the value of the variable with the given name. 
 	 * Returns null if variable does not exist. */
-	public Object getValue(Object key)
+	public Object getValue(final Object key)
 	{
-		Variable var = (Variable) super.get(key);
-		if(var==null) return null;
-		return var.getValue();
+		final Variable value = (Variable) super.get(key);
+		if(value == null) {
+			return null;
+		}
+
+		return value.getValue();
 	}
 	
 	/** Finds the variable with given name. 
 	* Returns null if variable does not exist. */
-	public Variable getVar(String name)
+	public Variable getVar(final String name)
 	{
 		return (Variable) super.get(name);
 	}
@@ -106,7 +113,8 @@ public class SymbolTable extends Hashtable<Object, Object>
 	/**
 	 * @deprecated The setVarValue or makeVar methods should be used instead.
 	 */
-	public Object put(Object key,Object val)
+	@Deprecated @Override
+	public synchronized Object put(final Object key, final Object val)
 	{
 		return makeVarIfNeeded((String) key,val);
 	}
@@ -116,14 +124,13 @@ public class SymbolTable extends Hashtable<Object, Object>
 	 * @throws NullPointerException if the variable has not been previously created
 	 * with {@link #addVariable(String,Object)} first.
 	 */
-	public void setVarValue(String name,Object val)
+	public void setVarValue(final String name, final Object val)
 	{
-		Variable var = (Variable) super.get(name);
-		if(var != null) {
-			var.setValue(val); 
-			return; 
+		Variable value = (Variable) super.get(name);
+		if (value == null) {
+			throw new NullPointerException("Variable " + name + " does not exist.");
 		}
-		throw new NullPointerException("Variable "+name+" does not exist.");
+		value.setValue(val); 
 	}
 
 	/**
@@ -134,20 +141,20 @@ public class SymbolTable extends Hashtable<Object, Object>
 	 * @param val
 	 * @return an new Variable object.
 	 */
-	protected Variable createVariable(String name,Object val)
+	protected Variable createVariable(final String name, final Object val)
 	{
-		Variable var = vf.createVariable(name,val);
+		final Variable value = vf.createVariable(name, val);
 		obeservable.stSetChanged();
-		obeservable.notifyObservers(var);
-		return var;
+		obeservable.notifyObservers(value);
+		return value;
 	}
 
-	protected Variable createVariable(String name)
+	protected Variable createVariable(final String name)
 	{
-		Variable var = vf.createVariable(name);
+		final Variable value = vf.createVariable(name);
 		obeservable.stSetChanged();
-		obeservable.notifyObservers(var);
-		return var;
+		obeservable.notifyObservers(value);
+		return value;
 	}
 
 	/** Creates a new variable with given value.
@@ -156,71 +163,78 @@ public class SymbolTable extends Hashtable<Object, Object>
 	 * @param val initial value of variable
 	 * @return a reference to the created variable.
 	 */
-	public Variable addVariable(String name,Object val)
+	public Variable addVariable(final String name, final Object val)
 	{
-		Variable var = (Variable) super.get(name);
-		if(var != null)
-		    throw new IllegalStateException("Variable "+name+" already exists.");
-		
-		var = createVariable(name,val);
-		super.put(name,var);
-		var.setValidValue(true);
-		return var;
+		final Variable value = (Variable) super.get(name);
+		if(value != null) {
+		    throw new IllegalStateException("Variable " + name + " already exists.");
+		}
+
+		final Variable newvar = createVariable(name, val);
+		super.put(name, newvar);
+		newvar.setValidValue(true);
+		return newvar;
 	}
 
 	/** Create a constant variable with the given name and value.
 	 * Returns null if variable already exists.
 	 */
-	public Variable addConstant(String name,Object val)
+	public Variable addConstant(final String name, final Object val)
 	{
-		Variable var = addVariable(name,val);
-		var.setIsConstant(true);
-		return var;
+		final Variable value = addVariable(name, val);
+		value.setConstant(true);
+		return value;
 	}
 
 	/** Create a variable with the given name and value.
 	 * It silently does nothing if the value cannot be set.
 	 * @return the Variable.
 	 */
-	public Variable makeVarIfNeeded(String name,Object val)
+	public Variable makeVarIfNeeded(final String name, final Object val)
 	{
-		Variable var = (Variable) super.get(name);
-		if(var != null)
+		final Variable value = (Variable) super.get(name);
+		if(value != null)
 		{
-		    if(var.isConstant())
-		        throw new IllegalStateException("Attempt to change the value of constant variable "+name);
-			var.setValue(val);
-			return var; 
+		    if(value.isConstant()) {
+		        throw new IllegalStateException("Attempt to change the value of constant variable " + name);
+			}
+
+			value.setValue(val);
+			return value; 
 		}
-		var = createVariable(name,val);
-		super.put(name,var);
-		return var;
+
+		final Variable newvalue = createVariable(name, val);
+		super.put(name, newvalue);
+		return newvalue;
 	}
 
 	/** If necessary create a variable with the given name.
 	 * If the variable exists its value will not be changed.
 	 * @return the Variable.
 	 */
-	public Variable makeVarIfNeeded(String name)
+	public Variable makeVarIfNeeded(final String name)
 	{
-		Variable var = (Variable) super.get(name);
-		if(var != null)	return var; 
+		final Variable value = (Variable) super.get(name);
+		if(value != null) {
+			return value; 
+		}
 
-		var = createVariable(name);
-		super.put(name,var);
-		return var;
+		final Variable newvalue = createVariable(name);
+		super.put(name, newvalue);
+		return value;
 	}
 
 	/**
 	 * Returns a list of variables, one per line.
 	 */
+	@Override
 	public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
+		final StringBuffer sb = new StringBuffer();
 		for(Enumeration<?>  e = this.elements(); e.hasMoreElements(); ) 
 		{
-			Variable var = (Variable) e.nextElement();
-			sb.append(var.toString());
+			final Variable value = (Variable) e.nextElement();
+			sb.append(value.toString());
 			sb.append("\n");
 		}
 		return sb.toString();
@@ -235,8 +249,8 @@ public class SymbolTable extends Hashtable<Object, Object>
 	{
 		for(Enumeration<?>  e = this.elements(); e.hasMoreElements(); ) 
 		{
-			Variable var = (Variable) e.nextElement();
-			var.setValidValue(false);
+			final Variable value = (Variable) e.nextElement();
+			value.setValidValue(false);
 		}
 	}
 	/**
@@ -254,7 +268,7 @@ public class SymbolTable extends Hashtable<Object, Object>
 			return SymbolTable.this;
 		}
 	}
-	protected StObservable obeservable = new StObservable();
+	protected transient StObservable obeservable = new StObservable();
 	/**
 	 * Adds an observer which will be notified when a new variable is created.
 	 * The observer's update method will be called whenever a new

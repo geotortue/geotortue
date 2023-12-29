@@ -17,7 +17,7 @@ import org.nfunk.jep.type.Complex;
  * Implements the arcTanH function.
  * 
  * @author Nathan Funk
- * @since 2.3.0 beta 2 - Now returns Double result rather than Complex for -1<x<1 
+ * @since 2.3.0 beta 2 - Now returns Double result rather than Complex for -1 < x < 1 
  */
 public class ArcTanH extends PostfixMathCommand
 {
@@ -26,13 +26,13 @@ public class ArcTanH extends PostfixMathCommand
 		numberOfParameters = 1;
 	}
 
+	@Override
 	public void run(Stack<Object> inStack)
 		throws ParseException
 	{
-		checkStack(inStack);// check the stack
+		checkStack(inStack);
 		Object param = inStack.pop();
-		inStack.push(atanh(param));//push the result on the inStack
-		return;
+		inStack.push(atanh(param));
 	}
 
 	public Object atanh(Object param)
@@ -47,7 +47,7 @@ public class ArcTanH extends PostfixMathCommand
 			double val = ((Number)param).doubleValue();
 			if(val > -1.0 && val < 1) {
 				double res = Math.log((1+val)/(1-val))/2;
-				return new Double(res);
+				return Double.valueOf(res);
 			}
 			else
 			{

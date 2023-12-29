@@ -41,13 +41,13 @@ public class GTTextPaneWithButton extends JLayeredPane {
             	}
             }
         });
-	    add(scrollPane, new Integer(0));
+	    add(scrollPane, Integer.valueOf(0));
 	    for (JButton button : buttons) {
 			button.setText("");
 			button.setFocusable(false);
 			FWButton.removeBackground(button);
 			button.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1, true));
-			add(button, new Integer(1));
+			add(button, Integer.valueOf(1));
 			moveToFront(button);
 		}		
 	    

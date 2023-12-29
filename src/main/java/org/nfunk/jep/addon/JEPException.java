@@ -24,23 +24,21 @@ public class JEPException extends ParseException {
 	private final JEPTroubleI trouble;
 	private final String[] infos;
 
-	public JEPException(JEPTroubleI t, String... infos) {
+	public JEPException(final JEPTroubleI t, final String... infos) {
 		this.trouble = t;
 		this.infos = infos;
 	}
 
-	public JEPException(JEPException ex) {
+	public JEPException(final JEPException ex) {
 		this.trouble = ex.getTrouble();
 		this.infos = ex.infos;
 	}
 
-	public JEPException(Token token, int[][] exptokseq, String[] tokenimage) {
+	public JEPException(final Token token, final int[][] exptokseq, final String[] tokenimage) {
 		super(token, exptokseq, tokenimage);
 		this.trouble = JEPTrouble.JEP_TOKEN_ERROR;
-		String image = token.image; 
-		if (image == null)
-			image = token.next.image;
-		this.infos = new String[]{image};
+		final String image = token.image != null ? token.image : token.next.image;
+		this.infos = new String[]{ image };
 	}
 
 	public JEPTroubleI getTrouble() {

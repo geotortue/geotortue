@@ -108,7 +108,7 @@ public class GTLauncher extends FWLauncher {
 		if (IS_BETA)
 			try {
 				FWManager.setHeader("/cfg/header.beta.xml");
-			} catch (HTTPException | IOException ex) {
+			} catch (HTTPException ex) {
 				ex.printStackTrace();
 			}
 

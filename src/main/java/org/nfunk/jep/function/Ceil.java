@@ -43,7 +43,7 @@ public class Ceil extends PostfixMathCommand
 	{
 		if (param instanceof Number)
 		{
-			return new Double(Math.ceil(((Number)param).doubleValue()));
+			return Double.valueOf(Math.ceil(((Number)param).doubleValue()));
 		}
 
 		throw new ParseException("Invalid parameter type");

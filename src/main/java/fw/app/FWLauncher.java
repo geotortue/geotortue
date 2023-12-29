@@ -54,7 +54,7 @@ public abstract class FWLauncher implements FWApplicationI, FWAccessible {
 		// Header xml file
 		try {
 			FWManager.setHeader("/cfg/header.xml");
-		} catch (HTTPException | IOException ex) {
+		} catch (HTTPException ex) {
 			ex.printStackTrace();
 		}
 		
@@ -101,11 +101,13 @@ public abstract class FWLauncher implements FWApplicationI, FWAccessible {
 	}
 
 	protected void initFonts(){
-		String incosolontaG = "Inconsolata-g";
-		String dejaVuSans = "DejaVu Sans";
-		String dejaVuSansMono = "DejaVu Sans Mono";
-		String dialog = "Dialog";
-		Font font = null, font12 = null;
+		final String incosolontaG = "Inconsolata-g";
+		final String dejaVuSans = "DejaVu Sans";
+		final String dejaVuSansMono = "DejaVu Sans Mono";
+		final String dialog = "Dialog";
+		
+		Font font = null;
+		Font font12 = null;
 		
 		if (isFontInstalled(incosolontaG) || (installFont(incosolontaG, "Inconsolata-g.ttf")))
 			font = new Font(incosolontaG, Font.PLAIN, 15); 
@@ -121,10 +123,10 @@ public abstract class FWLauncher implements FWApplicationI, FWAccessible {
 			font12 = new Font(dejaVuSans, Font.PLAIN, 12);
 		}
 		
-		if (font==null) 
+		if (font == null) 
 			font = new Font(dialog, Font.PLAIN, 14);
 		
-		if (font12==null)
+		if (font12 == null)
 			font12 = new Font(dialog, Font.PLAIN, 12);
 		
 		UIManager.put("FWFont", font); // FW Font

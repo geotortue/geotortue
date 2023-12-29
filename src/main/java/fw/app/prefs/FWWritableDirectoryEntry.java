@@ -22,15 +22,16 @@ public class FWWritableDirectoryEntry extends FWWritableDirectory implements FWP
 
 	private final File defaultValue = FWManager.getUserDirectory();
 	
-	private final OPTKey CONFIRM = new OPTKey(FWWritableDirectory.class, "confirmDirectory");
+	private static final OPTKey CONFIRM = new OPTKey(FWWritableDirectory.class, "confirmDirectory");
 	private final OPTKey key;
 	private boolean initialized;
 	
 	/**
 	 * @param owner
 	 * @param tag
+	 * @param key
 	 */
-	public FWWritableDirectoryEntry(Window owner, String tag, OPTKey key) {
+	public FWWritableDirectoryEntry(final Window owner, final String tag, final OPTKey key) {
 		super(owner, tag);
 		this.key = key;
 		this.initialized = FWLocalPreferences.register(this);
@@ -43,9 +44,11 @@ public class FWWritableDirectoryEntry extends FWWritableDirectory implements FWP
 	
 	@Override
 	public String getEntryValue() {
-		if (initialized)
-			return super.getValue().getAbsolutePath();
-		return null;
+		if (!initialized) {
+			return null;
+		}
+
+		return super.getValue().getAbsolutePath();
 	}
 	
 	@Override
@@ -53,27 +56,39 @@ public class FWWritableDirectoryEntry extends FWWritableDirectory implements FWP
 		setValue(new File(v));
 	}
 	
+	/**
+	 * 
+	 * @return file
+	 * 
+	 * @deprecated
+     * This method is no longer acceptable to get file value
+     * <p> Use {@link FWWritableDirectoryEntry#getValueSafely()} instead.
+	 */
 	@Override @Deprecated
-	public File getValue() { // use getValueSafely() instead
+	public File getValue() { 
 		return super.getValue();
 	}
 	
 	public File askForValue() throws UninitializedDirectoryException {
 		while (!initialized) {
 			FWOptionPane.showInformationMessage(owner, key);
-			File f = askForDirectory();
-			if (f!=null)
-				initialized = setValue(f);
-			else throw new UninitializedDirectoryException();
+			final File f = askForDirectory();
+			if (f == null) {
+				throw new UninitializedDirectoryException();
+			}
+
+			initialized = setValue(f);
 		}
 		return super.getValue();
 	}
 
 	
 	private File askForDirectory() {
-		File f = FWManager.getSubDirectory(owner, getXMLTag());
-		if (f==null)
+		final File f = FWManager.getSubDirectory(owner, getXMLTag());
+		if (f == null) {
 			return null;
+		}
+
 		ANSWER answer = FWOptionPane.showConfirmDialog(owner, CONFIRM, f.getPath());
 		switch (answer) {
 		case YES:
@@ -90,18 +105,21 @@ public class FWWritableDirectoryEntry extends FWWritableDirectory implements FWP
 	}
 
 	/**
-	 * @return
+	 * @return file
+	 * 
 	 * @throws UninitializedDirectoryException 
 	 */
 	public File getValueSafely() throws UninitializedDirectoryException {
-		if (initialized)
+		if (initialized) {
 			return super.getValue();
+		}
+
 		throw new UninitializedDirectoryException();
 	}
 
 	@Override
 	protected boolean setValue(File v) {
-		initialized = (v!=null);
+		initialized = (v != null);
 		return super.setValue(v);
 	}
 	

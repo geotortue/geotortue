@@ -43,7 +43,7 @@ public class ArcCosine extends PostfixMathCommand
 		}
 		else if (param instanceof Number)
 		{
-			return new Double(Math.acos(((Number)param).doubleValue()));
+			return Double.valueOf(Math.acos(((Number)param).doubleValue()));
 		}
 
 		throw new ParseException("Invalid parameter type");

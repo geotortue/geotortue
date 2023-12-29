@@ -34,7 +34,7 @@ public class JNumberFactory implements JNumberFactoryI {
 
 	@Override
 	public JNumber<?> createNumber(double value) {
-		return new JDouble(new Double(value));
+		return new JDouble(Double.valueOf(value));
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class JNumberFactory implements JNumberFactoryI {
 
 	@Override
 	public JNumber<?> createNumber(float value) {
-		return createNumber(new Double(value));
+		return createNumber(Double.valueOf(value));
 	}
 	
 	public JNumber<?> createNumber(long value) {

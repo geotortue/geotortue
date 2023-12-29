@@ -17,7 +17,7 @@ public class JEP2Exception extends JEPException {
 	
 	private final HelpI help;
 	
-	public JEP2Exception(HelpI h, JEPTroubleI t, String... infos) {
+	public JEP2Exception(final HelpI h, final JEPTroubleI t, final String... infos) {
 		super(t, infos);
 		this.help = h;
 	}
@@ -26,7 +26,7 @@ public class JEP2Exception extends JEPException {
 	 * @param h
 	 * @param e
 	 */
-	public JEP2Exception(HelpI h, JEPException e) {
+	public JEP2Exception(final HelpI h, final JEPException e) {
 		this(h, e.getTrouble(), e.getInfos());
 	}
 

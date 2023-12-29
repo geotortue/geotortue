@@ -59,7 +59,7 @@ public class Power extends PostfixMathCommand
 			return c.power(d2.doubleValue());
 		}
 		else
-			return new Double(Math.pow(d1.doubleValue(),d2.doubleValue()));
+			return Double.valueOf(Math.pow(d1.doubleValue(),d2.doubleValue()));
 	}
 	
 	public Object power(Complex c1, Complex c2)
@@ -67,7 +67,7 @@ public class Power extends PostfixMathCommand
 		Complex temp = c1.power(c2);
 
 		if (temp.im()==0)
-			return new Double(temp.re());
+			return Double.valueOf(temp.re());
 		else
 			return temp;
 	}
@@ -77,7 +77,7 @@ public class Power extends PostfixMathCommand
 		Complex temp = c.power(d.doubleValue());
 		
 		if (temp.im()==0)
-			return new Double(temp.re());
+			return Double.valueOf(temp.re());
 		else
 			return temp;
 	}
@@ -88,7 +88,7 @@ public class Power extends PostfixMathCommand
 		Complex temp = base.power(c);
 		
 		if (temp.im()==0)
-			return new Double(temp.re());
+			return Double.valueOf(temp.re());
 		else
 			return temp;
 	}

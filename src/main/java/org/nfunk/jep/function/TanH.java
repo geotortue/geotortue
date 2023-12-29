@@ -20,26 +20,26 @@ public class TanH extends PostfixMathCommand
 		numberOfParameters = 1;
 	}
 
-	public void run(Stack<Object> inStack)
+	public void run(final Stack<Object> inStack)
 		throws ParseException
 	{
-		checkStack(inStack);// check the stack
-		Object param = inStack.pop();
-		inStack.push(tanh(param));//push the result on the inStack
-		return;
+		checkStack(inStack);
+		final Object param = inStack.pop();
+		inStack.push(tanh(param));
 	}
 
-	public Object tanh(Object param)
+	public Object tanh(final Object param)
 		throws ParseException
 	{
 		if (param instanceof Complex)
 		{
-			return ((Complex)param).tanh();
+			return ((Complex) param).tanh();
 		}
-		else if (param instanceof Number)
+		
+		if (param instanceof Number)
 		{
-			double value = ((Number)param).doubleValue();
-			return new Double((Math.exp(value)-Math.exp(-value))/(Math.pow(Math.E,value)+Math.pow(Math.E,-value)));
+			final double value = ((Number) param).doubleValue();
+			return Double.valueOf((Math.exp(value) - Math.exp(-value)) / (Math.pow(Math.E, value) + Math.pow(Math.E, -value)));
 		}
 		throw new ParseException("Invalid parameter type");
 	}

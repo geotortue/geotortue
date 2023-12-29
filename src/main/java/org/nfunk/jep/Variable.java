@@ -28,9 +28,9 @@ import java.util.Observable;
 public class Variable extends Observable {
 	protected String name;
 	private Object value;
-	private boolean isConstant = false;
+	private boolean constant = false;
 	private boolean validValue = false;
-//	private static final Double ZERO = new Double(0.0);
+//	private static final Double ZERO = Double.valueOf(0.0);
 
 	/** Constructors are protected. Variables should only
 	 * be created through the associated {@link VariableFactory}
@@ -46,22 +46,34 @@ public class Variable extends Observable {
 	 * be created through the associated {@link VariableFactory}
 	 * which are in turned called by {@link SymbolTable}.
 	 */
-	protected Variable(String name,Object value)
+	protected Variable(final String name, final Object value)
 	{
 		this.name = name;
 		this.value = value;
-		validValue = (value!=null);
+		validValue = (value != null);
 	}
-	public String getName() {return name;}
+
+	public String getName() { return name; }
+
 	//private void setName(String string) {name = string;	}
-	public boolean isConstant() { return this.isConstant; }
-	public void setIsConstant(boolean b) { this.isConstant = b; }
+
+	public boolean isConstant() { return this.constant; }
+
+	public void setConstant(final boolean constant) { this.constant = constant; }
+
 	public Object getValue() { return value; }
+
 	/** Is the value of this variable valid? **/
 	public boolean hasValidValue() { return validValue; }
+
 	/** Sets whether the value of variable is valid. **/
 	public void setValidValue(boolean val) {
-		if(isConstant()) return; validValue = val; }
+		if (isConstant()) {
+			return; 
+		}
+
+		validValue = val; 
+	}
 
 	/**
 	 * Sets the value of the variable. Constant values cannot be changed.
@@ -74,8 +86,11 @@ public class Variable extends Observable {
 	 * @return false if tried to change a constant value.
 	 * @since 2.3.0 beta 2 added Observable
 	 */
-	public boolean setValue(Object object) {
-		if(!setValueRaw(object)) return false;
+	public boolean setValue(final Object object) {
+		if(!setValueRaw(object)) {
+			return false;
+		}
+
 		setChanged();
 		notifyObservers(object);
 		return true;
@@ -89,8 +104,11 @@ public class Variable extends Observable {
 	 * @return false if tried to change a constant value.
 	 * @since 2.3.0 beta 2
 	 */
-	protected boolean setValueRaw(Object object) {
-		if(isConstant) return false;
+	protected boolean setValueRaw(final Object object) {
+		if (isConstant()) {
+			return false;
+		}
+		
 		validValue = true;
 		value = object;
 		return true;
@@ -105,11 +123,14 @@ public class Variable extends Observable {
 	 * @return A string with the variable name and value.
 	 */
 	public String toString() {
-		if(!validValue || value == null)
+		if (!validValue || value == null) {
 			return name + ": null";
-		else if(isConstant)
+		}
+		
+		if (isConstant()) {
 			return name + ": " + value.toString() + " (Constant)";
-		else
-			return name + ": " + value.toString(); 
+		}
+		
+		return name + ": " + value.toString(); 
 	}
 }

@@ -19,21 +19,22 @@ public class UMinus extends PostfixMathCommand
 		numberOfParameters = 1;
 	}
 	
-	public void run(Stack<Object> inStack) throws ParseException {
-		checkStack(inStack);// check the stack
+	public void run(final Stack<Object> inStack) throws ParseException {
+		checkStack(inStack);
 
-		Object param = inStack.pop();
+		final Object param = inStack.pop();
 		
 		inStack.push(umin(param));
-		return;
 	}
 	
-	public Object umin(Object param) throws ParseException {
-		if (param instanceof Complex)
-			return ((Complex)param).neg();
-		if (param instanceof Number)
-			return new Double(-((Number)param).doubleValue());
+	public Object umin(final Object param) throws ParseException {
+		if (param instanceof Complex) {
+			return ((Complex) param).neg();
+		}
 
+		if (param instanceof Number) {
+			return Double.valueOf(-((Number) param).doubleValue());
+		}
 		throw new ParseException("Invalid parameter type");
 	}
 }

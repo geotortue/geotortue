@@ -20,23 +20,25 @@ public class Tangent extends PostfixMathCommand
 		numberOfParameters = 1;
 	}
 	
-	public void run(Stack<Object> inStack)
+	public void run(final Stack<Object> inStack)
 		throws ParseException 
 	{
-		checkStack(inStack);// check the stack
-		Object param = inStack.pop();
-		inStack.push(tan(param));//push the result on the inStack
-		return;
+		checkStack(inStack);
+		final Object param = inStack.pop();
+		inStack.push(tan(param));
 	}
 
-	public Object tan(Object param)
+	public Object tan(final Object param)
 		throws ParseException
 	{
-		if (param instanceof Complex)
-			return ((Complex)param).tan();
-		else if (param instanceof Number)
-			return new Double(Math.tan(((Number)param).doubleValue()));
+		if (param instanceof Complex) {
+			return ((Complex) param).tan();
+		}
 
+		if (param instanceof Number) {
+			return Double.valueOf(Math.tan(((Number) param).doubleValue()));
+		}
+		
 		throw new ParseException("Invalid parameter type");
 	}
 }

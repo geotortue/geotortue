@@ -64,7 +64,7 @@ import org.nfunk.jep.type.NumberFactory;
 public class JEP {
 
 	/** Debug flag for extra command line output */
-	private static final boolean debug = false;
+	private static final boolean DEBUG = false;
 	
 	/** Traverse option */
 	private boolean traverse;
@@ -123,7 +123,7 @@ public class JEP {
 		opSet = new OperatorSet();
 		initSymTab();
 		initFunTab();
-		errorList = new Vector<Object>();
+		errorList = new Vector<Object>(); // NOSONAR
 		exception = null; // addon
 		ev = new EvaluatorVisitor();
 		parser = new Parser(new StringReader(""));
@@ -262,8 +262,8 @@ public class JEP {
 	 */
 	public void addStandardConstants() {
 		//add constants to Symbol Table
-		symTab.addConstant("pi", new Double(Math.PI));
-		symTab.addConstant("e", new Double(Math.E));
+		symTab.addConstant("pi", Double.valueOf(Math.PI));
+		symTab.addConstant("e", Double.valueOf(Math.E));
 	}
 	
 	/**
@@ -319,7 +319,7 @@ public class JEP {
 	 * @return Double object of the variable
 	 */
 	public Double addVariable(String name, double value) {
-		Double object = new Double(value);
+		Double object = Double.valueOf(value);
 		symTab.makeVarIfNeeded(name, object);
 		return object;
 	}
@@ -490,12 +490,12 @@ public class JEP {
 	 * Parses the expression. If there are errors in the expression,
 	 * they are added to the <code>errorList</code> member. Errors can be
 	 * obtained through <code>getErrorInfo()</code>.
-	 * @param expression_in The input expression string
+	 * @param expression The input expression string
 	 * @return the top node of the expression tree if the parse was successful,
 	 * <code>null</code> otherwise
 	 */
-	public Node parseExpression(String expression_in) {
-		Reader reader = new StringReader(expression_in);
+	public Node parseExpression(String expression) {
+		Reader reader = new StringReader(expression);
 		
 		try {
 			// try parsing
@@ -527,7 +527,7 @@ public class JEP {
 			} else {
 				// if the exception was not a ParseException, it was most
 				// likely a syntax error
-				if (debug) {
+				if (DEBUG) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
 				}
@@ -613,7 +613,7 @@ public class JEP {
 			if( c.im() != 0.0) return Double.NaN;
 			return c.re();
 		}
-		if (value != null && value instanceof Number) {
+		if (value instanceof Number) {
 			return ((Number)value).doubleValue();
 		}
 		
@@ -663,17 +663,16 @@ public class JEP {
 		} catch(JEPException e)	{
 			throw e ;
 		} catch(ParseException e)	{
-			if (debug) System.out.println(e);
+			if (DEBUG) System.out.println(e);
 			errorList.addElement("Error during evaluation: "+e.getMessage());
 			e.printStackTrace();
 			
 			return null;
 		}
 		catch(RuntimeException e) {
-			if (debug) System.out.println(e);
+			if (DEBUG) System.out.println(e);
 			errorList.addElement(e.getClass().getName()+": "+e.getMessage());
 			throw e;
-			//return null;
 		}
 		return result;
 	}

@@ -39,7 +39,7 @@ public class Range extends PostfixMathCommand
 		Vector<Object> res = new Vector<Object>(steps);
 		res.setSize(steps);
 		for(int i=0;i<steps;++i)
-			res.set(i,new Double(low+inc*i));
+			res.set(i,Double.valueOf(low+inc*i));
 		return res;
 	}
 	public void run(Stack<Object> inStack)

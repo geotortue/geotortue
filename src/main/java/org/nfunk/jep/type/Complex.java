@@ -9,14 +9,15 @@
 
 
 package  org.nfunk.jep.type;
+
 import java.text.NumberFormat;
 
 /**
  * Represents a complex number with double precision real and imaginary
  * components. Includes complex arithmetic functions.<p>
  * The two main sources of reference used for creating this class were:<br>
- * - "Numerical Recipes in C - The Art of Scientific Computing"
- *    (ISBN 0-521-43108-5) http://www.nr.com and <br>
+ * - "Numerical Recipes in C - The Art of Scientific Computing - 2d ed."
+ *    (ISBN 0-521-43108-5) http://http://numerical.recipes/,<br>
  * - The org.netlib.math.complex package (http://www.netlib.org) which was 
  *   developed by Sandy Anderson and Priyantha Jayanetti (published under
  *   GPL).<p>
@@ -59,7 +60,7 @@ public class Complex
 	 * initialized with the real component equal to the parameter, and
 	 * the imaginary component equal to zero.
 	 */
-	public Complex(double re_in) {
+	public Complex(final double re_in) {
 		re = re_in;
 		im = 0;
 	}
@@ -69,7 +70,7 @@ public class Complex
 	 * method of the parameter to initialize the real component of the
 	 * complex number. The imaginary component is initialized to zero.
 	 */
-	public Complex(Number re_in) {
+	public Complex(final Number re_in) {
 		re = re_in.doubleValue();
 		im = 0;
 	}
@@ -77,7 +78,7 @@ public class Complex
 	/**
 	 * Copy constructor
 	 */
-	public Complex(Complex z) {
+	public Complex(final Complex z) {
 		re = z.re;
 		im = z.im;
 	}
@@ -86,7 +87,7 @@ public class Complex
 	 * Initialize the real and imaginary components to the values given
 	 * by the parameters.
 	 */
-	public Complex(double re_in, double im_in) {
+	public Complex(final double re_in, final double im_in) {
 		re = re_in;
 		im = im_in;
 	}
@@ -108,7 +109,7 @@ public class Complex
 	/**
 	 * Copies the values from the parameter object to this object
 	 */
-	public void set(Complex z) {
+	public void set(final Complex z) {
 		re = z.re;
 		im = z.im;
 	}
@@ -116,7 +117,7 @@ public class Complex
 	/**
 	 * Sets the real and imaginary values of the object.
 	 */
-	public void set(double re_in, double im_in) {
+	public void set(final double re_in, final double im_in) {
 		re = re_in;
 		im = im_in;
 	}
@@ -124,14 +125,14 @@ public class Complex
 	/**
 	 * Sets the real component of the object
 	 */
-	public void setRe(double re_in) {
+	public void setRe(final double re_in) {
 		re = re_in;
 	}
 
 	/**
 	 * Sets the imaginary component of the object
 	 */
-	public void setIm(double im_in) {
+	public void setIm(final double im_in) {
 		im = im_in;
 	}
 
@@ -147,27 +148,30 @@ public class Complex
 	 * @return <pre>true</pre> if the complex number are considered equal,
 	 * <pre>false</pre> otherwise.
 	 */
-	public boolean equals(Complex b, double tolerance) {
+	public boolean equals(final Complex b, final double tolerance) {
 		double temp1 = (re - b.re);
 		double temp2 = (im - b.im);
 		
-		return (temp1*temp1 + temp2*temp2) <= tolerance*tolerance;
+		return (temp1 * temp1 + temp2 * temp2) <= tolerance * tolerance;
 	}
 	/**
 	 * Compares this object against the specified object. 
 	 * The result is true if and only if the argument is not null 
 	 * and is a Complex object that represents the same complex number. 
-	 * Equality follows the same pattern as Double aplies to each field:
+	 * Equality follows the same pattern as Double applies to each field:
 	 * <ul>
      * <li>If d1 and d2 both represent Double.NaN, then the equals method returns true, even though Double.NaN==Double.NaN has the value false.
-     * <li>If d1 represents +0.0 while d2 represents -0.0, or vice versa, the equal test has the value false, even though +0.0==-0.0 has the value true.
+     * <li>If d1 represents +0.0 while d2 represents -0.0, or vice versa, the equal test has the value false, even though +0.0 == -0.0 has the value true.
      * </ul>
      * This definition allows hash tables to operate properly.
 
 	 * @since 2.3.0.2
 	 */
-	public boolean equals(Object o) {
-		if(!(o instanceof Complex)) return false;
+	public boolean equals(final Object o) {
+		if(!(o instanceof Complex)) {
+			return false;
+		}
+
 		Complex c = (Complex) o;
 		return(Double.doubleToLongBits(this.re) == Double.doubleToLongBits(c.re) 
 			&& Double.doubleToLongBits(this.im) == Double.doubleToLongBits(c.im));
@@ -180,10 +184,10 @@ public class Complex
 		int result = 17;
 		long xl = Double.doubleToLongBits(this.re);
 		long yl = Double.doubleToLongBits(this.im);
-		int xi = (int)(xl^(xl>>32));
-		int yi = (int)(yl^(yl>>32));
-		result = 37*result+xi;
-		result = 37*result+yi;
+		int xi = (int) (xl^(xl>>32));
+		int yi = (int) (yl^(yl>>32));
+		result = 37 * result + xi;
+		result = 37 * result + yi;
 		return result;
 	}
 	/**
@@ -196,7 +200,7 @@ public class Complex
 
 	public String toString(NumberFormat format)
 	{
-		return "(" + format.format(re) +", "+format.format(im)+")";	
+		return "(" + format.format(re) + ", " + format.format(im) + ")";	
 	}
 	
 	/** Prints using specified number format in format or "2" or "3 i"
@@ -204,7 +208,7 @@ public class Complex
 	 * or "2+3 i" if flag is false
 	 */
 	
-	public String toString(NumberFormat format,boolean flag)
+	public String toString(final NumberFormat format, final boolean flag)
 	{
 		if(im == 0.0)
 			return format.format(re);
@@ -248,25 +252,27 @@ public class Complex
 	 * ISBN 0-521-43108-5
 	 */
 	public double abs() {
-		double absRe = Math.abs(re);
-		double absIm = Math.abs(im);
+		final double absRe = Math.abs(re);
+		final double absIm = Math.abs(im);
 		
 		if (absRe == 0 && absIm == 0) {
 			return 0;
-		} else if (absRe>absIm) {
-			double temp = absIm/absRe;
-			return absRe*Math.sqrt(1 + temp*temp);	
-		} else {
-			double temp = absRe/absIm;
-			return absIm*Math.sqrt(1 + temp*temp);
-		}
+		} 
+		
+		if (absRe > absIm) {
+			final double temp = absIm / absRe; // absRe can't be zero here
+			return absRe*Math.sqrt(1 + temp * temp);	
+		} 
+		// absIm >= absRe but in fact absIm > absRe
+		final double temp = absRe / absIm; // absIm can't be zero here
+		return absIm*Math.sqrt(1 + temp * temp);
 	}
 
 	/**
 	 * Returns the square of the absolute value (re*re+im*im).
 	 */
 	public double abs2() {
-		return re*re+im*im;	
+		return re * re + im * im;	
 	}
 
 	/**
@@ -513,16 +519,19 @@ public class Complex
 	 * Returns the tangent of this complex number.
 	 */
 	public Complex tan() {
-		// tan(z) = sin(z)/cos(z)
-		double izRe, izIm;
-		double temp1Re, temp1Im;
-		double temp2Re, temp2Im;
+		// tan(z) = sin(z) / cos(z)
+		
+		double temp1Re;
+		double temp1Im;
+		double temp2Re;
+		double temp2Im;
 		double scalar;
-		Complex sinResult, cosResult;
+		Complex sinResult;
+		Complex cosResult;
 		
 		//  sin(z)  =  ( exp(i*z) - exp(-i*z) ) / (2*i)
-		izRe = -im;
-		izIm =  re;
+		double izRe = -im;
+		double izIm =  re;
 		
 		// first exp
 		scalar = Math.exp(izRe);
@@ -541,7 +550,7 @@ public class Complex
 
 		//  cos(z)  =  ( exp(i*z) + exp(-i*z) ) / 2
 		izRe = -im;
-		izIm =  re;
+		izIm = +re;
 		
 		// first exp
 		scalar = Math.exp(izRe);
@@ -567,7 +576,8 @@ public class Complex
 	
 	public Complex asin() {
 		Complex result;
-		double tempRe, tempIm;
+		double tempRe;
+		double tempIm;
 		
 		//  asin(z)  =  -i * log(i*z + sqrt(1 - z*z))
 
@@ -769,35 +779,31 @@ public class Complex
 	public Complex atanh() {
 		//  atanh(z)  =  1/2 * log( (1+z)/(1-z) )
 		
-		double tempRe, tempIm;
-		Complex result = new Complex(1.0 + re, im);
+		final Complex numerator = new Complex(1.0 + re, im);
+		final Complex denominator = new Complex(1.0 - re, -im);
 		
-		tempRe = 1.0 - re;
-		tempIm =     - im;
+		final Complex ratio = numerator.div(denominator);
 		
-		result = result.div(new Complex(tempRe, tempIm));
-		
-		tempRe = Math.log(result.abs());
-		tempIm = result.arg();
-		
-		result.re = 0.5*tempRe;
-		result.im = 0.5*tempIm;
+		final double tempRe = 0.5 * Math.log(ratio.abs());
+		final double tempIm = 0.5 * ratio.arg();
+
+		final Complex result = new Complex(tempRe, tempIm); // NOSONAR //don't inline with return
 		
 		return result;
 	}
 
 	/**
-	 * Converts an [r,theta] pair to a complex number r * e^(i theta).
+	 * Converts an [r, theta] pair to a complex number r * e^(i theta).
 	 * @param r The radius
 	 * @param theta The angle
 	 * @return The complex result.
 	 * @since 2.3.0.1
 	 */
-	public static Complex polarValueOf(Number r,Number theta)
+	public static Complex polarValueOf(final Number r, final Number theta)
 	{
-		double rad = r.doubleValue();
-		double ang = theta.doubleValue();
-		return new Complex(rad*Math.cos(ang), rad*Math.sin(ang));
+		final double rad = r.doubleValue();
+		final double ang = theta.doubleValue();
+		return new Complex(rad * Math.cos(ang), rad * Math.sin(ang));
 		
 	}
 	/** Returns real part.
@@ -832,17 +838,17 @@ public class Complex
 	 * 
 	 */
 	
-	public Complex add(double a){
-		return new Complex(re+a, im);
+	public Complex add(final double a){
+		return new Complex(re + a, im);
 	}
 	
 	public Complex inv(){
-		double rho = abs2();
-		return new Complex(re/rho, -im/rho);
+		final double rho = abs2();
+		return new Complex(re / rho, -im / rho);
 	}
 	
 	public Complex exp(){
-		double r=Math.exp(re);
-		return new Complex(r*Math.cos(im), r*Math.sin(im));
+		final double r = Math.exp(re);
+		return new Complex(r * Math.cos(im), r * Math.sin(im));
 	}
 }

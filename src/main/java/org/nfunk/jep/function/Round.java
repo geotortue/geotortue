@@ -50,7 +50,7 @@ public class Round extends PostfixMathCommand
 			int dp = ((Number)r).intValue();
 			double val = ((Number)l).doubleValue();
 			double mul = Math.pow(10,dp);
-			return new Double(Math.rint(val*mul)/mul);
+			return Double.valueOf(Math.rint(val*mul)/mul);
 		}
 		throw new ParseException("Invalid parameter type");
 	}
@@ -60,7 +60,7 @@ public class Round extends PostfixMathCommand
 	{
 		if (param instanceof Number)
 		{
-			return new Double(Math.rint(((Number)param).doubleValue()));
+			return Double.valueOf(Math.rint(((Number)param).doubleValue()));
 		}
 
 		throw new ParseException("Invalid parameter type");

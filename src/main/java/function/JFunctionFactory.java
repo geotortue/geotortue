@@ -345,7 +345,7 @@ public class JFunctionFactory {
 		}
 		
 		public double getResult(double x) {
-			return Math.log(x+Math.sqrt(x*x+1));
+			return Math.log(x + Math.sqrt(x * x + 1));
 		}
 	}
 	
@@ -354,10 +354,12 @@ public class JFunctionFactory {
 			super(ACOSH);
 		}
 		
-		public double getResult(double x) throws JEPException {
-			if (x<1)
-				throw new JEP2Exception(this, JEP2Trouble.JEP2_ACOSH, x+"");
-			return Math.log(x+Math.sqrt(x*x-1));
+		public double getResult(final double x) throws JEPException {
+			if (x < 1) {
+				throw new JEP2Exception(this, JEP2Trouble.JEP2_ACOSH, x + "");
+			}
+
+			return Math.log(x + Math.sqrt(x * x - 1));
 		}
 	}
 	
@@ -366,10 +368,10 @@ public class JFunctionFactory {
 			super(ATANH);
 		}
 		
-		public double getResult(double x) throws JEPException {
-			if (Math.abs(x)>=1)
-				throw new JEP2Exception(this, JEP2Trouble.JEP2_ATANH, x+"");
-			return Math.log((1+x)/(1-x))/2;
+		public double getResult(final double x) throws JEPException {
+			if (Math.abs(x) >= 1)
+				throw new JEP2Exception(this, JEP2Trouble.JEP2_ATANH, x + "");
+			return Math.log((1 + x) / (1 - x)) / 2;
 		}
 	}
 	
@@ -378,7 +380,7 @@ public class JFunctionFactory {
 			super(EXP);
 		}
 		
-		public double getResult(double x) {
+		public double getResult(final double x) {
 			return Math.exp(x);
 		}
 	}
@@ -388,31 +390,35 @@ public class JFunctionFactory {
 			super(ABS);
 		}
 		
-		public double getResult(double x) {
+		public double getResult(final double x) {
 			return Math.abs(x);
 		}
 	}
 
 	private class Sqrt extends SimpleRealFunction {
-		public Sqrt(JKey key){
+		public Sqrt(final JKey key) {
 			super(key);
 		}
 		
-		public double getResult(double x) throws JEPException {
-			if (x<0)
-				throw new JEP2Exception(this, JEP2Trouble.JEP2_SQRT, x+"");
+		public double getResult(final double x) throws JEPException {
+			if (x < 0) {
+				throw new JEP2Exception(this, JEP2Trouble.JEP2_SQRT, x + "");
+			}
+
 			return Math.sqrt(x);
 		}
 	}
 	
 	private class Ln extends SimpleRealFunction {
-		public Ln(){
+		public Ln() {
 			super(LN);
 		}
 		
-		public double getResult(double x) throws JEPException {
-			if (x<=0)
-				throw new JEP2Exception(this, JEP2Trouble.JEP2_LOG, x+"");
+		public double getResult(final double x) throws JEPException {
+			if (x <= 0) {
+				throw new JEP2Exception(this, JEP2Trouble.JEP2_LOG, x + "");
+			}
+
 			return Math.log(x);
 		}
 	}
@@ -422,9 +428,11 @@ public class JFunctionFactory {
 			super(LOG);
 		}
 		
-		public double getResult(double x) throws JEPException {
-			if (x<=0)
-				throw new JEP2Exception(this, JEP2Trouble.JEP2_LOG, x+"");
+		public double getResult(final double x) throws JEPException {
+			if (x <= 0) {
+				throw new JEP2Exception(this, JEP2Trouble.JEP2_LOG, x + "");
+			}
+
 			return Math.log10(x);
 		}
 	}
@@ -434,7 +442,7 @@ public class JFunctionFactory {
 			super(key);
 		}
 		
-		public int getResult(double x) {
+		public int getResult(final double x) {
 			return (int) Math.floor(x);
 		}
 	}
@@ -463,10 +471,10 @@ public class JFunctionFactory {
 		@Override
 		public JObjectI<?> getResult(Stack<Object> inStack) throws JEPException {
 			int x = (int) popDouble(inStack);
-			if (x==0)
+			if (x == 0)
 				throw new JEP2Exception(this, JEP2Trouble.JEP2_DIV_BY_0);
 			int y = (int) popDouble(inStack);
-			int res = y%x;
+			int res = y % x;
 			return JEP2.createNumber(res);
 		}
 	}
@@ -489,7 +497,7 @@ public class JFunctionFactory {
 		}
 		
 		public int getResult(double x) {
-			return 1+(int) (Math.random()*((int) x));
+			return 1 + (int) (Math.random()*((int) x));
 		}
 	}
 	
@@ -504,11 +512,9 @@ public class JFunctionFactory {
 
 		@Override
 		public Object evaluate(Node node, EvaluatorI pv) throws ParseException {
-			JObjectI<?> condVal = (JObjectI<?>) pv.eval(node.jjtGetChild(0));
-			if (JEP2.getBoolean(condVal)) 
-				return (JObjectI<?>) pv.eval(node.jjtGetChild(1));
-			else
-				return  (JObjectI<?>) pv.eval(node.jjtGetChild(2));
+			final JObjectI<?> condVal = (JObjectI<?>) pv.eval(node.jjtGetChild(0));
+			final int childNodeIndex = (JEP2.getBoolean(condVal)) ? 1 : 2;
+			return  (JObjectI<?>) pv.eval(node.jjtGetChild(childNodeIndex));
 		}
 	}
 }

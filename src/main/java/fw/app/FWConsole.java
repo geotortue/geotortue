@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,6 +17,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,29 +54,28 @@ public class FWConsole extends JFrame {
 	private static final OPTKey CONFIRM_EXIT = new OPTKey(FWConsole.class, "confirmExit");
 	private static final ActionKey COPY = new ActionKey(FWConsole.class, "copy");
 
-	private final static FWConsole SHARED_CONSOLE = new FWConsole();
+	private static final FWConsole SHARED_CONSOLE = new FWConsole();
 	
-	private File logFile;
+	private transient File logFile;
 	private final String header;
 	private final JTextArea textArea;
-	private FileOutputStream fileStream;
+	private transient FileOutputStream fileStream;
 
-	private final WindowListener exitJVMListener = new WindowAdapter(){
+	private final transient WindowListener exitJVMListener = new WindowAdapter(){
+		@Override
 		public void windowClosing(WindowEvent e) {
 			System.exit(0);
 		}
 	};
-	
-	private static OutputStreamWriter textOut;
-	
+		
 	private FWConsole() {
 		super("System error stream");
-			try {
-				this.logFile = new File(FWManager.getConfigDirectory(), "error.log");
-			} catch (FWRestrictedAccessException e) {
-				this.logFile = null;
-			}
-		String path = (logFile != null) ? logFile.getAbsolutePath() : "none";
+		try {
+			this.logFile = new File(FWManager.getConfigDirectory(), "error.log");
+		} catch (FWRestrictedAccessException e) {
+			this.logFile = null;
+		}
+		final String path = (logFile != null) ? logFile.getAbsolutePath() : "none";
 		this.header = "  " + FWManager.getApplicationTitle()+" v"+FWManager.getApplicationVersion()+"\n" +
 				"  Log file : " + path + "\n" +
 				"  System : " + System.getProperty("os.name") + " ; " 
@@ -84,6 +85,7 @@ public class FWConsole extends JFrame {
 		this.textArea = new JTextArea(header) {
 			private static final long serialVersionUID = 7267119790720613667L;
 
+			@Override
 			public JPopupMenu getComponentPopupMenu() {
 				JPopupMenu popup = new JPopupMenu();
 				JMenuItem copy = new JMenuItem(new DefaultEditorKit.CopyAction());
@@ -91,7 +93,7 @@ public class FWConsole extends JFrame {
 				if (getSelectedText() == null) 
 					copy.setEnabled(false);
 	
-				copy.setAccelerator(KeyStroke.getKeyStroke('C', KeyEvent.CTRL_MASK));
+				copy.setAccelerator(KeyStroke.getKeyStroke('C', InputEvent.CTRL_MASK));
 				copy.setIcon(FWToolKit.getIcon("copy.png"));
 				copy.setText(COPY.translate());
 				popup.add(copy);
@@ -107,31 +109,35 @@ public class FWConsole extends JFrame {
 		addWindowListener(exitJVMListener);
 	}
 	
-	private synchronized static void log(String msg) {
-		SHARED_CONSOLE.log_(msg);
+	private static synchronized void log(String msg) {
+		SHARED_CONSOLE.doLog(msg);
 	}
 	
-	private synchronized void log_(String msg) {
-		if (fileStream != null)
-			try {
-				textOut = new OutputStreamWriter(fileStream, Charset.forName("UTF-8").newEncoder());
-				textOut.write(msg + "\n");
-				textOut.close();
-				fileStream = new FileOutputStream(logFile, true);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		else
+	private synchronized void doLog(String msg) {
+		if (fileStream == null) {
 			System.err.println(msg);
+			return;
+		}
+
+		try {
+			final OutputStreamWriter textOut = new OutputStreamWriter(fileStream, StandardCharsets.UTF_8.newEncoder());
+			textOut.write(msg + "\n");
+			textOut.close();
+			fileStream = new FileOutputStream(logFile, true);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 	
 	private static void redirectErrorStream() {
-		SHARED_CONSOLE.redirectErrorStream_();
+		SHARED_CONSOLE.doRedirectErrorStream();
 	}
 	
-	private void redirectErrorStream_() {
-		if (logFile == null)
+	private void doRedirectErrorStream() {
+		if (logFile == null) {
 			return;
+		}
+
 		try {
 			fileStream = new FileOutputStream(logFile, true);
 		} catch (FileNotFoundException ex) {
@@ -227,6 +233,7 @@ public class FWConsole extends JFrame {
 			askToShowSharedInstance();
 		}
 
+		@Override
 		public final void write(byte[] bytes) throws IOException {
 			fileStream.write(bytes);
 			textArea.append(new String(bytes));
@@ -238,27 +245,27 @@ public class FWConsole extends JFrame {
 	 * DEBUG
 	 */
 	
-	private static boolean DEBUG_MODE_ENABLED = false;
+	private static boolean debugModeEnabled = false;
 
 	public static boolean isDebugModeEnabled() {
-		return DEBUG_MODE_ENABLED;
+		return debugModeEnabled;
 	}
 
-	public static void setDebugModeEnabled(boolean debug) {
-		DEBUG_MODE_ENABLED = debug;
+	public static void setDebugModeEnabled(final boolean debug) {
+		debugModeEnabled = debug;
 		if (debug) 
 			printInfo(SHARED_CONSOLE, "DEBUG MODE ENABLED");
 		else 
 			redirectErrorStream();
 	}
 
-	public static void printInfo(Object o, String msg) {
-		if (DEBUG_MODE_ENABLED)
-			System.out.println("[Info @ "+ o.getClass().getSimpleName()+"] > " + msg);
+	public static void printInfo(final Object o, final String msg) {
+		if (debugModeEnabled)
+			System.out.println("[Info @ " + o.getClass().getSimpleName()+"] > " + msg);
 	}
 
 	public static void printWarning(Object o, String msg) {
-		if (DEBUG_MODE_ENABLED)
-			System.out.println("[Warning @ "+ o.getClass().getSimpleName()+"] > " + msg);
+		if (debugModeEnabled)
+			System.out.println("[Warning @ " + o.getClass().getSimpleName() + "] > " + msg);
 	}
 }
