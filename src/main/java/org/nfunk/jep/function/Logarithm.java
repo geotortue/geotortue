@@ -28,32 +28,35 @@ public class Logarithm extends PostfixMathCommand
 		numberOfParameters = 1;
 	}
 
-	public void run(Stack<Object> inStack) throws ParseException {
-		checkStack(inStack);// check the stack
-		Object param = inStack.pop();
-		inStack.push(log(param));//push the result on the inStack
-		return;
+	public void run(final Stack<Object> inStack) throws ParseException {
+		checkStack(inStack);
+		final Object param = inStack.pop();
+		inStack.push(log(param));
 	}
 	
-
-	public Object log(Object param) throws ParseException 
-	{
+	public Object log(final Object param) throws ParseException {
 		if (param instanceof Complex) {
-		   return ((Complex)param).log().div(CLOG10);
+		   return ((Complex) param).log().div(CLOG10);
 		}
-		else if (param instanceof Number) 
-		{
-			double num = ((Number) param).doubleValue();
-			if( num >= 0)
-				return Double.valueOf(Math.log(num)/LOG10);
-			else
-			{	
-				Complex temp = new Complex(num);
-				return temp.log().div(CLOG10);
+		
+		if (param instanceof Number) {
+			final double num = ((Number) param).doubleValue();
+
+			// Now returns NaN as it
+			if (Double.isNaN(num)) {
+				return num;
 			}
+
+			if (num >= 0) {
+				return Double.valueOf(Math.log(num) / LOG10);
+			}
+
+			// Now returns Complex if param is < 0
+			final Complex temp = new Complex(num);
+			return temp.log().div(CLOG10);
 		}
+
 		throw new ParseException("Invalid parameter type");
 	}
-	
 
 }

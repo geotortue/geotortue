@@ -32,7 +32,6 @@ public class NaturalLogarithm extends PostfixMathCommand
 		checkStack(inStack);// check the stack
 		Object param = inStack.pop();
 		inStack.push(ln(param));//push the result on the inStack
-		return;
 	}
 
 	public Object ln(Object param)
@@ -40,19 +39,25 @@ public class NaturalLogarithm extends PostfixMathCommand
 	{
 		if (param instanceof Complex)
 		{
-			return ((Complex)param).log();
+			return ((Complex) param).log();
 		}
-		else if (param instanceof Number)
+		
+		if (param instanceof Number)
 		{
-			// Now returns Complex if param is <0
-			double num = ((Number) param).doubleValue();
-			if( num >= 0)
-				return Double.valueOf(Math.log(num));
-			else
-			{	
-				Complex temp = new Complex(num);
-				return temp.log();
+			final double num = ((Number) param).doubleValue();
+
+			// Now returns NaN as it
+			if (Double.isNaN(num)) {
+				return num;
 			}
+
+			if (num >= 0) {
+				return Double.valueOf(Math.log(num));
+			}
+			
+			// Now returns Complex if param is < 0
+			final Complex temp = new Complex(num);
+			return temp.log();
 		}
 
 		throw new ParseException("Invalid parameter type");
