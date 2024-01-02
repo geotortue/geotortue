@@ -19,13 +19,20 @@
   <properties>
     <main.class>geotortue.GTLauncher</main.class>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ssZ</maven.build.timestamp.format>
+    <argLine />
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
     <maven.clean.version>3.3.2</maven.clean.version>
     <maven.resources.version>3.3.1</maven.resources.version>
     <maven.compiler.version>3.11.0</maven.compiler.version>
     <maven.jar.version>3.3.0</maven.jar.version>
+    <maven.surefire.version>3.2.3</maven.surefire.version>
     <maven.antrun.version>3.1.0</maven.antrun.version>
+    <junit.jupiter.version>5.10.1</junit.jupiter.version>
+    <jacoco.maven.version>0.8.11</jacoco.maven.version>
+    <properties.maven.version>1.2.1</properties.maven.version>
     <exec.maven.version>3.1.1</exec.maven.version>
     <launch4j.maven.version>2.4.1</launch4j.maven.version>
   </properties>
@@ -46,6 +53,21 @@
     </repository>
   </repositories>
 
+  <dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+	</dependencies>  
+
   <build>
     <resources>
       <resource>
@@ -58,6 +80,24 @@
       </resource>
     </resources>   
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>sonar-project.properties</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
@@ -78,6 +118,30 @@
           <showWarnings>true</showWarnings>
           <debug>true</debug>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.maven.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
 		    <groupId>org.codehaus.mojo</groupId>

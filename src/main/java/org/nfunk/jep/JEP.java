@@ -21,25 +21,32 @@ import org.nfunk.jep.function.ArcSine;
 import org.nfunk.jep.function.ArcSineH;
 import org.nfunk.jep.function.ArcTanH;
 import org.nfunk.jep.function.ArcTangent;
+import org.nfunk.jep.function.ArcTangent2;
 import org.nfunk.jep.function.Arg;
 import org.nfunk.jep.function.Binomial;
+import org.nfunk.jep.function.Ceil;
 import org.nfunk.jep.function.ComplexPFMC;
 import org.nfunk.jep.function.Conjugate;
 import org.nfunk.jep.function.Cosine;
 import org.nfunk.jep.function.CosineH;
 import org.nfunk.jep.function.Exp;
 import org.nfunk.jep.function.Floor;
+import org.nfunk.jep.function.If;
 import org.nfunk.jep.function.Imaginary;
 import org.nfunk.jep.function.Logarithm;
+import org.nfunk.jep.function.Modulus;
 import org.nfunk.jep.function.NaturalLogarithm;
 import org.nfunk.jep.function.Polar;
 import org.nfunk.jep.function.PostfixMathCommandI;
+import org.nfunk.jep.function.Power;
 import org.nfunk.jep.function.Random;
 import org.nfunk.jep.function.Real;
 import org.nfunk.jep.function.Round;
 import org.nfunk.jep.function.Sine;
 import org.nfunk.jep.function.SineH;
 import org.nfunk.jep.function.SquareRoot;
+import org.nfunk.jep.function.Str;
+import org.nfunk.jep.function.Sum;
 import org.nfunk.jep.function.TanH;
 import org.nfunk.jep.function.Tangent;
 import org.nfunk.jep.type.Complex;
@@ -221,7 +228,7 @@ public class JEP {
 		funTab.put("asin", new ArcSine());
 		funTab.put("acos", new ArcCosine());
 		funTab.put("atan", new ArcTangent());
-		//funTab.put("atan2", new ArcTangent2());
+		funTab.put("atan2", new ArcTangent2());
 
 		funTab.put("sinh", new SineH());
 		funTab.put("cosh", new CosineH());
@@ -233,18 +240,18 @@ public class JEP {
 		funTab.put("log", new Logarithm());
 		funTab.put("ln", new NaturalLogarithm());
 		funTab.put("exp", new Exp());
-		//funTab.put("pow", new Power());
+		funTab.put("pow", new Power());
 
 		funTab.put("sqrt",new SquareRoot());
 		funTab.put("abs", new Abs());
-		//funTab.put("mod", new Modulus());
-		//funTab.put("sum", new Sum());
+		funTab.put("mod", new Modulus());
+		funTab.put("sum", new Sum());
 
 		funTab.put("rand", new Random());
 		
 		// rjm additions
-		//funTab.put("if", new If());
-		//funTab.put("str", new Str());
+		funTab.put("if", new If());
+		funTab.put("str", new Str());
 		
 		// rjm 13/2/05
 		funTab.put("binom", new Binomial());
@@ -252,7 +259,7 @@ public class JEP {
 		// rjm 26/1/07
 		funTab.put("round",new Round());
 		funTab.put("floor",new Floor());
-		//funTab.put("ceil",new Ceil());
+		funTab.put("ceil",new Ceil());
 	}
 
 	/**
@@ -505,7 +512,9 @@ public class JEP {
 			
 			// if there is an error in the list, the parse failed
 			// so set topNode to null
-			if (hasError()) topNode = null;
+			if (hasError()) {
+				topNode = null;
+			}
 		} 
 		catch (JEPException e) { // addon
 			topNode = null;
