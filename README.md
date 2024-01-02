@@ -2,7 +2,7 @@
 
 ## 💡 Présentation 
 
-[GéoTortue](http://geotortue.free.fr/) est un logiciel inspiré du langage LOGO pour découvrir les mathématiques et l’algorithmique.
+[GéoTortue](http://geotortue.free.fr/) est un logiciel inspiré du langage [LOGO](https://fr.wikipedia.org/wiki/Logo_(langage)) pour découvrir les mathématiques et l’algorithmique.
 
 Le logiciel GéoTortue se distingue sur deux points&nbsp;:
 
@@ -19,7 +19,7 @@ Le logiciel GéoTortue se distingue sur deux points&nbsp;:
 
 Vérifier que Maven est disponible en version 3.6 ou plus.
 
-S'assurer que Java est disponible avec une version 8 & s.
+S'assurer que Java est disponible avec une version 8 ou s.
 
 Cloner l'application puis la lancer avec Maven :
 
@@ -53,7 +53,7 @@ Voir le [Guide pour contribuer](documentation/CONTRIBUTING.md).
 
 ## 📜 Crédit
 
-- [GéoTortue](http://geotortue.free.fr/) a été créé et est maintenu par [Salvatore Tummarello](mailto:geotortue@free.fr).  
+- [GéoTortue](http://geotortue.free.fr/) a été créé et maintenu par [Salvatore Tummarello](mailto:geotortue@free.fr).  
 Le logiciel doit beaucoup aux idées, suggestions et remarques enthousiastes de Stéphan Petitjean, Erwan Adam, Jean-François Jamart et Frédéric Clerc.
 
 - [GéoTortue](http://geotortue.free.fr/) a été développé au sein de l'[IREM Paris-Nord](https://www-irem.univ-paris13.fr) :
@@ -63,3 +63,5 @@ Le logiciel doit beaucoup aux idées, suggestions et remarques enthousiastes de 
   - ...
 
 - R. Hartig a dessiné la [mascotte](src/main/resources/cfg/tortue-v4.png).
+
+- L'analyse des expressions mathématiques [infixées](https://fr.wikipedia.org/wiki/Notations_infixée,_préfixée,_polonaise_et_postfixée) est basée sur une version modifiée de la bibliothèque [JEP](https://github.com/nathanfunk/jep-java-gpl) de Nathan Funk & Richard Morris, dans sa version 2.4.1, la dernière sous licence GPL (v2).
