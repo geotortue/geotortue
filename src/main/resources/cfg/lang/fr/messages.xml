@@ -135,6 +135,12 @@
 			<p>Des commandes en cours d'éxécution doivent être préalablement interrompues.</p>
 		</content>
 	</GTMessage>
+	<GTMessage key="GTJEP_NEW_TURTLE">
+		<content>
+			<h4>Création impossible</h4>
+			<p>Couleurs indisponibles pour la tortue <span class="turtle">#1</span>.</p>
+		</content>
+	</GTMessage>
 	<GTMessage key="GTJEP_LAST_TURTLE">
 		<content>
 			<h4>Suppression impossible</h4>
