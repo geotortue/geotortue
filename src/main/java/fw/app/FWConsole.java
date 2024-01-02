@@ -93,7 +93,7 @@ public class FWConsole extends JFrame {
 				if (getSelectedText() == null) 
 					copy.setEnabled(false);
 	
-				copy.setAccelerator(KeyStroke.getKeyStroke('C', InputEvent.CTRL_MASK));
+				copy.setAccelerator(KeyStroke.getKeyStroke('C', InputEvent.CTRL_DOWN_MASK));
 				copy.setIcon(FWToolKit.getIcon("copy.png"));
 				copy.setText(COPY.translate());
 				popup.add(copy);
@@ -264,8 +264,9 @@ public class FWConsole extends JFrame {
 			System.out.println("[Info @ " + o.getClass().getSimpleName()+"] > " + msg);
 	}
 
-	public static void printWarning(Object o, String msg) {
-		if (debugModeEnabled)
+	public static void printWarning(final Object o, final String msg) {
+		if (debugModeEnabled) {
 			System.out.println("[Warning @ " + o.getClass().getSimpleName() + "] > " + msg);
+		}
 	}
 }

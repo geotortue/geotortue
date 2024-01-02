@@ -6,7 +6,7 @@ package geotortue.gui;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -112,7 +112,7 @@ public class HTMLTextPane extends JEditorPane implements XMLCapabilities {
 		if (getSelectedText() == null) 
 			copy.setEnabled(false);
 
-		copy.setAccelerator(KeyStroke.getKeyStroke('C', KeyEvent.CTRL_MASK));
+		copy.setAccelerator(KeyStroke.getKeyStroke('C', InputEvent.CTRL_DOWN_MASK));
 		copy.setIcon(FWToolKit.getIcon("copy.png"));
 		copy.setText(COPY.translate());
 		popup.add(copy);

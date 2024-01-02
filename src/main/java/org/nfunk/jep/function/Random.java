@@ -25,8 +25,7 @@ public class Random extends PostfixMathCommand
 	public void run(Stack<Object> inStack)
 		throws ParseException
 	{
-		checkStack(inStack);// check the stack
+		checkStack(inStack);
 		inStack.push(Double.valueOf(Math.random()));
-		return;
 	}
 }

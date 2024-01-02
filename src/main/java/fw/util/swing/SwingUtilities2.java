@@ -92,7 +92,7 @@ import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
-import sun.awt.AWTAccessor;
+import sun.awt.AWTAccessor; //NOSONAR
 import sun.awt.AWTPermissions;
 import sun.awt.AppContext;
 import sun.awt.SunToolkit;
@@ -1208,7 +1208,6 @@ public class SwingUtilities2 {
      * see JComponent.getFontMetrics and TextLayoutStrategy.java
      */
     public static FontRenderContext getFontRenderContext(Component c) {
-        assert c != null;
         if (c == null) {
             return DEFAULT_FRC;
         } else {
@@ -1529,20 +1528,20 @@ public class SwingUtilities2 {
      * @param ie InputEvent to check
      */
     @SuppressWarnings("deprecation")
-    private static boolean isAccessClipboardGesture(InputEvent ie) {
+    private static boolean isAccessClipboardGesture(final InputEvent ie) {
         boolean allowedGesture = false;
         if (ie instanceof KeyEvent) { //we can validate only keyboard gestures
-            KeyEvent ke = (KeyEvent)ie;
-            int keyCode = ke.getKeyCode();
-            int keyModifiers = ke.getModifiers();
+            final KeyEvent ke = (KeyEvent) ie;
+            final int keyCode = ke.getKeyCode();
+            final int keyModifiers = ke.getModifiers();
             switch(keyCode) {
             case KeyEvent.VK_C:
             case KeyEvent.VK_V:
             case KeyEvent.VK_X:
-                allowedGesture = (keyModifiers == InputEvent.CTRL_MASK);
+                allowedGesture = (keyModifiers == InputEvent.CTRL_DOWN_MASK);
                 break;
             case KeyEvent.VK_INSERT:
-                allowedGesture = (keyModifiers == InputEvent.CTRL_MASK ||
+                allowedGesture = (keyModifiers == InputEvent.CTRL_DOWN_MASK ||
                                   keyModifiers == InputEvent.SHIFT_MASK);
                 break;
             case KeyEvent.VK_COPY:
@@ -1553,6 +1552,7 @@ public class SwingUtilities2 {
             case KeyEvent.VK_DELETE:
                 allowedGesture = ( keyModifiers == InputEvent.SHIFT_MASK);
                 break;
+            default: // do nothing
             }
         }
         return allowedGesture;

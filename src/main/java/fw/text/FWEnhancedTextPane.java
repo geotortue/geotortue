@@ -74,6 +74,7 @@ public class FWEnhancedTextPane extends JTextPane {
 		});
 		
 		addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode()==KeyEvent.VK_DELETE && e.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD)
 					e.setKeyCode(KeyEvent.VK_PERIOD);
@@ -81,7 +82,7 @@ public class FWEnhancedTextPane extends JTextPane {
 		});
 		
 		Keymap fwMap = addKeymap("FWMap", getKeymap());
-		fwMap.addActionForKeyStroke(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_MASK), doc.new DeleteLineAction());
+		fwMap.addActionForKeyStroke(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK), doc.new DeleteLineAction());
 		setKeymap(fwMap);
 	}
 	
@@ -101,6 +102,7 @@ public class FWEnhancedTextPane extends JTextPane {
 		}
 	}
 	
+	  @Override
 	  public void replaceSelection(String content) {
 		    getInputAttributes().removeAttribute(StyleConstants.Foreground);
 		    super.replaceSelection(content);
@@ -121,6 +123,7 @@ public class FWEnhancedTextPane extends JTextPane {
 	}
 
 	
+	@Override
 	public JPopupMenu getComponentPopupMenu() {
 		requestFocus();
 		JPopupMenu popup = new JPopupMenu();
@@ -148,9 +151,9 @@ public class FWEnhancedTextPane extends JTextPane {
 			cut.setEnabled(false);
 		}
 
-		copy.setAccelerator(KeyStroke.getKeyStroke('C', KeyEvent.CTRL_MASK));
-		cut.setAccelerator(KeyStroke.getKeyStroke('X', KeyEvent.CTRL_MASK));
-		paste.setAccelerator(KeyStroke.getKeyStroke('V', KeyEvent.CTRL_MASK));
+		copy.setAccelerator(KeyStroke.getKeyStroke('C', InputEvent.CTRL_DOWN_MASK));
+		cut.setAccelerator(KeyStroke.getKeyStroke('X', InputEvent.CTRL_DOWN_MASK));
+		paste.setAccelerator(KeyStroke.getKeyStroke('V', InputEvent.CTRL_DOWN_MASK));
 
 		copy.setIcon(FWToolKit.getIcon("copy.png"));
 		cut.setIcon(FWToolKit.getIcon("cut.png"));
@@ -167,8 +170,8 @@ public class FWEnhancedTextPane extends JTextPane {
 		undo.setEnabled(m.canUndo());
 		redo.setEnabled(m.canRedo());
 
-		undo.setAccelerator(KeyStroke.getKeyStroke('Z',	KeyEvent.CTRL_DOWN_MASK));
-		redo.setAccelerator(KeyStroke.getKeyStroke('Y',	KeyEvent.CTRL_DOWN_MASK));
+		undo.setAccelerator(KeyStroke.getKeyStroke('Z', InputEvent.CTRL_DOWN_MASK));
+		redo.setAccelerator(KeyStroke.getKeyStroke('Y', InputEvent.CTRL_DOWN_MASK));
 
 		undo.setIcon(FWToolKit.getIcon("edit-undo.png"));
 		redo.setIcon(FWToolKit.getIcon("edit-redo.png"));
@@ -212,6 +215,7 @@ public class FWEnhancedTextPane extends JTextPane {
 	class EnhancedEditorKit extends StyledEditorKit {
 		private static final long serialVersionUID = -194084512589826515L;
 		
+		@Override
 		public ViewFactory getViewFactory() {
 			return new ViewFactory() {
 				public View create(Element elem) {
@@ -241,6 +245,7 @@ public class FWEnhancedTextPane extends JTextPane {
 				super(elem);
 	        }
 			
+			@Override
 			public void paint(Graphics g, Shape allocation) {
 				Rectangle alloc = allocation.getBounds();
 				Graphics2D g2 = (Graphics2D) g;
@@ -259,10 +264,9 @@ public class FWEnhancedTextPane extends JTextPane {
 				}
 
 				// margin
-				int lc = getLineCount();
-				String t = (lc<10) ? "  "+lc : (lc<100) ? " "+lc : ""+lc;
-				String marginText = showNumbers ? t+promptString : promptString;
-				
+				final int lc = getLineCount();
+				final String t = String.format("%3d", lc);
+				final String marginText = (showNumbers ? t : "") +  promptString;			
 
 				FWEnhancedDocument doc = ((FWEnhancedDocument) FWEnhancedTextPane.this.getDocument());
 				Font font = doc.getFont();
@@ -283,7 +287,6 @@ public class FWEnhancedTextPane extends JTextPane {
 				try {
 					super.paint(g, allocation);
 				} catch (NullPointerException ex) {
-					System.out.println("FWEnhancedTextPane.EnhancedEditorKit.HighlightView.paint() "+ex);
 					// FIXME : Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
 //					at javax.swing.text.GlyphView.paint(GlyphView.java:423)
 //					at javax.swing.text.BoxView.paintChild(BoxView.java:161)
@@ -296,6 +299,7 @@ public class FWEnhancedTextPane extends JTextPane {
 				}
 			}
 			
+		    @Override
 		    protected short getLeftInset() {
 		    	return (short) (super.getLeftInset()+marginWidth);
 		    }

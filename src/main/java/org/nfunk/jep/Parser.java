@@ -8,7 +8,6 @@ import org.nfunk.jep.function.PostfixMathCommandI;
 
 public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConstants {/*@bgen(jjtree)*/
 	
-	
 	/*
 	 * Addon
 	 */
@@ -20,8 +19,8 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
 		jep.exception = ex;
 	}
 	
-	
-  protected JJTParserState jjtree = new JJTParserState();private JEP     jep;
+  protected JJTParserState jjtree = new JJTParserState();
+        private JEP     jep;
         private SymbolTable symTab;
         private OperatorSet opSet;
         private int initialTokenManagerState = DEFAULT;

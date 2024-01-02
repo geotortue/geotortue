@@ -48,7 +48,7 @@ public class GTException extends Exception  {
 	private final String[] args;
 	private final JEPTroubleI trouble;
 	private final HelpI help;
-	private static Stack<GTException> keptExceptions = new Stack<GTException>();
+	private static Stack<GTException> keptExceptions = new Stack<>();
 	private final int priority;
 	
 	private static int currentPriority;

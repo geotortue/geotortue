@@ -11,17 +11,21 @@ import javax.swing.text.Keymap;
 import javax.swing.text.TextAction;
 import javax.swing.undo.UndoManager;
 
-
+/**
+ * Singleton to register done actions
+ */
 public abstract class FWUndoSupport {
 
-	private static final Hashtable<JTextComponent, UndoManager> table = new Hashtable<JTextComponent, UndoManager>();
+	private static final Hashtable<JTextComponent, UndoManager> table = new Hashtable<>();
 	
-	public static void register(JTextComponent jtc) {
-		Keymap keymap = jtc.getKeymap();
-		keymap.addActionForKeyStroke(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK), UNDO_ACTION);
-		keymap.addActionForKeyStroke(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_MASK), REDO_ACTION);
+	private FWUndoSupport() {}
+
+	public static void register(final JTextComponent jtc) {
+		final Keymap keymap = jtc.getKeymap();
+		keymap.addActionForKeyStroke(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK), UNDO_ACTION);
+		keymap.addActionForKeyStroke(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_DOWN_MASK), REDO_ACTION);
 		
-		UndoManager m = new UndoManager();
+		final UndoManager m = new UndoManager();
 		m.setLimit(-1);
 		table.put(jtc, m);
 		jtc.getDocument().addUndoableEditListener(m);
@@ -33,24 +37,26 @@ public abstract class FWUndoSupport {
 		public void actionPerformed(ActionEvent e) {
 			JTextComponent target = getTextComponent(e);
 			final UndoManager m = table.get(target);
-			if (m!=null && m.canUndo()) 
-				m.undo();		
+			if (m != null && m.canUndo()) {
+				m.undo();
+			}
 		}
 	};
 	
 
-	public final static TextAction REDO_ACTION = new TextAction("redo") {
+	public static final TextAction REDO_ACTION = new TextAction("redo") {
 		private static final long serialVersionUID = -5445003267281151718L;
 
 		public void actionPerformed(ActionEvent e) {
 			JTextComponent target = getTextComponent(e);
 			UndoManager m = table.get(target);
-			if (m!=null && m.canRedo())
+			if (m != null && m.canRedo()) {
 				m.redo();
+			}
 		}
 	};
 	
-	static UndoManager getUndoManager(JTextComponent jtc){
+	static UndoManager getUndoManager(final JTextComponent jtc){
 		return table.get(jtc);
 	}
 }

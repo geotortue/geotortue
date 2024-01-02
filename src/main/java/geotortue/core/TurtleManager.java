@@ -5,9 +5,12 @@ import java.awt.Color;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -59,11 +62,11 @@ public class TurtleManager implements XMLCapabilities, FWSettings {
 	private static final TKey GET_NAME = new TKey(TurtleManager.class, "getName");
 	private static final BKey CREATE_TURTLE = new BKey(TurtleManager.class, "createTurtle");
 	private static final TKey CREATE_TURTLE_DESC = new TKey(TurtleManager.class, "createTurtle.getTitle");
-	private final static ActionKey ADD_TURTLE = new ActionKey(TurtleManager.class, "addTurtle");
-	private final static ActionKey REMOVE_TURTLE = new ActionKey(TurtleManager.class, "removeTurtle");
-	private final static TKey TURTLE_NAME = new TKey(TurtleManager.class, "turtleName");
-	private final static TKey TURTLE_COLOR = new TKey(TurtleManager.class, "turtleColor");
-	private final static TKey TURTLE_AVATAR = new TKey(TurtleManager.class, "turtleAvatar");
+	private static final ActionKey ADD_TURTLE = new ActionKey(TurtleManager.class, "addTurtle");
+	private static final ActionKey REMOVE_TURTLE = new ActionKey(TurtleManager.class, "removeTurtle");
+	private static final TKey TURTLE_NAME = new TKey(TurtleManager.class, "turtleName");
+	private static final TKey TURTLE_COLOR = new TKey(TurtleManager.class, "turtleColor");
+	private static final TKey TURTLE_AVATAR = new TKey(TurtleManager.class, "turtleAvatar");
 	
 	private final List<Turtle> turtles = Collections.synchronizedList(new ArrayList<Turtle>());
 	private List<Turtle> focusedTurtles = Collections.synchronizedList(new ArrayList<Turtle>()); 
@@ -226,13 +229,18 @@ public class TurtleManager implements XMLCapabilities, FWSettings {
 		return child;
 	}
 	
-	private Turtle addTurtle(String name, Window owner) throws GTException {
+	private Turtle addTurtle(final String name, final Window owner) throws GTException {
 		keywordManager.testValidity(SourceLocalization.create(name, owner)); 
-		Turtle t = new Turtle(name);
-		int r = (int) (Math.random() * 255);
-		int g = (int) (Math.random() * 255);
-		int b = (int) (Math.random() * 255);
-		t.setColor(new Color(r, g, b));
+		final Turtle t = new Turtle(name);
+		try {
+			final Random random = SecureRandom.getInstanceStrong();
+			final int r = random.nextInt(255);
+			final int g = random.nextInt(255);
+			final int b = random.nextInt(255);
+			t.setColor(new Color(r, g, b));
+		} catch(NoSuchAlgorithmException e) {
+			throw new GTException(GTTrouble.GTJEP_NEW_TURTLE, owner, t.getName());
+		}
 		add(t);
 		updateJEP();
 		keywordManager.addTurtle(name);
@@ -241,7 +249,7 @@ public class TurtleManager implements XMLCapabilities, FWSettings {
 	
 	private void removeTurtle(Turtle t, Window owner) throws GTException {
 		synchronized (turtles) {
-			if (turtles.size()==1)
+			if (turtles.size() == 1)
 				throw new GTException(GTTrouble.GTJEP_LAST_TURTLE, owner, t.getName());
 			turtles.remove(t);
 			updateJEP();

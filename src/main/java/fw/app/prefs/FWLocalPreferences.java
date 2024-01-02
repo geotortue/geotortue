@@ -25,11 +25,12 @@ public class FWLocalPreferences implements XMLCapabilities {
 	private File file;
 	private final Map<String, WrappedPrefEntry> entries = Collections.synchronizedSortedMap(new TreeMap<String, WrappedPrefEntry>());
 	private final Map<String, XMLReader> pool = new HashMap<>();
-	private final static FWLocalPreferences SHARED_INSTANCE = new FWLocalPreferences();
+	
+	private static final FWLocalPreferences SHARED_INSTANCE = new FWLocalPreferences();
 
 	private FWLocalPreferences() {
 		try {
-			this.file = new File(FWManager.getConfigDirectory(), "prefs.xml");
+			file = new File(FWManager.getConfigDirectory(), "prefs.xml");
 			updatePool();
 		} catch (FWRestrictedAccessException e) {
 		}

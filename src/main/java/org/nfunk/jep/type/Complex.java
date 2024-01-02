@@ -247,8 +247,11 @@ public class Complex
 	/**
 	 * Returns the absolute value of the complex number.
 	 * <p>
-	 * Adapted from Numerical Recipes in C -
-	 * The Art of Scientific Computing<br>
+	 * Use division by max of real and imaginary parts to allow bigger value of each part.
+	 * Adapted from:
+	 * Appendix C: Complex Arithmetic<br>
+	 * in Numerical Recipes in C -
+	 * The Art of Scientific Computing 2d ed.<br>
 	 * ISBN 0-521-43108-5
 	 */
 	public double abs() {
@@ -260,7 +263,7 @@ public class Complex
 		} 
 		
 		if (absRe > absIm) {
-			final double temp = absIm / absRe; // absRe can't be zero here
+			final double temp = absIm / absRe; // NOSONAR absRe can't be zero here
 			return absRe*Math.sqrt(1 + temp * temp);	
 		} 
 		// absIm >= absRe but in fact absIm > absRe

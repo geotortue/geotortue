@@ -350,8 +350,7 @@ public class JEP2 extends JEP {
 			this.symTab,
 			this.errorList
 		};
-		final String result = Stream.of(parts).map(Object::toString).collect(joining("\n"));
-		return result;
+		return Stream.of(parts).map(Object::toString).collect(joining("\n"));
 	}
 
 	public static long getLong(final JObjectI<?> o) throws JEPException {

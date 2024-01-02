@@ -497,7 +497,7 @@ public class JFunctionFactory {
 		}
 		
 		public int getResult(double x) {
-			return 1 + (int) (Math.random()*((int) x));
+			return 1 + (int) (Math.random() * ((int) x));
 		}
 	}
 	
