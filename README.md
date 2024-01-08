@@ -53,7 +53,7 @@ Voir le [Guide pour contribuer](documentation/CONTRIBUTING.md).
 
 ## 📜 Crédit
 
-- [GéoTortue](http://geotortue.free.fr/) a été créé et maintenu par [Salvatore Tummarello](mailto:geotortue@free.fr).  
+- [GéoTortue](http://geotortue.free.fr/) a été conçu et développé par [Salvatore Tummarello](mailto:geotortue@free.fr).  
 Le logiciel doit beaucoup aux idées, suggestions et remarques enthousiastes de Stéphan Petitjean, Erwan Adam, Jean-François Jamart et Frédéric Clerc.
 
 - [GéoTortue](http://geotortue.free.fr/) a été développé au sein de l'[IREM Paris-Nord](https://www-irem.univ-paris13.fr) :
