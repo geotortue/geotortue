@@ -115,29 +115,28 @@ public class GTPanel extends JPanel implements GTPanelAssistant {
 	
 	@Override
 	public void showBoard() {
-		if (showBoard)
+		if (showBoard) {
 			return;
+		}
 		showBoard = true;
 		revalidate();
 	}
 	
 	@Override
 	public void showMonitor() {
-		if (showMonitor)
+		if (showMonitor) {
 			return;
+		}
+
 		showMonitor = true;
 		revalidate();
 	}
 	
 	public void setLayout(final LAYOUT_TYPE layout) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				_setLayout(layout);
-			}
-		});
+		SwingUtilities.invokeLater(() -> doSetLayout(layout));
 	}
 
-	private void _setLayout(LAYOUT_TYPE layout){
+	private void doSetLayout(LAYOUT_TYPE layout){
 		setCursor(Cursor.getDefaultCursor());
 		removeAll();
 		setLayout(layouts.get(layout));
@@ -232,6 +231,7 @@ public class GTPanel extends JPanel implements GTPanelAssistant {
 			}
 		}
 		
+		@Override
 		public void layoutContainer(Container parent) {
 			init(parent);
 			Component[] components = parent.getComponents();

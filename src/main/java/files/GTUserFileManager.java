@@ -42,10 +42,10 @@ public class GTUserFileManager implements FWSettings, XMLTagged {
 	private static final TKey NAME = new TKey(GTUserFileManager.class, "settings");
 	private static final TKey DIR = new TKey(GTUserFileManager.class, "dir");
 	private static final OPTKey OVERWRITE = new OPTKey(GTUserFileManager.class, "overwrite");
+	private static final OPTKey CHOOSE_DIR_KEY = new OPTKey(GTUserFileManager.class, "chooseDirectory");
 	
 	private final FWWritableDirectoryEntry directory;
 	private final Window owner;
-	private static OPTKey CHOOSE_DIR_KEY = new OPTKey(GTUserFileManager.class, "chooseDirectory");
 	
 	public enum GTFileTrouble implements JEPTroubleI {GTFILE_IMPORT, GTFILE_EXPORT}
 	
@@ -63,7 +63,6 @@ public class GTUserFileManager implements FWSettings, XMLTagged {
 	}
 	
 	public String importFile(String pathname) throws JEPException {
-		// TODO : (done) import url 
 		
 		try {
 			URL url = getFile(pathname);

@@ -32,7 +32,7 @@ public class FWFileAssistant {
 	private final FWDirectoryEntry dir;
 	private final FKey key;	
 	
-	public FWFileAssistant(Window owner, FKey key) {
+	public FWFileAssistant(final Window owner, final FKey key) {
 		this.owner = owner;
 		this.file = new FWFile(key.tag);
 		this.key = key;
@@ -48,8 +48,10 @@ public class FWFileAssistant {
 	
 	public String getName() {
 		File f = file.getValue();
-		if (initialized)
+		if (initialized) {
 			return f.getName();
+		}
+
 		return UNTITLED.translate();
 	}
 	
@@ -57,58 +59,66 @@ public class FWFileAssistant {
 		JFileChooser chooser = getFileChooser(key.extensions);
 		chooser.setCurrentDirectory(dir.getValue());
 
-		if (chooser.showOpenDialog(owner) == JFileChooser.APPROVE_OPTION) {
-			File f = chooser.getSelectedFile();
-			if (f == null)
-				return getFileForLoading();
-
-			if (!f.exists() || !f.isFile())
-				return null;
-			
-			setValue(f);
-			return f;
-		} else
+		if (chooser.showOpenDialog(owner) != JFileChooser.APPROVE_OPTION) {
 			return null;
-	}
-	
+		}
 
+		File f = chooser.getSelectedFile();
+		if (f == null) {
+			return getFileForLoading();
+		}
+
+		if (!f.exists() || !f.isFile()) {
+			return null;
+		}
+		
+		setValue(f);
+		return f;
+	}
 
 	public File getFileForSaving() {
 		JFileChooser chooser = getFileChooser(key.extensions[0]);
-		if (initialized)
+		if (initialized) {
 			chooser.setSelectedFile(file.getValue());
-		else 
+		}
+		else {
 			chooser.setSelectedFile(new File(dir.getValue(), DEFAULT_FILE_NAME.translate()));
+		}
 		
-		if (chooser.showSaveDialog(owner) == JFileChooser.APPROVE_OPTION) {
-			File f = chooser.getSelectedFile();
-			if (f == null)
-				return getFileForSaving();
+		if (chooser.showSaveDialog(owner) != JFileChooser.APPROVE_OPTION) {
+			return null;
+		}
 
-			f = FileUtilities.checkExtension(f, key.extensions[0]);
+		File f = chooser.getSelectedFile();
+		if (f == null) {
+			return getFileForSaving();
+		}
 
-			if (f.exists()) {
-					ANSWER answer = FWOptionPane.showConfirmDialog(owner, OVERWRITE_FILE);
-					if (answer == ANSWER.NO)
-						return getFileForSaving();
-					if (answer == ANSWER.CANCEL)
-						return null;
-			} else
-				try {
-					f.createNewFile();
-				} catch (IOException e) {
-				}
+		f = FileUtilities.checkExtension(f, key.extensions[0]);
 
-			if (!f.exists() || !f.canWrite() || !f.isFile()) {
-				FWOptionPane.showErrorMessage(owner, INVALID_FILE);
+		if (f.exists()) {
+			ANSWER answer = FWOptionPane.showConfirmDialog(owner, OVERWRITE_FILE);
+			if (answer == ANSWER.NO) {
 				return getFileForSaving();
 			}
-				
-			
-			setValue(f);
-			return f;
+			if (answer == ANSWER.CANCEL) {
+				return null;
+			}
+		} else {
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				// do nothing
+			}
 		}
-		return null;
+	
+		if (!f.exists() || !f.canWrite() || !f.isFile()) {
+			FWOptionPane.showErrorMessage(owner, INVALID_FILE);
+			return getFileForSaving();
+		}
+			
+		setValue(f);
+		return f;
 	}
 	
 	public File getFile() {
@@ -117,7 +127,7 @@ public class FWFileAssistant {
 		return getFileForSaving();
 	}
 	
-	private JFileChooser getFileChooser(String... exts) {
+	private JFileChooser getFileChooser(final String... exts) {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(key.translate(), exts);
 		chooser.setFileFilter(filter);
@@ -125,41 +135,41 @@ public class FWFileAssistant {
 		return chooser;
 	}
 
-
-	public void addParamaterListener(FWParameterListener<File> l) {
+	public void addParamaterListener(final FWParameterListener<File> l) {
 		file.addParamaterListener(l);
 	}
 
-	public void setValue(File f) {
+	public void setValue(final File f) {
 		if (f.getName().endsWith(key.extensions[0]))
 			file.setValue(f);
 	}
-	
 
 	public static class FKey extends TKey {
 		private final String[] extensions;
 
 		private final String tag;
-		public FKey(Class<?> c, String... extensions) {
+
+		public FKey(final Class<?> c, final String... extensions) {
 			super(c, sum(extensions));
 			this.extensions = extensions;
 			this.tag = getTag(c);
 		}
 		
-		public String getTag(Class<?> c) {
+		public String getTag(final Class<?> c) {
 			String t = c.getSimpleName();
-			if (extensions.length>0)
-				t += "."+extensions[0];
+			if (extensions.length>0) {
+				t += "." + extensions[0];
+			}
 			t += ".path";
 			return t;
 		}
 	}
 	
-	
 	private static String sum(String... exts) {
 		String sum = exts[0];
-		for (int idx = 1; idx < exts.length; idx++) 
-			sum += "."+exts[idx];
+		for (int idx = 1; idx < exts.length; idx++) {
+			sum += "." + exts[idx];
+		}
 		return sum;
 	}
 }

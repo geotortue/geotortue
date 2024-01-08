@@ -61,7 +61,7 @@ public class FWConsole extends JFrame {
 	private final JTextArea textArea;
 	private transient FileOutputStream fileStream;
 
-	private final transient WindowListener exitJVMListener = new WindowAdapter(){
+	private final transient WindowListener exitJVMListener = new WindowAdapter() {
 		@Override
 		public void windowClosing(WindowEvent e) {
 			System.exit(0);
@@ -90,8 +90,9 @@ public class FWConsole extends JFrame {
 				JPopupMenu popup = new JPopupMenu();
 				JMenuItem copy = new JMenuItem(new DefaultEditorKit.CopyAction());
 	
-				if (getSelectedText() == null) 
+				if (getSelectedText() == null) {
 					copy.setEnabled(false);
+				}
 	
 				copy.setAccelerator(KeyStroke.getKeyStroke('C', InputEvent.CTRL_DOWN_MASK));
 				copy.setIcon(FWToolKit.getIcon("copy.png"));
@@ -156,31 +157,28 @@ public class FWConsole extends JFrame {
 		SHARED_CONSOLE.beautify();
 	}	
 
+	@SuppressWarnings("java:S2696")
 	private void beautify() {
 		removeWindowListener(SHARED_CONSOLE.exitJVMListener);
-		setTitle(FWManager.getApplicationTitle() +" - "+TITLE.translate());
+		setTitle(FWManager.getApplicationTitle() + " - " + TITLE.translate());
 		setIconImage(FWManager.getImage("/cfg/icon/log_debug.png"));
 		
 		setJMenuBar(new FWMenuBar(MENU,  
-				new FWAction(QUIT, 0, KeyEvent.VK_ESCAPE, new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						FWConsole.this.setVisible(false);
-					}
-				}),
-				new FWAction(COPY, new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+				new FWAction(QUIT, 0, KeyEvent.VK_ESCAPE,
+					e -> FWConsole.this.setVisible(false)),
+				new FWAction(COPY,
+					e -> {
 						textArea.selectAll();
 						textArea.copy();
 						textArea.requestFocusInWindow();
-					}
-				}),
-				new FWAction(EXIT, new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+					}),
+				new FWAction(EXIT,
+					e -> {
 						ANSWER answer = FWOptionPane.showErrorDialog(SHARED_CONSOLE, CONFIRM_EXIT);
-						if (answer == ANSWER.YES)
+						if (answer == ANSWER.YES) {
 							System.exit(0);
-					}
-				})
+						}
+					})
 		));
 		
 		JPanel headPane = new JPanel(new BorderLayout());
@@ -207,12 +205,15 @@ public class FWConsole extends JFrame {
 	}
 	
 	private static void askToShowSharedInstance() {
-		if (ignore)
+		if (ignore) {
 			return;
+		}
+
 		if (!SHARED_CONSOLE.isVisible()) {
 			ANSWER answer = FWOptionPane.showErrorDialog(null, SHOW_CONSOLE);
-			if (answer == ANSWER.YES)
+			if (answer == ANSWER.YES) {
 				showSharedInstance();
+			}
 			else {
 				ignore = true;
 				new Timer().schedule(new TimerTask() {
@@ -227,14 +228,14 @@ public class FWConsole extends JFrame {
 	
 	private class ConsoleStream extends OutputStream {
 		
-		public void write(int b) throws IOException {
+		public void write(final int b) throws IOException {
 			fileStream.write(b);
 			textArea.append(new String(new byte[]{(byte) b}));
 			askToShowSharedInstance();
 		}
 
 		@Override
-		public final void write(byte[] bytes) throws IOException {
+		public final void write(final byte[] bytes) throws IOException {
 			fileStream.write(bytes);
 			textArea.append(new String(bytes));
 			askToShowSharedInstance();
@@ -253,15 +254,18 @@ public class FWConsole extends JFrame {
 
 	public static void setDebugModeEnabled(final boolean debug) {
 		debugModeEnabled = debug;
-		if (debug) 
+		if (debug) {
 			printInfo(SHARED_CONSOLE, "DEBUG MODE ENABLED");
-		else 
+		}
+		else {
 			redirectErrorStream();
+		}
 	}
 
 	public static void printInfo(final Object o, final String msg) {
-		if (debugModeEnabled)
+		if (debugModeEnabled) {
 			System.out.println("[Info @ " + o.getClass().getSimpleName()+"] > " + msg);
+		}
 	}
 
 	public static void printWarning(final Object o, final String msg) {

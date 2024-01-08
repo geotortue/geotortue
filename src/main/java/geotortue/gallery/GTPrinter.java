@@ -18,9 +18,9 @@ import javax.print.attribute.standard.OrientationRequested;
 public class GTPrinter {
 
 	public static void print(final BufferedImage img) {
-		if (img==null)
+		if (img == null) {
 			return;
-		
+		}
 		
 		final PrinterJob job = PrinterJob.getPrinterJob();
 

@@ -71,9 +71,6 @@ public class GTEnhancedJEP  extends GTJEP  implements XMLCapabilities, FWSetting
 
 	private static final FWRadioButtonKey GLOBAL_SCOPES = new FWRadioButtonKey(GTEnhancedJEP.class, ScopeMode.Global.name());
 	private static final FWRadioButtonKey LOCAL_SCOPES = new FWRadioButtonKey(GTEnhancedJEP.class, ScopeMode.Local.name());
-
-//	// TODO : (done) set global / python mode
-	// TODO : (done) dict
 	
 	private final FWInteger precision = new FWInteger("precision", 4, 2, 10);
 	private List<String> turtles = Collections.synchronizedList(new ArrayList<String>());

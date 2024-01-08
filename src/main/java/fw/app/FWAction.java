@@ -16,20 +16,21 @@ public class FWAction extends AbstractAction {
 
 	private static final long serialVersionUID = -5466628506553995217L;
 
-	private final ActionListener actionListener;
+	private final transient ActionListener actionListener;
 	
-	public FWAction(ActionKey key, ActionListener l){
+	public FWAction(ActionKey key, ActionListener l) {
 		super();
 		this.actionListener = l;
 		putValue(ACTION_COMMAND_KEY, key.key);
 		putValue(NAME, key.translate());
 		putValue(SHORT_DESCRIPTION, key.tooltip.translate());
 		String mnemo = key.mnemonic.translate();
-		if (mnemo.length() == 1)
+		if (mnemo.length() == 1) {
 			putValue(MNEMONIC_KEY, (int) mnemo.charAt(0));
+		}
 	}
 	
-	public FWAction(ActionKey key, int mask, int keyChar, ActionListener l){
+	public FWAction(ActionKey key, int mask, int keyChar, ActionListener l) {
 		this(key, l);
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(keyChar, mask));
 	}
@@ -37,15 +38,17 @@ public class FWAction extends AbstractAction {
 	public FWAction(ActionKey key, int mask, int keyChar, String iconFile, ActionListener l){
 		this(key, mask, keyChar, l);
 		Icon icon = FWToolKit.getIcon(iconFile);
-		if (icon!=null)
+		if (icon!=null) {
 			putValue(SMALL_ICON, icon);
+		}
 	}
 
-	public FWAction(ActionKey key, String iconFile, ActionListener l){
+	public FWAction(ActionKey key, String iconFile, ActionListener l) {
 		this(key, l);
 		Icon icon = FWToolKit.getIcon(iconFile);
-		if (icon!=null)
+		if (icon!=null) {
 			putValue(SMALL_ICON, icon);
+		}
 	}
 	
 	// for use in FWAbstractApplication.getLoadOldFileAction()
@@ -70,14 +73,15 @@ public class FWAction extends AbstractAction {
 	
 	public static class ActionKey extends TKey {
 
-		private final TKey mnemonic, tooltip;
+		private final TKey mnemonic;
+		private final TKey tooltip;
 		private final String key;
 		
 		public ActionKey(Class<?> c, String key) {
 			super(c, key+".action");
 			this.key = key;
-			this.mnemonic = new TKey(c, key+".mnemonic");
-			this.tooltip = new TKey(c, key+".tooltip");
+			this.mnemonic = new TKey(c, key + ".mnemonic");
+			this.tooltip = new TKey(c, key + ".tooltip");
 		}
 	}
 

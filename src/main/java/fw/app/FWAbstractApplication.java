@@ -1,8 +1,10 @@
 package fw.app;
 
 import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -13,10 +15,12 @@ import java.net.MalformedURLException;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
@@ -38,7 +42,6 @@ import fw.xml.XMLException;
 import fw.xml.XMLFile;
 import fw.xml.XMLReader;
 import fw.xml.XMLWriter;
-
 
 /**
  * 
@@ -62,12 +65,12 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 	
 
 	private boolean requireSaving = false;
-	private static int INSTANCE_COUNT = 0;
+	private static int instanceCount = 0;
 
-	public FWAbstractApplication(FKey key) {
-		INSTANCE_COUNT++;
-		this.frame = new JFrame(getTitle());
-		this.workFile = new FWFileAssistant(getFrame(), key);
+	protected FWAbstractApplication(final FKey key) {
+		instanceCount++;
+		frame = new JFrame(getTitle());
+		workFile = new FWFileAssistant(getFrame(), key);
 		workFile.addParamaterListener(new FWParameterListener<File>() {
 			@Override
 			public void settingsChanged(File value) {
@@ -83,126 +86,112 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 	 * ACTIONS
 	 */
 
-	protected enum BASICS {FILE, QUIT, CONSOLE};
+	protected enum BASICS {FILE, QUIT, CONSOLE}
 	
 	protected void registerActions() {
-		actionManager.addAction(action_showConsole);
-		actionManager.addAction(action_quit);
+		actionManager.addAction(actionShowConsole);
+		actionManager.addAction(actionQuit);
 	};
 	
 	protected void registerFilesActions() {
-		actionManager.addAction(action_load);
-		actionManager.addAction(action_save);
-		actionManager.addAction(action_saveAs);
+		actionManager.addAction(actionLoad);
+		actionManager.addAction(actionSave);
+		actionManager.addAction(actionSaveAs);
 		registerLastFilesActions();
 	}
 	
 	private void registerLastFilesActions() {
 		Vector<File> files = lastFiles.getFiles();
 		for (int idx = 0; idx < files.size(); idx++) 
-			actionManager.addAction(getLoadOldFileAction(idx+1, files.elementAt(idx)));
+			actionManager.addAction(getLoadOldFileAction(idx + 1, files.elementAt(idx)));
 		renewHeader();
 	}
 	
-	final private FWAction action_load = new FWAction(LOAD_ACTION,
-			KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_O, "document-open.png", new ActionListener() {
-				public void actionPerformed(ActionEvent a) {
-					doIfAuthorized(new Runnable() {
-						public void run() {
-							loadInBackground(workFile.getFileForLoading());	
-						}
-					});
-				}
+	private final FWAction actionLoad = new FWAction(LOAD_ACTION,
+			InputEvent.CTRL_DOWN_MASK, KeyEvent.VK_O, "document-open.png",
+			a -> {
+				FWAbstractApplication that = this;
+				doIfAuthorized(() -> loadInBackground(that.workFile.getFileForLoading()));
 			});
 
-	final private FWAction action_save = new FWAction(SAVE_ACTION,
-			KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_S, "document-save.png",
-			new ActionListener() {
-				public void actionPerformed(ActionEvent a) {
-					saveInBackground(workFile.getFile());
-				}
+	private final FWAction actionSave = new FWAction(SAVE_ACTION,
+			InputEvent.CTRL_DOWN_MASK, KeyEvent.VK_S, "document-save.png",
+			a -> {
+				FWAbstractApplication that = this;
+				saveInBackground(that.workFile.getFile());
 			});
 
-	final private FWAction action_saveAs = new FWAction(SAVE_AS,
-			KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK, KeyEvent.VK_S, "document-save-as.png", new ActionListener() {
-				public void actionPerformed(ActionEvent a) {
-					saveInBackground(workFile.getFileForSaving());
-				}
+	private final FWAction actionSaveAs = new FWAction(SAVE_AS,
+			InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK, KeyEvent.VK_S, "document-save-as.png",
+			a -> {
+				FWAbstractApplication that = this;
+				saveInBackground(that.workFile.getFileForSaving());
 			});
 
-	final private FWAction action_quit = new FWAction(new ActionKey(FWAbstractApplication.class, "quit"),
-			KeyEvent.CTRL_DOWN_MASK, KeyEvent.VK_Q, "system-log-out.png",
-			new ActionListener() {
-				public void actionPerformed(ActionEvent a) {
-					quit();
-				}
-			});
+	private final FWAction actionQuit = new FWAction(new ActionKey(FWAbstractApplication.class, "quit"),
+			InputEvent.CTRL_DOWN_MASK, KeyEvent.VK_Q, "system-log-out.png",
+			a -> quit());
 
-	final private FWAction action_showConsole = new FWAction(SHOW_CONSOLE
-			, "log_debug.png", new ActionListener() {
-				public void actionPerformed(ActionEvent a) {
-					FWConsole.showSharedInstance();
-				}
-			});
+	private final FWAction actionShowConsole = new FWAction(SHOW_CONSOLE, "log_debug.png",
+			a -> FWConsole.showSharedInstance());
 	
-	private FWAction getLoadOldFileAction(int idx, final File f) {
+	private FWAction getLoadOldFileAction(final int idx, final File f) {
 		AbstractAction a = new AbstractAction(idx + " : " + f.getName()) {
 			private static final long serialVersionUID = 1684840190060099720L;
 
 			public void actionPerformed(ActionEvent a) {
-				doIfAuthorized(new Runnable() {
-					public void run() {
-						loadInBackground(f);	
-					}
-				});
+				doIfAuthorized(() -> loadInBackground(f));
 			}
 		};
 
 		ImageIcon icon = FWToolKit.getIcon("icon.png");
-		if (icon != null)
-			a.putValue(FWAction.SMALL_ICON, icon);
-
-		a.putValue(AbstractAction.MNEMONIC_KEY, KeyEvent.VK_0 + idx);
+		if (icon != null) {
+			a.putValue(Action.SMALL_ICON, icon);
+		}
+		a.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_0 + idx);
 		return new FWAction("*load." + idx, a);
 	}
-
-	
 
 	/*
 	 * I/O
 	 */
 	
-	private void doIfAuthorized(Runnable runnable) {
+	private void doIfAuthorized(final Runnable runnable) {
 		if (requireSaving) {
 			ANSWER answer = FWOptionPane.showConfirmDialog(frame, REQUEST_SAVING);
 			switch (answer) {
 			case YES:
 				saveInBackground(workFile.getFile(), runnable);
-				return;
+				break;
 			case NO:
 				runnable.run();
-				return;
+				break;
 			default:
-				return;
+			    // do nothing
 			}
-		} else 
+		} else {
 			runnable.run();
+		}
 	}
 	
 	public void loadInBackground(final File file) {
-		if (file == null)
+		if (file == null) {
 			return;
+		}
+
 		new FWWorker(LOAD, frame) {
 			public void runInBackground() throws Exception {
 				load(file);
 				workFile.setValue(file);
 			}
 			
+			@Override
 			public void handleOutcome(Exception ex) {
-				if (ex==null) {
+				if (ex == null) {
 					setRequireSaving(false);
 					return;
 				}
+
 				try {
 					inspectErrorOnLoading(ex);
 				} catch (Exception ex2) {
@@ -214,11 +203,12 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 	
 	protected void inspectErrorOnLoading(Exception ex) throws Exception {
 		throw ex;
-	};
+	}
 	
 	private void saveInBackground(final File file, final Runnable runnable) {
-		if (file == null)
+		if (file == null) {
 			return;
+		}
 		new FWWorker(SAVE, frame) {
 			public void runInBackground() throws Exception {
 				save(file);
@@ -236,11 +226,7 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 	}
 	
 	private void saveInBackground(File file) {
-		saveInBackground(file, new Runnable() {			
-			@Override
-			public void run() {
-			}
-		});
+		saveInBackground(file, () -> {});
 	}
 	
 	protected abstract void load(File file) throws Exception;
@@ -253,8 +239,9 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 		SwingUtilities.updateComponentTreeUI(frame);
 
 		updateFrameTitle();
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				quit();
 			}
@@ -272,13 +259,16 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 		//frame.setBounds(2, 2, 1020, 580); 
 	}
 
+	
 	private void renewHeader() {
-		SwingUtilities.invokeLater(new Runnable() {
+		@SuppressWarnings("java:S1604")
+		Runnable doRun = new Runnable() {
 			public void run() {
 				try {
 					XMLReader e = new XMLFile(FWManager.getHeaderURL()).parse();
-					if (menuHeader != null)
+					if (menuHeader != null) {
 						frame.getContentPane().remove(menuHeader);
+					}
 					menuHeader = getMenuHeader(e, actionManager);
 					frame.getContentPane().add(menuHeader, BorderLayout.NORTH);
 					frame.validate();
@@ -286,25 +276,25 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 					ex.printStackTrace();
 				}
 			}
-		});
+		};
+		SwingUtilities.invokeLater(doRun);
 	}
 
 	protected abstract FWMenuHeader getMenuHeader(XMLReader e, FWActionManager m) throws XMLException ;
 
 	private void updateFrameTitle() {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
+		SwingUtilities.invokeLater(() -> {
 				String suffix = requireSaving ? " *" : "";
 				frame.setTitle(FWManager.getApplicationTitle() + " - " + workFile.getName() + suffix);
 			}
-		});
+		);
 	}
 	
-	final public JFrame getFrame() {
+	public final JFrame getFrame() {
 		return frame;
 	}
 
-	final private String getTitle() {
+	private final String getTitle() {
 		return FWManager.getApplicationTitle();
 	}
 
@@ -317,29 +307,34 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 
 	protected void displayFrame() {
 		setRequireSaving(false);
-		SwingUtilities.invokeLater(new Runnable() {
+		@SuppressWarnings("java:S1604")
+		Runnable doRun = new Runnable() {
 			@Override
 			public void run() {
 				frame.setVisible(true);
 				if (!FWConsole.isDebugModeEnabled())
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 				frame.validate();
 			}
-		});
+		};
+		SwingUtilities.invokeLater(doRun);
 	}
 
 	private void quit() {
-		doIfAuthorized(new Runnable() {
+		@SuppressWarnings({"java:S1604", "java:S2696"})
+		Runnable doRun = new Runnable() {
 			public void run() {
 				FWLocalPreferences.synchronize();
 				frame.dispose();
-				INSTANCE_COUNT--;
-				if (INSTANCE_COUNT <= 0)
+				instanceCount--;
+				if (instanceCount <= 0) {
 					System.exit(0);
-				else
+				} else {
 					System.gc();
+				}
 			}
-		});
+		};
+		doIfAuthorized(doRun);
 	}
 
 
@@ -377,14 +372,15 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 
 	private void storeXMLProperties() throws IOException, XMLException {
 		try {
-			File file = new File(FWManager.getConfigDirectory(), "properties.xml");
+			final File file = new File(FWManager.getConfigDirectory(), "properties.xml");
 			new XMLFile(getXMLProperties()).write(file);
 		} catch (FWRestrictedAccessException ex) {
+			// do nothing (?) before resuming
 		}
 	}
 
 	public XMLWriter getXMLProperties() {
-		XMLWriter e = new XMLWriter(this);
+		final XMLWriter e = new XMLWriter(this);
 		e.setAttribute("version", FWManager.getApplicationVersion());
 		return e;
 	}
@@ -412,6 +408,7 @@ public abstract class FWAbstractApplication implements XMLCapabilities {
 	
 	private DocumentListener docListener = new DocumentListener() {
 		public void changedUpdate(DocumentEvent e) {
+			// keep it
 		}
 
 		public void insertUpdate(DocumentEvent e) {

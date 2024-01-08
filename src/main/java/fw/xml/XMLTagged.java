@@ -5,13 +5,11 @@ public interface XMLTagged {
 	public String getXMLTag();
 	
 	public static class Factory {
+
+		private Factory() {}
+		
 		public static XMLTagged create(final String tag) {
-			return new XMLTagged() {
-				@Override
-				public String getXMLTag() {
-					return tag;
-				}
-			};
+			return () -> tag;
 		}
 	}
 }

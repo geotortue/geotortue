@@ -249,6 +249,7 @@ public class GeoTortue extends FWAbstractApplication implements FWSettings {
 		}
 	}
 	
+	@Override
 	protected void inspectErrorOnLoading(Exception ex) throws Exception {
 		try {
 			super.inspectErrorOnLoading(ex);
@@ -262,7 +263,8 @@ public class GeoTortue extends FWAbstractApplication implements FWSettings {
 	}
 	
 	private final FWFileAssistant mergeFile = new FWFileAssistant(getFrame(), TRT_EXT);
-	private FWTabbedPane preferencesPane, settingsPane;
+	private FWTabbedPane preferencesPane;
+	private FWTabbedPane settingsPane;
 	
 	public void merge() {
 		final File file = mergeFile.getFileForLoading();
@@ -398,19 +400,13 @@ public class GeoTortue extends FWAbstractApplication implements FWSettings {
 	
 	private void updatePreferences() {
 		if (SwingUtilities.isEventDispatchThread())
-			_updatePreferences_();
+			doUpdatePreferences();
 		else
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					_updatePreferences_();
-					
-				}
-			});
+			SwingUtilities.invokeLater(this:: doUpdatePreferences);
 		
 	}
 	
-	private void _updatePreferences_() {
+	private void doUpdatePreferences() {
 		this.settingsPane  = preferences.createPane(turtleManager, perspectiveManager, geometryManager, 
 				displayManager, graphicSpace, rendererManager, processingContext, this, processingContext.getOptionalCommands());
 		this.preferencesPane = preferences.createPane(keywordManager, displayManager, 
@@ -439,6 +435,7 @@ public class GeoTortue extends FWAbstractApplication implements FWSettings {
 		return "GeoTortue";
 	}
 
+	@Override
 	public XMLWriter getXMLProperties() {
 		XMLWriter e = super.getXMLProperties();
 		e.setAttribute("layout", layout.name().toLowerCase());
@@ -556,6 +553,7 @@ public class GeoTortue extends FWAbstractApplication implements FWSettings {
 	 * ACTIONS
 	 */
 	
+	@Override
 	protected void registerActions() {
 		super.registerActions();
 		registerFilesActions();

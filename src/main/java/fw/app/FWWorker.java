@@ -22,8 +22,8 @@ public abstract class FWWorker extends SwingWorker<Exception, Void> {
 	private final JFrame waitingFrame;
 	private final JFrame owner;
 	
-	
-	private static FWWorkerWaitingFrameSupplier WF_SUPPLIER = new FWWorkerWaitingFrameSupplier() {
+	@SuppressWarnings("java:S1604")
+	private static FWWorkerWaitingFrameSupplier wfSupplier = new FWWorkerWaitingFrameSupplier() {
 
 		@Override
 		public JPanel getContentPane(String title) {
@@ -35,7 +35,7 @@ public abstract class FWWorker extends SwingWorker<Exception, Void> {
 		}
 	};
 	
-	public FWWorker(WKey key, JFrame owner) {
+	public FWWorker(final WKey key, final JFrame owner) {
 		this.owner = owner;
 		this.key = key;
 
@@ -43,7 +43,7 @@ public abstract class FWWorker extends SwingWorker<Exception, Void> {
 		waitingFrame.setAlwaysOnTop(true);
 		waitingFrame.setUndecorated(true);
 		waitingFrame.setIconImage(FWLauncher.ICON);
-		waitingFrame.setContentPane(WF_SUPPLIER.getContentPane(this.key.translate()));
+		waitingFrame.setContentPane(wfSupplier.getContentPane(this.key.translate()));
 
 		waitingFrame.pack();
 
@@ -56,12 +56,11 @@ public abstract class FWWorker extends SwingWorker<Exception, Void> {
 		execute();
 	}
 	
-	public static void setWaitingFrameSupplier(FWWorkerWaitingFrameSupplier supplier) {
-		WF_SUPPLIER = supplier;
+	public static void setWaitingFrameSupplier(final FWWorkerWaitingFrameSupplier supplier) {
+		wfSupplier = supplier;
 	}
 	
-	
-	
+	// /!\ retourner une exception telle quelle ?
 	@Override
 	protected final Exception doInBackground() {
 		owner.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -87,7 +86,7 @@ public abstract class FWWorker extends SwingWorker<Exception, Void> {
 
 	public abstract void runInBackground() throws Exception;
 	
-	public void handleOutcome(Exception ex) {
+	public void handleOutcome(final Exception ex) {
 		if (ex == null && key.success != null) {
 			FWOptionPane.showInformationMessage(owner, key.success); 
 		}
@@ -102,13 +101,14 @@ public abstract class FWWorker extends SwingWorker<Exception, Void> {
 	}
 	
 	public static class WKey extends TKey {
-		private final OPTKey success, failure ;
+		private final OPTKey success;
+		private final OPTKey failure;
 		
-		public WKey(Class<?> c, String key, boolean showOnSuccess) {
-			super(c, key+".worker");
-			this.failure = new OPTKey(c, key+".failure");
+		public WKey(final Class<?> c, final String key, final boolean showOnSuccess) {
+			super(c, key + ".worker");
+			this.failure = new OPTKey(c, key + ".failure");
 			if (showOnSuccess)
-				this.success = new OPTKey(c, key+".success");
+				this.success = new OPTKey(c, key + ".success");
 			else
 				this.success = null;
 		}

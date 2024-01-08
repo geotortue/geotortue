@@ -345,8 +345,8 @@ public class GTMonitor extends JScrollPane implements SymbolTableListener, JMuta
 			
 
 			@Override
-			protected void customHighlight(String content, int _startOffset, int endOffset) {
-				super.customHighlight(content, _startOffset, endOffset);
+			protected void customHighlight(String content, int startOffset, int endOffset) {
+				super.customHighlight(content, startOffset, endOffset);
 				for (String arg : jep.getProcedureArguments()) {
 					if (name.equals(arg)) 
 						setCharacterAttributes(2, name.length(), argumentStyle, true);

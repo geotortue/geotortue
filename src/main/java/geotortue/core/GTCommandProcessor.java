@@ -28,7 +28,7 @@ public class GTCommandProcessor {
 	private int pause = -1;
 	
 	private Thread ownerThread;
-	private final Object process_monitor = new Object();
+	private final Object processMonitor = new Object();
 
 	private ThreadQueue queue =  new ThreadQueue();
 	
@@ -37,54 +37,45 @@ public class GTCommandProcessor {
 	private GTCommandBundle processedBundle;
 	private final GTCommandFactory commandFactory;
 	
-	public GTCommandProcessor(GTProcessingContext context, GTMidiI m, GTCommandFactory cf) {
+	public GTCommandProcessor(final GTProcessingContext context, final GTMidiI m, final GTCommandFactory cf) {
 		this.context = context;
-		action_interrupt.setEnabled(false);
-		action_suspend.setEnabled(false);
-		action_step.setEnabled(false);
-		action_resume.setEnabled(false);
+		actionInterrupt.setEnabled(false);
+		actionSuspend.setEnabled(false);
+		actionStep.setEnabled(false);
+		actionResume.setEnabled(false);
 		this.midi = m;
 		this.commandFactory = cf;
 	}
 	
 	public FWAction[] getActions() {
-		return new FWAction[]{action_interrupt, action_resume, action_step, action_suspend};
+		return new FWAction[]{ actionInterrupt, actionResume, actionStep, actionSuspend };
 	}
 	
-	private final FWAction action_interrupt = new FWAction(INTERRUPT, 0, KeyEvent.VK_ESCAPE, "media-playback-stop.png", new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			interrupt();
-		}
-	});
+	private final FWAction actionInterrupt = new FWAction(INTERRUPT, 0, KeyEvent.VK_ESCAPE, "media-playback-stop.png",
+		e -> interrupt());
 	
 	
-	private FWAction action_suspend = new FWAction(SUSPEND, 0, KeyEvent.VK_F9, "media-playback-pause.png", new ActionListener() {
-		public void actionPerformed(ActionEvent e) { 
-			suspend();
-		}
-	});
+	private FWAction actionSuspend = new FWAction(SUSPEND, 0, KeyEvent.VK_F9, "media-playback-pause.png",
+		e -> suspend());
 
-	private FWAction action_resume = new FWAction(RESUME, 0, KeyEvent.VK_F11, "media-playback-start.png", new ActionListener() {
-		public void actionPerformed(ActionEvent e) { 
-			resume();
-		}
-	});
+	private FWAction actionResume = new FWAction(RESUME, 0, KeyEvent.VK_F11, "media-playback-start.png",
+		e -> resume());
 	
-	private FWAction action_step = new FWAction(STEP, 0, KeyEvent.VK_F9, "media-playback-step.png", new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			step();
-		}
-	});
+	private FWAction actionStep = new FWAction(STEP, 0, KeyEvent.VK_F9, "media-playback-step.png",
+		e -> step());
 	
+	@SuppressWarnings("java:S1604")
 	public void launchExecution(final GTCommandBundles bundles, final Runnable finalJob) {
-		if (bundles.isEmpty()) 
+		if (bundles.isEmpty()) {
 			return;
+		}
 			
 		queue.add(new Runnable() {
 			public void run() {
 				try {
 					execute(bundles, context);
 				} catch  (GTInterruptionException ex) {
+					// do nothing
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				} catch (StackOverflowError err){
@@ -101,10 +92,10 @@ public class GTCommandProcessor {
 		queue.start();
 	}
 	
-	private void execute(GTCommandBundles bundles, GTProcessingContext context) throws GTInterruptionException {
+	private void execute(final GTCommandBundles bundles, @SuppressWarnings("unused") final GTProcessingContext context) throws GTInterruptionException {
 		interrupted = false;
-		action_interrupt.setEnabled(true);
-		action_suspend.setEnabled(true);
+		actionInterrupt.setEnabled(true);
+		actionSuspend.setEnabled(true);
 		ownerThread = Thread.currentThread();
 		
 		stack.clear();
@@ -117,70 +108,72 @@ public class GTCommandProcessor {
 		suspended = true;
 		midi.pause();
 		
-		action_suspend.setEnabled(false);
-		action_step.setEnabled(!midi.isOpen());
-		action_resume.setEnabled(true);
+		actionSuspend.setEnabled(false);
+		actionStep.setEnabled(!midi.isOpen());
+		actionResume.setEnabled(true);
 	}
 	
 	private void resume() {
 		step = false;
-		synchronized(process_monitor) {
+		synchronized(processMonitor) {
 			suspended = false;
-            process_monitor.notify();
+            processMonitor.notifyAll();
         }
 		midi.resume();
 		
-		action_suspend.setEnabled(true);
-		action_step.setEnabled(false);
-		action_resume.setEnabled(false);
+		actionSuspend.setEnabled(true);
+		actionStep.setEnabled(false);
+		actionResume.setEnabled(false);
 	}
 	
 	private void step() {
 		step = true;
-		synchronized(process_monitor) {
+		synchronized(processMonitor) {
 			suspended = false;
-            process_monitor.notify();
+            processMonitor.notifyAll();
         }
 	}
 
 	void interrupt() {
-		synchronized(process_monitor) {
+		synchronized(processMonitor) {
 			suspended = false;
 			pause = -1;
-            process_monitor.notify();
+            processMonitor.notifyAll();
         }
 		midi.interrupt();
 		
 		interrupted = true;
 		step = false;
-		action_interrupt.setEnabled(false);
-		action_suspend.setEnabled(false);
-		action_step.setEnabled(false);
-		action_resume.setEnabled(false);
+		actionInterrupt.setEnabled(false);
+		actionSuspend.setEnabled(false);
+		actionStep.setEnabled(false);
+		actionResume.setEnabled(false);
 	}
 	
-	private synchronized void monitor(GTCommandBundle bundle) // used by main thread
+	private synchronized void monitor(final GTCommandBundle bundle) // used by main thread
 				throws GTException, GTInterruptionException {
-		if (ownerThread != Thread.currentThread()) // to avoid deadlock
+		if (ownerThread != Thread.currentThread()) { // to avoid deadlock
 			return;
+		}
 		
-		if (suspended) 
+		if (suspended) {
 			bundle.highlight(false);
+		}
 			
-		synchronized (process_monitor) {
+		synchronized (processMonitor) {
 			while (suspended) {
 				try {
-					process_monitor.wait();
+					processMonitor.wait();
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				}
 			}
 		}
 		
-		if (pause>0) 
-			synchronized (process_monitor) {
+		if (pause > 0) 
+			synchronized (processMonitor) {
 				try {
-					process_monitor.wait(pause);
+					processMonitor.wait(pause);
 				} catch (InterruptedException ex) {
 					ex.printStackTrace();
 				} finally {
@@ -188,8 +181,9 @@ public class GTCommandProcessor {
 				}
 			}
 		
-		if (interrupted)
+		if (interrupted) {
 			throw new GTInterruptionException();
+		}
 		
 		if (step) {
 			context.repaint();
@@ -205,18 +199,19 @@ public class GTCommandProcessor {
 			while (!stack.isEmpty()) 
 				processBundles(stack.pop());
 		} catch (GTException ex) {
-			if (!context.displayHelp(processedBundle))
+			if (!context.displayHelp(processedBundle)) {
 				ex.displayDialog();
+			}
 		}
 	}
 
-	public JObjectI<?> process(GTCommandBundles bundles) throws GTException, GTInterruptionException {
+	public JObjectI<?> process(final GTCommandBundles bundles) throws GTException, GTInterruptionException {
 		stack.push(bundles);
 		return processBundles(bundles);
 	}
 	
 	
-	private JObjectI<?> processBundles(GTCommandBundles bundles) throws GTException, GTInterruptionException {
+	private JObjectI<?> processBundles(final GTCommandBundles bundles) throws GTException, GTInterruptionException {
 		while (!bundles.isEmpty()) {
 			GTCommandBundle b = bundles.pop();
 			try {
@@ -235,36 +230,41 @@ public class GTCommandProcessor {
 		return null;
 	}
 	
-	private JObjectI<?> process(GTCommandBundle bundle, boolean isValueRequired) throws GTException, GTInterruptionException {
+	private JObjectI<?> process(final GTCommandBundle bundle, final boolean isValueRequired) throws GTException, GTInterruptionException {
 		monitor(bundle);
 		try {
-			return process_unsync(bundle, isValueRequired);
+			return processUnsync(bundle, isValueRequired);
 		} catch (GTProcessException e) {
-			if (isValueRequired) {
-				// value required : parse whole bundle
-				JObjectI<?> o = context.getJObject(bundle);
-				if (o != null) { 
-					JEP2Type t = o.getType();
-					if (t != JEP2Type.ASSIGNMENT && t!=JEP2Type.NULL) 
-						return o;
-				}
-			} else {
+			if (!isValueRequired) {
 				// try to parse whole bundle : display result if any 
 				try {
 					JObjectI<?> o = context.getJObject(bundle);
 					if (o != null) {
 						context.addJObjectToBoard(bundle, o);
 					}
+    				return null;
 				} catch (GTException ex) {
 					ex.keep();
 					throw new GTException(GTTrouble.GTJEP_NO_SUCH_COMMAND, bundle, bundle.getRawText());
 				}
 			}
-			return null;
+
+			// value required : parse whole bundle
+			JObjectI<?> o = context.getJObject(bundle);
+			if (o == null) {
+				return null;
+			}
+
+			JEP2Type t = o.getType();
+			if (t == JEP2Type.ASSIGNMENT || t == JEP2Type.NULL) {
+				return null;
+			}
+			
+			return o;
 		}
 	}
 	
-	private JObjectI<?> process_unsync(GTCommandBundle bundle, boolean isValueRequired) 
+	private JObjectI<?> processUnsync(final GTCommandBundle bundle, final boolean isValueRequired) 
 			throws GTException, GTInterruptionException, GTProcessException {
 		String key = bundle.getKey();
 
@@ -291,11 +291,11 @@ public class GTCommandProcessor {
 		throw new GTProcessException();
 	}
 	
-	public void sleep(int timeout) {
+	public void sleep(final int timeout) {
 		pause = Math.min(timeout, 2000);
 	}
 	
-	public void addThreadQueueListener(ThreadQueueListener l) {
+	public void addThreadQueueListener(final ThreadQueueListener l) {
 		queue.addListener(l);
 	}
 	

@@ -22,12 +22,12 @@ import fw.text.TextStyle;
 
 public abstract class FWLauncher implements FWApplicationI, FWAccessible {
 	
-	public final static Color LIGHT_BLUE = new Color(245, 251, 255);
-	public final static Color YELLOW = new Color(255, 255, 150);
-	public final static Color PURPLE = new Color(200, 0, 50);
-	public final static Color BLUE_BORDER = new Color(205, 220, 230);
+	public static final Color LIGHT_BLUE = new Color(245, 251, 255);
+	public static final Color YELLOW = new Color(255, 255, 150);
+	public static final Color PURPLE = new Color(200, 0, 50);
+	public static final Color BLUE_BORDER = new Color(205, 220, 230);
 	
-	public static BufferedImage ICON;
+	public static final BufferedImage ICON = FWManager.getImage("/cfg/icon.png");
 	
 	public FWLauncher(Locale locale) {
 		FWManager.init(this);
@@ -35,12 +35,8 @@ public abstract class FWLauncher implements FWApplicationI, FWAccessible {
 		System.setProperty("awt.useSystemAAFontSettings","on");
 		System.setProperty("swing.aatext", "true");
 		
-		
 		// UI
 		initUI();
-		
-		// Icon
-		ICON = FWManager.getImage("/cfg/icon.png");
 		
 		try {
 			Translator.buildTable(locale);

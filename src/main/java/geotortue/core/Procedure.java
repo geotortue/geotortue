@@ -105,20 +105,22 @@ public class Procedure implements XMLCapabilities {
 		return key;
 	}
 	
-	public JObjectI<?> execute(GTCommandBundle bundle, GTProcessingContext context) 
+	public JObjectI<?> execute(final GTCommandBundle bundle, final GTProcessingContext context) 
 			throws GTException, GTInterruptionException {
-		if (constructionException != null)
+		if (constructionException != null) {
 			throw constructionException;
-		
+		}
+
 		int arity = argumentNames.length;
 		int count = bundle.getArgumentsCount();
 
-		if (count !=  arity)
-			throw new GTException(GTTrouble.GTJEP_PROCEDURE_ARITY, bundle, key, argumentNames.length+"");
+		if (count !=  arity) {
+			throw new GTException(GTTrouble.GTJEP_PROCEDURE_ARITY, bundle, key, argumentNames.length + "");
+		}
 		
 		JObjectI<?>[] values = new JObjectI<?>[arity];
 		for (int idx = 0; idx < arity; idx++) {
-			JObjectI<?> d =  context.getJObjectAt(bundle, idx+1);
+			JObjectI<?> d =  context.getJObjectAt(bundle, idx + 1);
 			values[idx] = d;
 		}
 		
@@ -138,29 +140,28 @@ public class Procedure implements XMLCapabilities {
 		return argumentNames;
 	}
 
-	public boolean hasSameKeyAs(Procedure p){
-		if (p==null)
+	public boolean hasSameKeyAs(final Procedure p) {
+		if (p == null) {
 			return false;
+		}
+
 		return key.equals(p.key);
 	}
 
-	public boolean isSimilarTo(ProtoProcedure p){
-		if (p.getLength() == localization.getLength()) 
-			return true;
-		else
-			return false;
+	public boolean isSimilarTo(final ProtoProcedure p) {
+		return p.getLength() == localization.getLength();
 	}
 
-	public String getHtmlText(KeywordManager keywordManager) {
+	public String getHtmlText(final KeywordManager keywordManager) {
 		String text = localization.getRawText();
-		return _getHtmlText(keywordManager, text+"\nfin", argumentNames);
+		return doGetHtmlText(keywordManager, text + "\nfin", argumentNames);
 	}
 	
-	public static String getHtmlText(KeywordManager keywordManager, String command) {
-		return _getHtmlText(keywordManager, command);
+	public static String getHtmlText(final KeywordManager keywordManager, final String command) {
+		return doGetHtmlText(keywordManager, command);
 	}
 	
-	private static String _getHtmlText(KeywordManager keywordManager, String text, String... localVars) {
+	private static String doGetHtmlText(final KeywordManager keywordManager, final String text, final String... localVars) {
 		String html = "";
 		
 		String[] pieces = FWParsingTools.split(text, "\"");
