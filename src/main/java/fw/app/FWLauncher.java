@@ -14,7 +14,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 
-import fw.files.CSVException;
 import fw.files.FileUtilities.HTTPException;
 import fw.gui.FWAccessibilityManager;
 import fw.gui.FWAccessible;
@@ -38,11 +37,8 @@ public abstract class FWLauncher implements FWApplicationI, FWAccessible {
 		// UI
 		initUI();
 		
-		try {
-			Translator.buildTable(locale);
-		} catch (IOException | CSVException | HTTPException ex) {
-			ex.printStackTrace();
-		}
+		// Init
+		Translator.setLocale(locale);
 		
 		// Tooltip
 		ToolTipManager.sharedInstance().setInitialDelay(100);
