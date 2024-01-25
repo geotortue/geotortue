@@ -28,9 +28,4 @@ public final class CSSFile extends TextFile {
 		return styles;
 	}
 
-	@Override
-	public void write(File file) throws IOException {
-		super.write(file);
-	}
 }
-

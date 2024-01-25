@@ -19,29 +19,31 @@ public class HTMLFile extends TextFile {
 	
 	@Override
 	public void write(File file) throws IOException {
-		content+="\n</body>\n</html>";
+		content += "\n</body>\n</html>";
 		super.write(file);
 	}
 
 	public void append(String text){
 		if (text.length()==0)
 			return;
-		content+=text+"\n";
+		content += text + "\n";
 	}
 	
 	public void appendBlock(String divClass, String text){
-		if (text.length()==0)
+		if (text.length() == 0) {
 			return;
-		content+="\n<div class=\""+divClass+"\">";
-		content+="\n"+text+"\n";
-		content+="</div>\n";
+		}
+
+		content += "\n<div class=\""+divClass+"\">";
+		content += "\n"+text+"\n";
+		content += "</div>\n";
 	}
 	
 	public void appendParagraph(String pClass, String text) {
 		if (text.length()==0)
 			return;
-		content+="\n<p class=\""+pClass+"\">";
-		content+="\n"+text+"\n";
-		content+="</p>\n";
+		content += "\n<p class=\""+pClass+"\">";
+		content += "\n"+text+"\n";
+		content += "</p>\n";
 	}
 }

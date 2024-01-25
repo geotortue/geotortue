@@ -22,7 +22,7 @@ import fw.gui.params.FWDirectory;
 import fw.gui.params.FWFileAssistant;
 
 /**
- * A singleton containing static data about the application: title, version, etc.
+ * A singleton with only static data about the application: title, version, etc.
  * 
  * These data are made available through a set of static functions.
  * 

@@ -37,9 +37,10 @@ public class FWFileCycle {
 		Vector<File> fv = new Vector<>();
 		
 		for (int idx = 0; idx < len; idx++) {
-			File f = files[idx].getValue();
-			if (f==null || !f.exists() || !f.isFile())
+			final File f = files[idx].getValue();
+			if (f == null || !f.exists() || !f.isFile()) {
 				return fv;
+			}
 			fv.add(f);
 		}
 		return fv;

@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import fw.app.FWManager;
@@ -20,30 +21,39 @@ import fw.xml.XMLReader;
 import fw.xml.XMLTagged;
 import fw.xml.XMLWriter;
 
+/**
+ * Singleton
+ */
 public class FWLocalPreferences implements XMLCapabilities {
 	
-	private File file;
+	private final File file;
 	private final Map<String, WrappedPrefEntry> entries = Collections.synchronizedSortedMap(new TreeMap<String, WrappedPrefEntry>());
 	private final Map<String, XMLReader> pool = new HashMap<>();
 	
 	private static final FWLocalPreferences SHARED_INSTANCE = new FWLocalPreferences();
 
 	private FWLocalPreferences() {
+		File f;
 		try {
-			file = new File(FWManager.getConfigDirectory(), "prefs.xml");
+			f = new File(FWManager.getConfigDirectory(), "prefs.xml");
 			updatePool();
 		} catch (FWRestrictedAccessException e) {
+			// do nothing
+			f = null;
 		}
+		file = f;
 	}
 	
 	private void updatePool() {
-		if (!FWManager.isRestricted() && file.exists()) {
-			try {
-				XMLReader e = new XMLFile(file).parse();
-				loadXMLProperties(e);
-			} catch (XMLException | IOException ex) {
-				ex.printStackTrace();
-			}
+		if (FWManager.isRestricted() || file == null || !file.exists()) {
+			return;
+		}
+		
+		try {
+			final XMLReader e = new XMLFile(file).parse();
+			loadXMLProperties(e);
+		} catch (XMLException | IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 	
@@ -59,7 +69,7 @@ public class FWLocalPreferences implements XMLCapabilities {
 
 	@Override
 	public XMLReader loadXMLProperties(XMLReader e) {
-		XMLReader child = e.popChild(this);
+		final XMLReader child = e.popChild(this);
 		try {
 			while (child.hasChild(Entry.XML_TAG)) {
 				XMLReader r = child.popChild(Entry.XML_TAG);
@@ -73,26 +83,28 @@ public class FWLocalPreferences implements XMLCapabilities {
 	}
 	
 	public static void loadDefaults() {
-		for (WrappedPrefEntry e : SHARED_INSTANCE.entries.values()) 
+		for (WrappedPrefEntry e : SHARED_INSTANCE.entries.values()) {
 			e.entry.fetchDefaultValue();
+		}
 	}
 
 	public static void synchronize() {
-		if (!FWManager.isRestricted())
-			SHARED_INSTANCE.synchronize_();
+		if (!FWManager.isRestricted()) {
+			SHARED_INSTANCE.doSynchronize();
+		}
 	}
 	
-	private void synchronize_()  {
-		XMLWriter writer = new XMLWriter(this);
-		HashSet<String> keys = new HashSet<>(pool.keySet());
+	private void doSynchronize()  {
+		final XMLWriter writer = new XMLWriter(this);
+		final HashSet<String> keys = new HashSet<>(pool.keySet());
 		synchronized (entries) {
-			for (String key : entries.keySet()) {
-				writer.put(entries.get(key));
-				keys.remove(key);
+			for (final Map.Entry<String, WrappedPrefEntry> entry : entries.entrySet()) {
+				writer.put(entry.getValue());
+				keys.remove(entry.getKey());
 			}
 			
-			for (String key : keys) { // save unused entries
-				XMLReader r = pool.get(key);
+			for (final String key : keys) { // save unused entries
+				final XMLReader r = pool.get(key);
 				writer.put(new Entry(r));
 			}
 		}
@@ -111,16 +123,14 @@ public class FWLocalPreferences implements XMLCapabilities {
 	 * @param e
 	 * @return true if a value has been found in prefs
 	 */
-	public static boolean register(FWPreferenceEntryI e) {
-		if (!FWManager.isRestricted())
-			return SHARED_INSTANCE.register_(e);
-		return false;
+	public static boolean register(final FWPreferenceEntryI e) {
+		return !FWManager.isRestricted() && SHARED_INSTANCE.doRegister(e);
 	}
 	
-	private boolean register_(FWPreferenceEntryI entry) {
+	private boolean doRegister(FWPreferenceEntryI entry) {
 		String key = entry.getXMLTag();
 		XMLReader r = pool.get(key);
-		if (r!=null)
+		if (r != null)
 			try {
 				entry.fetchValue(r.getAttribute("value"));
 				return true;
@@ -134,13 +144,14 @@ public class FWLocalPreferences implements XMLCapabilities {
 	}
 	
 	private static class Entry implements XMLCapabilities {
-		private final static XMLTagged XML_TAG = XMLTagged.Factory.create("entry");
-		private String key, value;
+		private static final XMLTagged XML_TAG = XMLTagged.Factory.create("entry");
+		private String key;
+		private String value;
 		
 		private Entry() {
 		}
 		
-		private Entry(XMLReader e) {
+		private Entry(final XMLReader e) {
 			loadXMLProperties(e);
 		}
 	
@@ -153,7 +164,7 @@ public class FWLocalPreferences implements XMLCapabilities {
 		}
 	
 		@Override
-		public XMLReader loadXMLProperties(XMLReader e) {
+		public XMLReader loadXMLProperties(final XMLReader e) {
 			key = e.getAttribute("key", "");
 			value = e.getAttribute("value", "");
 			return e;
@@ -168,14 +179,14 @@ public class FWLocalPreferences implements XMLCapabilities {
 	private static class WrappedPrefEntry extends Entry {
 		private final FWPreferenceEntryI entry;
 		
-		private WrappedPrefEntry(FWPreferenceEntryI e) {
+		private WrappedPrefEntry(final FWPreferenceEntryI e) {
 			this.entry = e;
 		}
 
 		@Override
 		public XMLWriter getXMLProperties() {
-			XMLWriter e = new XMLWriter(this);
-			String value = entry.getEntryValue();
+			final XMLWriter e = new XMLWriter(this);
+			final String value = entry.getEntryValue();
 			if (value != null) {
 				e.setAttribute("key", entry.getXMLTag());
 				e.setAttribute("value", value);

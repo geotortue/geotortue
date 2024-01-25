@@ -123,13 +123,13 @@ public class GTLauncher extends FWLauncher {
 			new HTMLEditorKit().setStyleSheet(styles);
 			SPLASH.setValue(10);
 			
-			String code = locale.getLanguage();
-			GTCommandDescTable.build(FWManager.getResource("/cfg/lang/"+code+"/cmds.xml"));
+			final String code = locale.getLanguage();
+			GTCommandDescTable.build(FWManager.getResource("/cfg/lang/" + code + "/cmds.xml"));
 			
 			SPLASH.setValue(40);
 			
 			// Messages
-			GTMessageFactory.build(FWManager.getResource("/cfg/lang/"+code+"/messages.xml"));
+			GTMessageFactory.build(FWManager.getResource("/cfg/lang/" + code + "/messages.xml"));
 			SPLASH.setValue(50);
 			
 			//
@@ -199,11 +199,13 @@ public class GTLauncher extends FWLauncher {
 	private static void configBackground(ArrayList<String> args) {
 		String configTag = "--background";
 		int idx = args.indexOf(configTag);
-		if (idx<0) 
+		if (idx < 0) {
 			return;
-		if (idx+1<args.size()) {
-			String fileName = args.get(idx+1);
+		}
+		if (idx < args.size() - 1) {
+			final String fileName = args.get(idx + 1);
 			if (fileName != null) {
+				System.out.println("GTLauncher.configBackground fileName: " + fileName);
 					File f = new File(fileName);
 					try {
 						GTDisplayManager.setDefaultBackground(ImageIO.read(f));
@@ -212,24 +214,27 @@ public class GTLauncher extends FWLauncher {
 					}
 			}
 					
-			System.out.println("Custom background file : "+fileName);
+			System.out.println("Custom background file : " + fileName);
 			args.remove(fileName);
 		}
 		args.remove(configTag);
 	}
 
-	private static Locale getLang(ArrayList<String> args) {
-		String langTag = "--lang";
-		int idx = args.indexOf(langTag);
-		if (idx<0)
+	private static Locale getLang(final ArrayList<String> args) {
+		final String langTag = "--lang";
+		final int idx = args.indexOf(langTag);
+		if (idx < 0) {
 			return Locale.getDefault();
-		if (idx+1<args.size()) {
-			String lang = args.get(idx+1);
-			System.out.println("Custom lang : "+lang);
+		}
+
+		if (idx < args.size() - 1) {
+			final String lang = args.get(idx + 1);
+			System.out.println("Custom lang : " + lang);
 			args.remove(langTag);
 			args.remove(lang);
 			return Locale.forLanguageTag(lang);
 		}
+
 		args.remove(langTag);
 		return Locale.getDefault();
 	}

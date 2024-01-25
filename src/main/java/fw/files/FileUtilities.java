@@ -14,7 +14,9 @@ import java.net.UnknownHostException;
 import fw.app.Translator.TKey;
 
 
-
+/**
+ * Utility class with only static functions
+ */
 public class FileUtilities {
 	
 	private static int BUFFER_SIZE = 4096;
@@ -28,6 +30,8 @@ public class FileUtilities {
 	private static final TKey SERVER_ERROR = new TKey(FileUtilities.class, "serverError");
 	private static final TKey TIME_OUT = new TKey(FileUtilities.class, "timeOut");
 	private static final TKey NETWORK_DOWN = new TKey(FileUtilities.class, "networkDown");
+
+	private FileUtilities() {}
 
 	public static File copy(URL src, File dest) throws IOException, HTTPException {
 		if (src.getProtocol().equals("http"))

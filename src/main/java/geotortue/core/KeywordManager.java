@@ -55,9 +55,9 @@ public class KeywordManager extends FWStylesManager implements FWSettings {
 	private static final TKey FONT_SIZE = new TKey(KeywordManager.class, "fontSize");
 	private static final TKey FONT_FAMILY = new TKey(KeywordManager.class, "fontFamily");
 
-	private final static XMLTagged TAG = XMLTagged.Factory.create("KeywordManager");
+	private static final XMLTagged TAG = XMLTagged.Factory.create("KeywordManager");
 	
-	public final static TKey START_KEY = new TKey(KeywordManager.class, "pour"), 
+	public static final TKey START_KEY = new TKey(KeywordManager.class, "pour"), 
 						END_KEY = new TKey(KeywordManager.class, "fin"),
 						THEN_KEY = new TKey(KeywordManager.class, "alors"),
 						ELSE_KEY = new TKey(KeywordManager.class, "sinon"),
@@ -69,10 +69,10 @@ public class KeywordManager extends FWStylesManager implements FWSettings {
 						TAKE_THE_VALUE_KEY = new TKey(KeywordManager.class, "prend_la_valeur"),
 						QUESTION_KEY = new TKey(KeywordManager.class, "?");
 	
-	private final static TKey[] RESERVED_KEYS = new TKey[]{START_KEY, END_KEY, THEN_KEY, ELSE_KEY, ALL_KEY, 
-			FROM_KEY, TO_KEY, EVAL_KEY, IN_LIST_KEY, TAKE_THE_VALUE_KEY, QUESTION_KEY};
+	private static final TKey[] RESERVED_KEYS = new TKey[] { START_KEY, END_KEY, THEN_KEY, ELSE_KEY, ALL_KEY, 
+			FROM_KEY, TO_KEY, EVAL_KEY, IN_LIST_KEY, TAKE_THE_VALUE_KEY, QUESTION_KEY };
 	
-	final static TKey TRANSLATION_KEY = new TKey(KeywordManager.class, "translation"),
+	static final TKey TRANSLATION_KEY = new TKey(KeywordManager.class, "translation"),
 						ROTATION_KEY = new TKey(KeywordManager.class, "rotation"),
 						ZOOM_KEY = new TKey(KeywordManager.class, "zoom"),
 						H_TRANSLATION_KEY = new TKey(KeywordManager.class, "htranslation"),

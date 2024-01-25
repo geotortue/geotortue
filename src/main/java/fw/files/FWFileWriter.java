@@ -23,18 +23,18 @@ public class FWFileWriter {
 	
 	private String name;
 	private ZipOutputStream zip;
-	private static int BUFFER_SIZE = 4096;
+	private static final int BUFFER_SIZE = 4096;
 	
 	public FWFileWriter(File file) throws FileNotFoundException {
 		this.name=file.getName();
 		this.zip = new ZipOutputStream(new FileOutputStream(file));
 	}
 	
-	@Override
-	protected void finalize() throws Throwable {
-		zip.close();
-		super.finalize();
-	}
+	// @Override
+	// protected void finalize() throws Throwable {
+	// 	zip.close();
+	// 	super.finalize();
+	// }
 	
 	public void close() throws IOException{
 		zip.close();
@@ -45,24 +45,24 @@ public class FWFileWriter {
 	 */
 	
 	public void writeText(String text, String filename) throws IOException {
-		File tempFile = File.createTempFile(name+"-", "-"+filename);
+		final File tempFile = File.createTempFile(name + "-", "-" + filename);
 		
-		BufferedWriter lineWriter= Files.newBufferedWriter(tempFile.toPath(), StandardCharsets.UTF_8);
-		lineWriter.write(text);
-		lineWriter.close();
+		try (BufferedWriter lineWriter= Files.newBufferedWriter(tempFile.toPath(), StandardCharsets.UTF_8)) {
+			lineWriter.write(text);
+		}
         
 		zip.putNextEntry(new ZipEntry(filename));
 		
-		FileInputStream fis = new FileInputStream(tempFile);
-		byte[] buffer = new byte[BUFFER_SIZE];
-		int length;
-		while ((length = fis.read(buffer)) >= 0) {
-			zip.write(buffer, 0, length);
+		try (FileInputStream fis = new FileInputStream(tempFile)) {
+			final byte[] buffer = new byte[BUFFER_SIZE];
+			int length;
+			while ((length = fis.read(buffer)) >= 0) {
+				zip.write(buffer, 0, length);
+			}
 		}
-		fis.close();
 		
 		zip.closeEntry();
-		tempFile.delete();
+		Files.delete(tempFile.toPath());
 	}
 	
 	public void writeXML(XMLCapabilities xml, String filename) throws IOException, XMLException {
@@ -83,18 +83,19 @@ public class FWFileWriter {
 		imgOut.close();
 		
 		zip.closeEntry();
-		tempFile.delete();
+		Files.delete(tempFile.toPath());
 	}
 
 	public void write(File file, String filename) throws IOException {
-		FileInputStream in = new FileInputStream(file);
-		zip.putNextEntry(new ZipEntry(filename));
+		try (FileInputStream in = new FileInputStream(file)) {
+			zip.putNextEntry(new ZipEntry(filename));
 
-		byte[] buffer = new byte[BUFFER_SIZE];
-		int len;
-		while((len = in.read(buffer)) > -1)
-			zip.write(buffer, 0, len);
-		in.close();
+			final byte[] buffer = new byte[BUFFER_SIZE];
+			int len;
+			while((len = in.read(buffer)) > -1) {
+				zip.write(buffer, 0, len);
+			}
+		}
 		
 		zip.closeEntry();
 	}

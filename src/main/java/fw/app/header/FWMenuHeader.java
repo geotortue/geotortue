@@ -20,21 +20,16 @@ import fw.xml.XMLWriter;
  * 
  *
  */
-
 public class FWMenuHeader extends JPanel implements XMLCapabilities {
 
 	private static final long serialVersionUID = -4884849018737713199L;
 	
-	protected final FWActionManager manager;
+	protected final transient FWActionManager manager;
 	private FWMenuTitles titles;
 	private FWMenuBar menuBar;
 	private FWToolBar toolBar;
 
-	/*
-	 * XML
-	 */
-	
-	public FWMenuHeader(XMLReader e, FWActionManager m, FWMenuTitles titles) throws XMLException{
+	public FWMenuHeader(final XMLReader e, final FWActionManager m, final FWMenuTitles titles) throws XMLException{
 		this.manager = m;
 		this.titles = titles;
 		loadXMLProperties(e);
@@ -47,22 +42,22 @@ public class FWMenuHeader extends JPanel implements XMLCapabilities {
 	
 	@Override
 	public XMLWriter getXMLProperties() {
-		XMLWriter e = new XMLWriter(this);
+		final XMLWriter e = new XMLWriter(this);
 		e.put(menuBar);
 		e.put(toolBar);
 		return e;
 	}
 	
 	@Override
-	public XMLReader loadXMLProperties(XMLReader e) {
-		XMLReader child = e.popChild(this);
+	public XMLReader loadXMLProperties(final XMLReader e) {
+		final XMLReader child = e.popChild(this);
 		removeAll();
 		this.menuBar = new FWMenuBar(child, manager, titles);
 		this.toolBar = new FWToolBar(child, manager);
 		return child;
 	}
 	
-	protected void init(){
+	protected void init() {
 		add(menuBar);
 		add(toolBar);
 		setBorder(null);
@@ -71,24 +66,27 @@ public class FWMenuHeader extends JPanel implements XMLCapabilities {
 	
 	private class Layout extends BasicLayoutAdapter {
 
-		private int menuBarHeight;
-		private int toolBarHeight;
+		private final int menuBarHeight;
+		private final int toolBarHeight;
 		
-		public Layout(int menuBarH, int toolBarH){
+		public Layout(int menuBarH, int toolBarH) {
 			this.menuBarHeight = menuBarH;
 			this.toolBarHeight = toolBarH;
 		}
 		
 		@Override
-		public void layoutComponent(Component c, int idx) {
-			if (idx==0) // menuBar
+		public void layoutComponent(final Component c, final int idx) {
+			if (idx == 0) {// menuBar
 				c.setBounds(0, 0, parentW, menuBarHeight);
-			if (idx==1)// toolBar
-				c.setBounds(0, 1+menuBarHeight, parentW, toolBarHeight);
+			}
+			if (idx == 1) {// toolBar
+				c.setBounds(0, 1 + menuBarHeight, parentW, toolBarHeight);
+			}
 		}
 		
-		public Dimension preferredLayoutSize(Container parent) {
-			return new Dimension(parent.getWidth(), menuBarHeight+toolBarHeight+2);
+		@Override
+		public Dimension preferredLayoutSize(final Container parent) {
+			return new Dimension(parent.getWidth(), menuBarHeight + toolBarHeight + 2);
 		}
 	}
 }

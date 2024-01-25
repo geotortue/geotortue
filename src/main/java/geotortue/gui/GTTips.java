@@ -38,10 +38,11 @@ public class GTTips implements XMLTagged {
 	}
 	
 	private void showTips(Window owner, boolean force) {
-		if (HIDE_TIPS.getValue() && !force)
+		if (HIDE_TIPS.getValue() && !force) {
 			return;
+		}
 		
-		URL tipsUrl = FWManager.getResource("/cfg/lang/"+Translator.getLanguage()+"/tips.xml");
+		URL tipsUrl = FWManager.getResource("/cfg/lang/" + Translator.getLanguage() + "/tips.xml");
 		GTTipsFactory tipsFactory = new GTTipsFactory(tipsUrl);
 		show(owner, HIDE_TIPS, tipsFactory.getRandomTip());
 	}

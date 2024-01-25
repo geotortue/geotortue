@@ -13,27 +13,30 @@ public class FWActionManager {
 	 * 
 	 */
 	public FWActionManager() {
-		this.table = new Hashtable<String, FWAction>();
+		this.table = new Hashtable<>();
 	}
 
-	public FWAction get(String key) throws NoSuchActionFound {
+	public FWAction get(final String key) throws NoSuchActionFound {
 		FWAction command = table.get(key);
-		if (command != null)
-			return command;
-		else
+		if (command == null) {
 			throw new NoSuchActionFound(key);
+		}
+
+		return command;
 	}
 	
 	public void addAction(FWAction a){
-		if (a==null)
+		if (a == null) {
 			return;
+		}
+
 		table.put((String) a.getValue(Action.ACTION_COMMAND_KEY), a);
 	}
 	
 	public static class NoSuchActionFound extends Exception {
 		private static final long serialVersionUID = -7678687859659312918L;
 
-		private NoSuchActionFound(String msg){
+		private NoSuchActionFound(final String msg){
 			super(msg);
 		}
 	}

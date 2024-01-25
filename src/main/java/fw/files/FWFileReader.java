@@ -26,7 +26,7 @@ public class FWFileReader {
 	private final File file;
 	private final String name;
 	private ZipInputStream zip;
-	private static int BUFFER_SIZE = 4096;
+	private static final int BUFFER_SIZE = 4096;
 	
 	public FWFileReader(File f) throws FileNotFoundException {
 		this.file = f;
@@ -34,22 +34,25 @@ public class FWFileReader {
 		this.zip = new ZipInputStream(new FileInputStream(f));
 	}
 	
-	@Override
-	protected void finalize() throws Throwable {
-		zip.close();
-		super.finalize();
-	}
+	// @Override
+	// protected void finalize() throws Throwable {
+	// 	zip.close();
+	// 	super.finalize();
+	// }
 
 	private ZipEntry getNextEntry(String fileDescription) throws IOException, NoMoreEntryAvailableException {
-		ZipEntry e = zip.getNextEntry();
-		if (e==null)
+		final ZipEntry e = zip.getNextEntry();
+		if (e == null) {
 			throw new NoMoreEntryAvailableException(file, fileDescription);
+		}
+
 		return e;
 	}
 
 	public void skip(int entriesToSkip) throws IOException {
-		for (int idx = 0; idx < entriesToSkip; idx++)
+		for (int idx = 0; idx < entriesToSkip; idx++) {
 			zip.getNextEntry();
+		}
 	}
 	
 	public void reset() throws IOException {
@@ -66,53 +69,51 @@ public class FWFileReader {
 	 */
 	
 
-	private File createTempFile(String fileDescription) throws IOException{
-		return File.createTempFile(name+"-", "-"+fileDescription);
+	private File createTempFile(final String fileDescription) throws IOException{
+		return File.createTempFile(name + "-", "-" + fileDescription);
 	}
 	
-	public String readText(String fileDescription) throws IOException, NoMoreEntryAvailableException {
+	public String readText(final String fileDescription) throws IOException, NoMoreEntryAvailableException {
 		getNextEntry(fileDescription);
 
-		File tempFile = createTempFile(fileDescription);
+		final File tempFile = createTempFile(fileDescription);
 
-		FileOutputStream fis = new FileOutputStream(tempFile);
-
-		byte[] buffer = new byte[BUFFER_SIZE];
-		int length;
-		while ((length = zip.read(buffer)) > -1) {
-			fis.write(buffer, 0, length);
+		try(FileOutputStream fis = new FileOutputStream(tempFile)) {
+			final byte[] buffer = new byte[BUFFER_SIZE];
+			int length;
+			while ((length = zip.read(buffer)) > -1) {
+				fis.write(buffer, 0, length);
+			}
 		}
-		fis.close();
+
 		zip.closeEntry();
 
 		StringBuilder sb = new StringBuilder();
-		try {
-			BufferedReader lineReader = Files.newBufferedReader(tempFile.toPath(), StandardCharsets.UTF_8);
+		try (BufferedReader lineReader = Files.newBufferedReader(tempFile.toPath(), StandardCharsets.UTF_8);) {
 			String line = lineReader.readLine();
 			while (line != null) {
 				sb.append(line);
 				sb.append("\n");
 				line = lineReader.readLine();
 			}
-			lineReader.close();
 		} catch (MalformedInputException ex) {
-			BufferedReader lineReader = Files.newBufferedReader(tempFile.toPath(), StandardCharsets.ISO_8859_1);
-			sb = new StringBuilder();
-			String line = lineReader.readLine();
-			while (line != null) {
-				sb.append(line);
-				sb.append("\n");
-				line = lineReader.readLine();
+			try(BufferedReader lineReader = Files.newBufferedReader(tempFile.toPath(), StandardCharsets.ISO_8859_1)) {
+				sb = new StringBuilder();
+				String line = lineReader.readLine();
+				while (line != null) {
+					sb.append(line);
+					sb.append("\n");
+					line = lineReader.readLine();
+				}	
 			}
-			lineReader.close();
 		}
 		
-		tempFile.delete();
+		Files.delete(tempFile.toPath());
 		
 		return sb.toString();
 	}
 
-	public XMLReader getXMLReader(String fileDescription) throws IOException, NoMoreEntryAvailableException, XMLException {
+	public XMLReader getXMLReader(final String fileDescription) throws IOException, NoMoreEntryAvailableException, XMLException {
 		String content = readText(fileDescription);
 		return new XMLFile(content).parse();
 	}
@@ -122,30 +123,30 @@ public class FWFileReader {
 		
 		File tempFile = createTempFile(fileDescription);
 
-		FileImageOutputStream imgOut = new FileImageOutputStream(tempFile);
-		byte[] buffer = new byte[BUFFER_SIZE];
-		int len;
-		while((len = zip.read(buffer)) > -1)
-			imgOut.write(buffer, 0, len);
-
-		imgOut.close();
+		try (FileImageOutputStream imgOut = new FileImageOutputStream(tempFile)) {
+			final byte[] buffer = new byte[BUFFER_SIZE];
+			int len;
+			while((len = zip.read(buffer)) > -1) {
+				imgOut.write(buffer, 0, len);
+			}
+		}
 		
-		BufferedImage im = ImageIO.read(tempFile);
+		final BufferedImage im = ImageIO.read(tempFile);
 		
 		zip.closeEntry();
-		tempFile.delete();
+		Files.delete(tempFile.toPath());
 		return im;
 	}
 
 	private File unzip(File file) throws IOException {
-		FileOutputStream out = new FileOutputStream(file);
+		try(FileOutputStream out = new FileOutputStream(file)) {
 		
-		byte[] buffer = new byte[BUFFER_SIZE];
-		int len;
-		while((len = zip.read(buffer)) > -1)
-			out.write(buffer, 0, len);
-		
-		out.close();
+			byte[] buffer = new byte[BUFFER_SIZE];
+			int len;
+			while((len = zip.read(buffer)) > -1) {
+				out.write(buffer, 0, len);
+			}
+		}
 		
 		zip.closeEntry();
 		return file;

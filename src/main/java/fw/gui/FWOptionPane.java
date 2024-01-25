@@ -9,7 +9,7 @@ import fw.app.Translator.TKey;
 
 
 /**
- * Singleton gathering static functions about configuration of IHM.
+ * Utility class gathering static functions about configuration of IHM.
  */
 public final class FWOptionPane {
 	
