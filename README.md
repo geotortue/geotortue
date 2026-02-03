@@ -1,5 +1,7 @@
 # GéoTortue
 
+# **🚧 Un version de `GéoTortue` pour le WEB est maintenant disponible ici : [GéoTortue NG](https://github.com/geotortue/geotortue-ng) 🚧**
+
 ## 💡 Présentation 
 
 [GéoTortue](http://geotortue.free.fr/) est un logiciel inspiré du langage [LOGO](https://fr.wikipedia.org/wiki/Logo_(langage)) pour découvrir les mathématiques et l’algorithmique.
@@ -32,7 +34,7 @@ mvn -v
 > Default locale: en_US, platform encoding: UTF-8
 > OS name: "linux", version: "5.15.0-84-generic", arch: "amd64", family: "unix"
 
-git clone clone https://github.com/turiot/geotortue
+git clone clone https://github.com/geotortue/geotortue
 
 cd geotortue
 
