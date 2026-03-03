@@ -1,6 +1,6 @@
 # GéoTortue
 
-# **🚧 Un version de `GéoTortue` pour le WEB est maintenant disponible ici : [GéoTortue NG](https://github.com/geotortue/geotortue-ng) 🚧**
+# **🚧 Une version de `GéoTortue` pour le WEB est maintenant disponible ici : [GéoTortue NG](https://github.com/geotortue/geotortue-ng) 🚧**
 
 ## 💡 Présentation 
 
